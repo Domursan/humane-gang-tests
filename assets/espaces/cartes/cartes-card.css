@@ -1,0 +1,248 @@
+/* ===== Carte à collectionner — composant partagé (cartes-ui.js : cardHtml / cardBackHtml) =====
+   Direction « Pixel arcade » : base 252 × 352 (format 63:88). Toutes les cotes sont des multiples de --u (= --w / 252),
+   donc la composition est identique en sm (112 px), md (180 px) et lg (300 px).
+   Mythique : style doré « Premium » (cadre à double filet, fond bordeaux, étoiles). Unique : or sur noir, reflet qui glisse.
+   Dos : « Pop BD ». */
+
+/* La carte se met à l'échelle de sa largeur réelle : si un parent la rétrécit (grille, colonne de dialogue),
+   tout l'intérieur suit (unités de conteneur), au lieu de déborder du cadre. */
+.hgc { --w: 180px; --u: calc(100cqw / 252); container-type: inline-size; max-width: 100%;
+  --s4: calc(var(--u) * 4); --s8: calc(var(--u) * 8); --s12: calc(var(--u) * 12);
+  /* bords en escalier (même tracé que la maquette : marche de 4 unités) */
+  --st12: polygon(0 var(--s12), var(--s4) var(--s12), var(--s4) var(--s8), var(--s8) var(--s8), var(--s8) var(--s4), var(--s12) var(--s4), var(--s12) 0,
+    calc(100% - var(--s12)) 0, calc(100% - var(--s12)) var(--s4), calc(100% - var(--s8)) var(--s4), calc(100% - var(--s8)) var(--s8), calc(100% - var(--s4)) var(--s8), calc(100% - var(--s4)) var(--s12), 100% var(--s12),
+    100% calc(100% - var(--s12)), calc(100% - var(--s4)) calc(100% - var(--s12)), calc(100% - var(--s4)) calc(100% - var(--s8)), calc(100% - var(--s8)) calc(100% - var(--s8)), calc(100% - var(--s8)) calc(100% - var(--s4)), calc(100% - var(--s12)) calc(100% - var(--s4)), calc(100% - var(--s12)) 100%,
+    var(--s12) 100%, var(--s12) calc(100% - var(--s4)), var(--s8) calc(100% - var(--s4)), var(--s8) calc(100% - var(--s8)), var(--s4) calc(100% - var(--s8)), var(--s4) calc(100% - var(--s12)), 0 calc(100% - var(--s12)));
+  --st8: polygon(0 var(--s8), var(--s4) var(--s8), var(--s4) var(--s4), var(--s8) var(--s4), var(--s8) 0,
+    calc(100% - var(--s8)) 0, calc(100% - var(--s8)) var(--s4), calc(100% - var(--s4)) var(--s4), calc(100% - var(--s4)) var(--s8), 100% var(--s8),
+    100% calc(100% - var(--s8)), calc(100% - var(--s4)) calc(100% - var(--s8)), calc(100% - var(--s4)) calc(100% - var(--s4)), calc(100% - var(--s8)) calc(100% - var(--s4)), calc(100% - var(--s8)) 100%,
+    var(--s8) 100%, var(--s8) calc(100% - var(--s4)), var(--s4) calc(100% - var(--s4)), var(--s4) calc(100% - var(--s8)), 0 calc(100% - var(--s8)));
+  /* palette par défaut (commune) ; surchargée par rareté */
+  --frame: #4b4f5b; --mid: #8c91a0; --face: #1b1c25; --acc: #c4c9d6; --gem: #c4c9d6;
+  --ink: #f3efe4; --muted: #8e88a0; --plate-bg: #0b0a10; --box-line: var(--mid);
+  position: relative; display: inline-block; width: var(--w); aspect-ratio: 63 / 88; flex-shrink: 0;
+  padding: 0; border: 0; background: none; color: var(--ink); font: inherit;
+  font-family: "DejaVu Sans Mono", "Liberation Mono", "Courier New", monospace;
+  text-align: left; cursor: default; }
+.hgc *, .hgc *::before, .hgc *::after { box-sizing: border-box; }
+button.hgc { cursor: pointer; }
+.hgc-sm { --w: 112px; } .hgc-md { --w: 180px; } .hgc-lg { --w: 300px; }
+@media (max-width: 600px) { .hgc { --w: 140px; } .hgc-sm { --w: 96px; } .hgc-md { --w: 150px; } .hgc-lg { --w: min(78vw, 300px); } }
+/* Taille sm (listes d'échanges, grilles de choix) : le texte d'ambiance est illisible à 112 px, on retire la zone ;
+   la fenêtre s'agrandit et la ligne de famille descend dessous. Nom, gemmes, numéro et N° ne changent pas. */
+.hgc-sm .hgc-amb { display: none; }
+.hgc-sm .hgc-win { height: calc(var(--u) * 218); }
+.hgc-sm .hgc-fam { top: calc(var(--u) * 303); height: calc(var(--u) * 16); line-height: calc(var(--u) * 16); }
+
+/* ---------- Raretés (palette de la maquette A ; mythique = style doré de la maquette B) ---------- */
+.hgc-commune { --frame: #4b4f5b; --mid: #8c91a0; --face: #1b1c25; --acc: #c4c9d6; --gem: #c4c9d6; }
+.hgc-peu_commune { --frame: #0d6b33; --mid: #159946; --face: #0e1d17; --acc: #7fe3a4; --gem: #2fd17a; }
+.hgc-rare { --frame: #1b3b9a; --mid: #2B5AE2; --face: #0c1530; --acc: #9bb8ff; --gem: #4f80ff; }
+.hgc-epique { --frame: #3a1a72; --mid: #7a4ad8; --face: #180d2c; --acc: #cdb2ff; --gem: #a674f5; }
+.hgc-legendaire { --frame: linear-gradient(135deg, #8a5200, #FCA301 30%, #FBD32D 50%, #FCA301 70%, #8a5200); --mid: #FCA301; --face: #21160a; --acc: #FBD32D; --gem: #FCA301; }
+.hgc-mythique { --frame: linear-gradient(135deg, #7d5410 0%, #f9e39c 18%, #b5802b 34%, #fff4c9 48%, #8f6119 62%, #f6d983 80%, #9a6a1f 100%);
+  --mid: #7a1830; --face: radial-gradient(circle at 50% 22%, #6a1529 0%, #2a0a12 55%, #12040a 100%); --acc: #e9c25a; --gem: #FBD32D;
+  --ink: #f8e7ae; --muted: #c9a14a; --plate-bg: #1b0709; --box-line: #c9a14a; }
+.hgc-identite { --frame: repeating-linear-gradient(45deg, #FE3104 0 calc(var(--u) * 6), #FCA301 calc(var(--u) * 6) calc(var(--u) * 12), #FBD32D calc(var(--u) * 12) calc(var(--u) * 18), #159946 calc(var(--u) * 18) calc(var(--u) * 24), #2B5AE2 calc(var(--u) * 24) calc(var(--u) * 30), #4E2398 calc(var(--u) * 30) calc(var(--u) * 36));
+  --mid: #120f1c; --face: #12101c; --acc: #FBD32D; --gem: #FBD32D; }
+/* Unique (hors série) : cadre or et platine sur fond noir, pastilles or ; style réservé aux cartes en exemplaire unique. */
+.hgc-unique { --frame: linear-gradient(135deg, #3a2a0a 0%, #C9A04A 22%, #FFF1C2 40%, #A8772A 56%, #1a1204 70%, #D9AE55 84%, #5c4212 100%);
+  --mid: #0c0a06; --face: radial-gradient(circle at 50% 16%, #2e230f 0%, #0d0b07 58%, #050403 100%); --acc: #F0CD6A; --gem: #F0CD6A;
+  --ink: #FFF1C2; --muted: #B8964E; --plate-bg: #050403; --box-line: #C9A04A; }
+
+/* ---------- Calques ---------- */
+.hgc-frame { position: absolute; inset: 0; display: block; transition: transform .15s ease;
+  filter: drop-shadow(0 calc(var(--u) * 6) calc(var(--u) * 8) rgba(0, 0, 0, .35)); }
+/* Survol (Pixel Pop) : la carte monte en diagonale avec une ombre franche qui suit ses bords en escalier (drop-shadow sans flou) */
+@media (hover: hover) {
+  button.hgc:hover .hgc-frame { transform: translate(-3px, -3px); filter: drop-shadow(var(--px-shadow-up, 6px 6px 0 #000)); }
+  button.hgc.is-missing:hover .hgc-frame { filter: grayscale(1) drop-shadow(var(--px-shadow-up, 6px 6px 0 #000)); }
+}
+.hgc-unique .hgc-frame { filter: drop-shadow(0 0 calc(var(--u) * 6) rgba(240, 205, 106, .3)) drop-shadow(0 calc(var(--u) * 6) calc(var(--u) * 8) rgba(0, 0, 0, .4)); }
+.hgc-mythique .hgc-frame { filter: drop-shadow(0 0 calc(var(--u) * 7) rgba(233, 194, 90, .35)) drop-shadow(0 calc(var(--u) * 6) calc(var(--u) * 8) rgba(0, 0, 0, .35)); }
+.hgc-layer { position: absolute; display: block; }
+.hgc-out { inset: 0; background: var(--frame); clip-path: var(--st12); }
+.hgc-mid { inset: var(--s4); background: var(--mid); clip-path: var(--st8); }
+.hgc-in { inset: var(--s8); overflow: hidden; clip-path: var(--st8);
+  background: linear-gradient(0deg, rgba(255, 255, 255, .028) 50%, transparent 50%) 0 0 / 100% var(--s4), var(--face); }
+
+/* Décors cumulés selon la rareté (commune : cadre nu ; peu commune : liseré ; rare+ : pions ; épique+ : onglets ; légendaire+ : losanges) */
+.hgc-ln { display: none; position: absolute; left: var(--s4); right: var(--s4); top: var(--s4); bottom: var(--s4);
+  border: calc(var(--u) * 2) solid var(--mid); opacity: .75; }
+.hgc:not(.hgc-commune) .hgc-ln { display: block; }
+.hgc-ln2 { display: none; position: absolute; inset: calc(var(--u) * 7); border: calc(var(--u) * 1) solid rgba(233, 194, 90, .6); }
+.hgc-mythique .hgc-ln { border-color: #b8892f; opacity: .9; border-width: calc(var(--u) * 1.5); }
+.hgc-mythique .hgc-ln2, .hgc-unique .hgc-ln2 { display: block; }
+.hgc-unique .hgc-ln { border-color: #C9A04A; opacity: .9; border-width: calc(var(--u) * 1.5); }
+.hgc-stud { display: none; position: absolute; width: calc(var(--u) * 6); height: calc(var(--u) * 10); background: var(--acc); top: 50%; margin-top: calc(var(--u) * -5); }
+.hgc-stud.sl { left: var(--u); } .hgc-stud.sr { right: var(--u); }
+.hgc:is(.hgc-rare, .hgc-epique, .hgc-legendaire, .hgc-mythique, .hgc-identite, .hgc-unique) .hgc-stud { display: block; }
+.hgc-tab { display: none; position: absolute; width: calc(var(--u) * 30); height: calc(var(--u) * 5); background: var(--mid); left: 50%; margin-left: calc(var(--u) * -15); }
+.hgc-tab.tt { top: 0; } .hgc-tab.tb { bottom: 0; }
+.hgc:is(.hgc-epique, .hgc-legendaire, .hgc-mythique, .hgc-identite, .hgc-unique) .hgc-tab { display: block; }
+.hgc-dia { display: none; position: absolute; width: calc(var(--u) * 8); height: calc(var(--u) * 8); background: var(--acc); transform: rotate(45deg); }
+.hgc-dia.dtl { left: calc(var(--u) * 36); top: calc(var(--u) * -1); } .hgc-dia.dtr { right: calc(var(--u) * 36); top: calc(var(--u) * -1); }
+.hgc-dia.dbl { left: calc(var(--u) * 36); bottom: calc(var(--u) * -1); } .hgc-dia.dbr { right: calc(var(--u) * 36); bottom: calc(var(--u) * -1); }
+.hgc:is(.hgc-legendaire, .hgc-mythique, .hgc-identite, .hgc-unique) .hgc-dia { display: block; }
+
+/* Reflet doré qui glisse sur la carte unique (seulement si les effets sont permis, comme la brillance) */
+.hgc-sheen { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; opacity: .32; clip-path: var(--st12);
+  background: linear-gradient(110deg, transparent 0 40%, rgba(255, 241, 194, .9) 50%, transparent 60% 100%) 0 0 / 260% 100% no-repeat; }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-fx="on"] .hgc-unique .hgc-sheen { animation: hgc-sheen-move 7s ease-in-out infinite; }
+}
+@keyframes hgc-sheen-move { 0%, 100% { background-position: 120% 0; } 50% { background-position: -20% 0; } }
+
+/* Brillante : reflet holographique (animé seulement si les effets sont permis) */
+.hgc-holo { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: color-dodge; opacity: .55; clip-path: var(--st12);
+  background:
+    radial-gradient(circle at 18% 22%, #fff 0 calc(var(--u) * 1.5), transparent calc(var(--u) * 2.5)),
+    radial-gradient(circle at 79% 58%, #fff 0 var(--u), transparent calc(var(--u) * 2)),
+    radial-gradient(circle at 62% 14%, #fff 0 var(--u), transparent calc(var(--u) * 2)),
+    linear-gradient(115deg, transparent 0 30%, rgba(255, 70, 70, .7) 38%, rgba(251, 211, 45, .7) 44%, rgba(120, 255, 160, .6) 50%, rgba(80, 160, 255, .7) 56%, rgba(190, 120, 255, .7) 62%, transparent 72%),
+    repeating-linear-gradient(60deg, rgba(255, 255, 255, .14) 0 calc(var(--u) * 2), transparent calc(var(--u) * 2) calc(var(--u) * 6));
+  background-size: auto, auto, auto, 220% 220%, auto; }
+@keyframes hgc-shine { from { background-position: 0 0, 0 0, 0 0, 0% 0%, 0 0; } to { background-position: 0 0, 0 0, 0 0, 100% 0%, 0 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-fx="on"] .hgc.is-shiny .hgc-holo { animation: hgc-shine 5s linear infinite; }
+}
+
+/* ---------- Contenu (cotes de la maquette A, en unités --u) ---------- */
+.hgc-gems { position: absolute; top: calc(var(--u) * 22); left: 0; right: 0; height: calc(var(--u) * 12);
+  display: flex; justify-content: center; gap: calc(var(--u) * 4); color: var(--gem); }
+.hgc-gem { display: block; flex: none; width: calc(var(--u) * 12); height: calc(var(--u) * 12); shape-rendering: crispEdges; overflow: visible; }
+
+.hgc-plate { position: absolute; top: calc(var(--u) * 40); left: calc(var(--u) * 22); right: calc(var(--u) * 22); height: calc(var(--u) * 34);
+  display: flex; align-items: center; justify-content: center; padding: 0 calc(var(--u) * 8);
+  background: var(--plate-bg); border: calc(var(--u) * 2) solid var(--acc); box-shadow: calc(var(--u) * 3) calc(var(--u) * 3) 0 #000; }
+.hgc-plate::before, .hgc-plate::after { content: ""; position: absolute; top: 50%; width: calc(var(--u) * 6); height: calc(var(--u) * 14); margin-top: calc(var(--u) * -7); background: var(--acc); }
+.hgc-plate::before { left: calc(var(--u) * -7); } .hgc-plate::after { right: calc(var(--u) * -7); }
+.hgc-plate-t { display: block; min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: max(6px, calc(var(--u) * 13)); font-weight: 700; line-height: 1.35; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); }
+
+/* Titre long : police réduite (fit-1), puis deux lignes (fit-2) — plus de points de suspension. */
+.hgc-plate.hgc-fit-1 .hgc-plate-t { font-size: max(5px, calc(var(--u) * 10)); letter-spacing: .02em; }
+.hgc-plate.hgc-fit-2 .hgc-plate-t { font-size: max(5px, calc(var(--u) * 9.5)); letter-spacing: .01em; line-height: 1.12;
+  white-space: normal; text-overflow: clip; text-align: center; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.hgc-mythique .hgc-plate.hgc-fit-1 .hgc-plate-t { font-size: max(5px, calc(var(--u) * 11)); }
+.hgc-mythique .hgc-plate.hgc-fit-2 .hgc-plate-t { font-size: max(5px, calc(var(--u) * 10.5)); }
+
+.hgc-win { position: absolute; top: calc(var(--u) * 84); left: calc(var(--u) * 22); right: calc(var(--u) * 22); height: calc(var(--u) * 118);
+  border: calc(var(--u) * 3) solid var(--acc); overflow: hidden; display: flex; align-items: center; justify-content: center;
+  background-color: #14122a; background-image: repeating-conic-gradient(rgba(255, 255, 255, .07) 0 25%, transparent 0 50%);
+  background-size: calc(var(--u) * 12) calc(var(--u) * 12); }
+.hgc-win-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Musique : pochette carrée entière sur un fond flouté de la même image */
+.hgc-win-cover .hgc-win-blur { position: absolute; inset: -12%; width: 124%; height: 124%; object-fit: cover; filter: blur(calc(var(--u) * 8)) brightness(.55) saturate(1.2); }
+.hgc-win-cover .hgc-win-img { left: 50%; width: auto; height: 100%; aspect-ratio: 1; transform: translateX(-50%); object-fit: cover; box-shadow: 0 0 calc(var(--u) * 10) rgba(0, 0, 0, .6); }
+.hgc-win-logo { display: block; width: calc(var(--u) * 92); height: auto; image-rendering: pixelated; }
+.hgc-q { font-weight: 700; font-size: calc(var(--u) * 72); line-height: 1; color: var(--acc); }
+
+/* Carte identité : photo carrée à gauche, pseudo et date d'arrivée à droite */
+.hgc-win-id { justify-content: flex-start; gap: calc(var(--u) * 12); padding: 0 calc(var(--u) * 12); }
+.hgc-photo { position: relative; flex: none; width: calc(var(--u) * 84); height: calc(var(--u) * 84); overflow: hidden;
+  border: calc(var(--u) * 2) solid #000; background: #2a2640; }
+.hgc-photo svg { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+.hgc-photo { display: grid; place-items: center; }
+.hgc-photo .hgc-win-logo { width: 86%; }
+.hgc-photo .hgc-win-img { width: 100%; height: 100%; object-fit: cover; }
+.hgc-idinfo { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.hgc-idk { display: block; font-size: max(5px, calc(var(--u) * 8.5)); letter-spacing: .14em; text-transform: uppercase; color: var(--acc); line-height: 1.4; }
+.hgc-idv { display: block; margin-bottom: calc(var(--u) * 7); font-size: max(6px, calc(var(--u) * 12)); font-weight: 700; line-height: 1.2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.hgc-fam { position: absolute; top: calc(var(--u) * 208); left: calc(var(--u) * 22); right: calc(var(--u) * 22); height: calc(var(--u) * 14);
+  display: block; text-align: center; font-size: max(5px, calc(var(--u) * 10.5)); line-height: calc(var(--u) * 14); letter-spacing: .16em;
+  text-transform: uppercase; color: var(--acc); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.hgc-amb { position: absolute; top: calc(var(--u) * 228); left: calc(var(--u) * 22); right: calc(var(--u) * 22); height: calc(var(--u) * 86);
+  padding: calc(var(--u) * 6) calc(var(--u) * 8); display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden;
+  border: calc(var(--u) * 2) solid var(--box-line); background: rgba(0, 0, 0, .38);
+  font-size: max(5px, calc(var(--u) * 10.5)); line-height: 1.3; }
+.hgc-amb.hgc-fit-1 { font-size: max(5px, calc(var(--u) * 9)); }
+.hgc-amb.hgc-fit-2 { font-size: max(5px, calc(var(--u) * 8)); }
+.hgc-amb.hgc-fit-1 .hgc-cap, .hgc-amb.hgc-fit-2 .hgc-cap { font-size: max(5px, calc(var(--u) * 8.5)); margin-top: calc(var(--u) * 3); }
+.hgc-mythique .hgc-amb { background: rgba(255, 220, 120, .05); }
+.hgc-flavor { display: block; margin: 0; font-style: italic; }
+.hgc-mythique .hgc-flavor { font-family: Georgia, "Times New Roman", serif; }
+.hgc-cap { display: block; margin-top: calc(var(--u) * 5); font-size: max(5px, calc(var(--u) * 10)); line-height: 1.3; color: var(--acc); }
+
+.hgc-pied { position: absolute; top: calc(var(--u) * 322); left: calc(var(--u) * 22); right: calc(var(--u) * 22); height: calc(var(--u) * 12);
+  display: flex; justify-content: space-between; align-items: center; white-space: nowrap;
+  font-size: max(5px, calc(var(--u) * 10.5)); line-height: 1; letter-spacing: .08em; font-variant-numeric: tabular-nums; }
+.hgc-pied-n { color: var(--muted); }
+.hgc-pied-s { color: var(--acc); }
+.hgc-mythique .hgc-plate-t, .hgc-mythique .hgc-idv, .hgc-unique .hgc-plate-t { font-family: Georgia, "Times New Roman", serif; }
+.hgc-mythique .hgc-plate-t { text-transform: none; letter-spacing: .01em; font-size: max(6px, calc(var(--u) * 14)); }
+
+/* Compteur, verrou, manquante */
+.hgc-count { position: absolute; bottom: -8px; right: -8px; z-index: 2; min-width: max(20px, calc(var(--u) * 28)); height: max(20px, calc(var(--u) * 28));
+  padding: 0 6px; border-radius: 999px; display: grid; place-items: center; background: var(--surface-2, #222); border: 2px solid var(--edge, var(--acc));
+  font-size: 12px; font-weight: 700; color: var(--text, #f3efe4); }
+.hgc-lock { position: absolute; left: 50%; bottom: 34%; transform: translateX(-50%); z-index: 2; padding: 2px 8px; border-radius: 999px;
+  background: #000; color: var(--sand, #f3efe4); font-size: 10px; font-weight: 700; white-space: nowrap; }
+.hgc.is-missing .hgc-frame { opacity: .45; filter: grayscale(1); }
+
+/* ---------- Dos (maquette C « Pop BD ») ---------- */
+.hgc-back { --frame: #111; --mid: #B70127; }
+.hgc-back .hgc-in { background:
+    radial-gradient(rgba(255, 255, 255, .2) calc(var(--u) * 1.6), transparent calc(var(--u) * 2)) 0 0 / calc(var(--u) * 9) calc(var(--u) * 9),
+    repeating-linear-gradient(45deg, #B70127 0 calc(var(--u) * 14), #9d0120 calc(var(--u) * 14) calc(var(--u) * 28)); }
+.hgc-medal { position: absolute; left: 50%; top: 46%; width: 68%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%;
+  border: calc(var(--u) * 3) solid #111; padding: calc(var(--u) * 8);
+  background: conic-gradient(#FE3104, #FCA301, #FBD32D, #159946, #2B5AE2, #4E2398, #FE3104);
+  box-shadow: calc(var(--u) * 5) calc(var(--u) * 5) 0 #111; }
+.hgc-medal-in { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; background: #FFF8E4; border: calc(var(--u) * 3) solid #111; }
+.hgc-back-logo { display: block; width: 72%; height: auto; image-rendering: pixelated; }
+.hgc-band-back { position: absolute; left: 50%; bottom: calc(var(--u) * 34); transform: translateX(-50%) rotate(-2deg); width: 86%;
+  padding: calc(var(--u) * 7) calc(var(--u) * 6); text-align: center; white-space: nowrap; line-height: 1;
+  background: #111; color: #fff; border: calc(var(--u) * 3) solid #111; border-radius: calc(var(--u) * 9); box-shadow: calc(var(--u) * 3) calc(var(--u) * 3) 0 #FBD32D;
+  font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif; font-size: max(6px, calc(var(--u) * 16)); font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+
+@media (prefers-reduced-motion: reduce) { .hgc-frame { transition: none; } button.hgc:hover .hgc-frame { transform: none; } }
+html[data-fx="off"] .hgc-frame { transition: none; }
+html[data-fx="off"] button.hgc:hover .hgc-frame { transform: none; }
+
+/* ---------- Brillante « fondue » (booster Raclette, migration 080) ----------
+   Nappe de fromage en haut du cadre et coulures sur les bords, sous le nom et sous la fenêtre (jamais sur le texte).
+   Animée seulement si les effets sont permis et le mouvement non réduit ; sinon le fromage reste figé. */
+.hgc-fondue { position: absolute; inset: 0; pointer-events: none; clip-path: var(--st12); overflow: hidden; }
+.hgc-fondue::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: calc(var(--u) * 20);
+  background: linear-gradient(180deg, #ffe58a 0%, #f6c945 60%, #e9a91c 100%);
+  -webkit-mask: radial-gradient(calc(var(--u) * 9) calc(var(--u) * 7) at 50% 100%, transparent 98%, #000) 0 0 / calc(var(--u) * 28) 100%;
+          mask: radial-gradient(calc(var(--u) * 9) calc(var(--u) * 7) at 50% 100%, transparent 98%, #000) 0 0 / calc(var(--u) * 28) 100%; }
+.hgc-fondue i { position: absolute; top: calc(var(--u) * 8); width: calc(var(--u) * 10); border-radius: 0 0 calc(var(--u) * 6) calc(var(--u) * 6);
+  background: linear-gradient(90deg, #e9a91c, #ffe58a 45%, #f6c945); box-shadow: inset calc(var(--u) * -2) 0 0 rgba(160, 100, 0, .35); }
+.hgc-fondue .d1 { left: calc(var(--u) * 6); height: calc(var(--u) * 92); }
+.hgc-fondue .d2 { left: calc(var(--u) * 70); height: calc(var(--u) * 40); }
+.hgc-fondue .d3 { right: calc(var(--u) * 64); height: calc(var(--u) * 34); }
+.hgc-fondue .d4 { right: calc(var(--u) * 6); height: calc(var(--u) * 64); }
+.hgc-fondue b { position: absolute; bottom: calc(var(--u) * 30); width: calc(var(--u) * 5); height: calc(var(--u) * 5); border-radius: 50%;
+  background: #ffe58a; box-shadow: 0 0 calc(var(--u) * 3) rgba(255, 220, 120, .8); opacity: 0; }
+.hgc-fondue .b1 { left: calc(var(--u) * 10); } .hgc-fondue .b2 { left: calc(var(--u) * 236); } .hgc-fondue .b3 { left: calc(var(--u) * 12); bottom: calc(var(--u) * 70); }
+@keyframes hgc-drip { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.12); } }
+@keyframes hgc-bubble { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: .9; } 100% { opacity: 0; transform: translateY(calc(var(--u) * -120)); } }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-fx="on"] .hgc.is-fondue .hgc-fondue i { transform-origin: top; animation: hgc-drip 4s ease-in-out infinite; }
+  html[data-fx="on"] .hgc.is-fondue .hgc-fondue .d2 { animation-delay: -1.3s; }
+  html[data-fx="on"] .hgc.is-fondue .hgc-fondue .d3 { animation-delay: -2.1s; }
+  html[data-fx="on"] .hgc.is-fondue .hgc-fondue .d4 { animation-delay: -.7s; }
+  html[data-fx="on"] .hgc.is-fondue .hgc-fondue b { animation: hgc-bubble 5s ease-in infinite; }
+  html[data-fx="on"] .hgc.is-fondue .hgc-fondue .b2 { animation-delay: -1.7s; }
+  html[data-fx="on"] .hgc.is-fondue .hgc-fondue .b3 { animation-delay: -3.4s; }
+}
+
+/* ---------- Tampon « J’y étais » (cartes des sorties IRL, migration 080) : rond en bas à droite de la fenêtre ---------- */
+.hgc-stamp { position: absolute; top: calc(var(--u) * 150); right: calc(var(--u) * 14); width: calc(var(--u) * 58); height: calc(var(--u) * 58);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 50%;
+  border: calc(var(--u) * 3) solid #E0909A; background: rgba(20, 18, 42, .82); color: #E0909A; transform: rotate(-14deg);
+  font-size: max(5px, calc(var(--u) * 11)); font-weight: 700; line-height: 1.05; letter-spacing: .04em; text-transform: uppercase; }
+
+/* ---------- Générations des membres (idée C8) : bandeau en haut à droite de la fenêtre, liseré double pour les OG ---------- */
+/* Même carte, même rareté : seul l'habillage change. Texte foncé sur or ou argent (contraste > 10:1). */
+.hgc-gen { position: absolute; top: calc(var(--u) * 90); right: calc(var(--u) * 28); z-index: 3;
+  padding: 0 max(2px, calc(var(--u) * 6)); font: 700 max(8px, calc(var(--u) * 17))/1.5 ui-monospace, 'Courier New', monospace;
+  letter-spacing: .04em; text-transform: uppercase; color: #121212; background: #C9CED6;
+  border: max(1px, calc(var(--u) * 2)) solid #121212; white-space: nowrap; pointer-events: none; }
+.hgc-og .hgc-gen { background: #E2C77E; }
+.hgc-og .hgc-mid { box-shadow: inset 0 0 0 calc(var(--u) * 1.5) #E2C77E, inset 0 0 0 calc(var(--u) * 2.5) rgba(0, 0, 0, .6), inset 0 0 0 calc(var(--u) * 4) #E2C77E; }

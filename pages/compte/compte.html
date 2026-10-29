@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' https://zqbdzokyhgavgmqgiwuw.supabase.co wss://zqbdzokyhgavgmqgiwuw.supabase.co https://nominatim.openstreetmap.org; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <script src="/humane-gang-tests/assets/commun/theme-boot.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mon compte · Humane Gang</title>
+  <meta name="description" content="Mon compte Humane Gang : profil, informations et préférences.">
+  <link rel="canonical" href="https://humane-gang.com/pages/compte/compte.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Humane Gang">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Mon compte · Humane Gang">
+  <meta property="og:description" content="Mon compte Humane Gang : profil, informations et préférences.">
+  <meta property="og:url" content="https://humane-gang.com/pages/compte/compte.html">
+  <meta property="og:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo du Humane Gang">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mon compte · Humane Gang">
+  <meta name="twitter:description" content="Mon compte Humane Gang : profil, informations et préférences.">
+  <meta name="twitter:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/humane-gang-tests/assets/images/marque/favicon-64.png">
+  <link rel="manifest" href="/humane-gang-tests/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/humane-gang-tests/assets/images/marque/apple-touch-icon.png">
+  <meta name="theme-color" content="#0b0a10">
+  <link rel="preconnect" href="https://zqbdzokyhgavgmqgiwuw.supabase.co">
+  <link rel="modulepreload" href="/humane-gang-tests/assets/vendor/supabase-js-2.45.4.mjs">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/base.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/themes-decor.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/cartes/card-drops.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/compte/compte.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/compte/social.css">
+</head>
+<body>
+  <main class="container" id="app" aria-busy="true">
+    <div class="acc-loading"><span class="visually-hidden">Chargement…</span></div>
+  </main>
+
+  <dialog class="acc-dialog" id="delete-dialog" aria-labelledby="delete-title">
+    <form method="dialog" class="stack" id="delete-form">
+      <h2 id="delete-title" class="display">Supprimer mon compte</h2>
+      <p>Cette action est <strong>définitive</strong>. Seront supprimés : ton profil, tes informations diverses, tes participations et listes de souhaits Secret Santa, tes réponses aux sorties, tes votes, tes badges et ton avatar.</p>
+      <p class="small muted">Les idées déposées et les demandes d'assistance sont conservées sans lien avec ton profil. Les moments cultes que tu as créés restent dans l'historique du gang, sans ton nom.</p>
+      <label class="check"><input type="checkbox" id="delete-photos" checked> <span>Supprimer aussi les photos que j'ai ajoutées aux albums et aux moments</span></label>
+      <div class="field">
+        <label for="delete-confirm">Pour confirmer, écris <strong>SUPPRIMER</strong></label>
+        <input id="delete-confirm" autocomplete="off" autocapitalize="characters" spellcheck="false">
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" type="button" id="delete-cancel">Annuler</button>
+        <button class="btn btn-primary btn-delete" value="confirm" type="button" id="delete-go" disabled>Supprimer définitivement</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="/humane-gang-tests/assets/commun/site-boot.js"></script>
+  <script type="module" src="/humane-gang-tests/assets/espaces/compte/compte.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+/* ===== Humane Gang — Codenames : décor et éléments partagés (nom-de-code.html) =====
+   Feuilles par écran : assets/css/nom-de-code/*.css (importées ci-dessous).
+   Équipes : Jaune et Rose ; police des mots et des titres de jeu : Oswald (maquettes validées).
+   Animations coupées par <body class="ndc-calme"> (préférence du membre) et prefers-reduced-motion. */
+@import url('accueil.css');
+@import url('creer.css');
+@import url('rejoindre.css');
+@import url('stats.css');
+@import url('salle.css');
+@import url('chat.css');
+@import url('table.css');
+@import url('fin.css');
+
+:root {
+  --ndc-jaune: #F2B71F; --ndc-jaune-fonce: #7A5200; --ndc-jaune-clair: #FFD970;
+  --ndc-rose: #E8559A; --ndc-rose-fonce: #8C1F55; --ndc-rose-clair: #FF9CCB;
+  --ndc-papier: #F3DFC4; --ndc-papier-2: #E8D2B4; --ndc-encre: #121212; --ndc-neutre: #8F7558; --ndc-assassin: #121212;
+}
+
+/* ---------- Décor ---------- */
+body.ndc-page {
+  background-color: var(--bg);
+  background-image: radial-gradient(ellipse 1100px 520px at 50% 0, #241A22 0, var(--bg) 70%);
+  background-repeat: no-repeat;
+}
+.ndc-app { padding-bottom: 48px; }
+.ndc-app .card { background: color-mix(in srgb, var(--surface) 90%, transparent); }
+.ndc-chargement { padding: 48px 0; color: var(--muted); text-align: center; }
+.ndc-erreur { margin: 32px auto; max-width: 560px; display: flex; flex-direction: column; gap: 12px; }
+.ndc-fil { font-size: 13px; color: var(--muted); margin: 16px 0 8px; }
+.ndc-fil a { color: inherit; }
+.ndc-titre { font-family: 'Oswald', 'Archivo Black', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.05; margin: 0 0 16px; }
+.ndc-code { font-family: 'Courier New', monospace; letter-spacing: 3px; }
+.ndc-invite-tag { display: inline-flex; align-items: center; padding: 0 8px; border: 1px solid var(--border, #3A3A40); border-radius: 999px;
+  font-size: 11px; color: var(--muted); vertical-align: middle; }
+/* Pastille d'équipe (texte + couleur, jamais la couleur seule) */
+.ndc-eq { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 999px; font-weight: 700; font-size: 12px;
+  text-transform: uppercase; letter-spacing: .5px; font-family: 'Oswald', sans-serif; }
+.ndc-eq.is-jaune { background: var(--ndc-jaune); color: #2A1C00; }
+.ndc-eq.is-rose { background: var(--ndc-rose); color: #FFFFFF; }
+/* Avatar rond (photo, sinon initiales sur la couleur du membre) */
+.ndc-av { flex: none; display: inline-grid; place-items: center; border-radius: 50%; overflow: hidden; background: var(--ndc-av, #6B6B73);
+  color: #121212; font-weight: 800; font-size: 13px; }
+.ndc-av img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ndc-app *, .ndc-app *::before, .ndc-app *::after { animation: none !important; transition: none !important; }
+}
+body.ndc-calme .ndc-app *, body.ndc-calme .ndc-app *::before, body.ndc-calme .ndc-app *::after { animation: none !important; transition: none !important; }
+
+/* ---------- Effets (vues/effets.js) : calques sur body, hors .ndc-app ----------
+   Posés sans interaction (pointer-events:none), durée inférieure à 3 s, retirés par effets.js.
+   Les calques ne sont pas créés en mouvement réduit ou avec body.ndc-calme ; les règles ci-dessous le redoublent. */
+.ndc-fx-voile { position: fixed; inset: 0; z-index: 8990; pointer-events: none; }
+.ndc-fx-flash { background: rgba(229, 72, 77, .5); animation: ndcFxFlash 1s ease-out forwards; }
+@keyframes ndcFxFlash { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+.ndc-fx-banniere { position: fixed; left: 50%; top: 40%; transform: translate(-50%, -50%); z-index: 9002; pointer-events: none; white-space: nowrap;
+  font: 400 clamp(26px, 5vw, 52px) 'Archivo Black', Inter, sans-serif; padding: 14px 26px; border-radius: 14px; box-shadow: 0 12px 40px rgba(0, 0, 0, .6);
+  opacity: 0; animation: ndcFxBan 2.4s cubic-bezier(.2, 1.4, .4, 1) forwards; }
+.ndc-fx-banniere small { display: block; font: 700 14px Inter, sans-serif; letter-spacing: .1em; text-transform: uppercase; text-align: center; margin-top: 4px; }
+.ndc-fx-banniere.jaune { background: var(--ndc-jaune); color: #2A1C00; }
+.ndc-fx-banniere.rose { background: var(--ndc-rose); color: #FFFFFF; }
+.ndc-fx-banniere.rouge { background: #E5484D; color: #FFFFFF; }
+@keyframes ndcFxBan {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.6); }
+  18% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+  30% { transform: translate(-50%, -50%) scale(1); }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.ndc-fx-grand { position: fixed; inset: 0; z-index: 9100; display: grid; place-items: center; padding: 16px; background: rgba(8, 8, 12, .82);
+  pointer-events: none; animation: ndcFxFond 2.6s ease forwards; }
+@keyframes ndcFxFond { 0% { opacity: 0; } 10% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; } }
+.ndc-fx-grand div { text-align: center; font-family: 'Oswald', 'Archivo Black', sans-serif; text-transform: uppercase; color: #F2EFEA; }
+.ndc-fx-grand b { display: block; font-weight: 700; font-size: clamp(36px, 11vw, 150px); line-height: 1.05; white-space: nowrap;
+  text-shadow: 0 6px 30px rgba(226, 199, 126, .5); animation: ndcFxGrossit .5s cubic-bezier(.2, 1.4, .4, 1); }
+@keyframes ndcFxGrossit { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.ndc-fx-grand small { display: block; font: 700 clamp(13px, 2vw, 18px) Inter, sans-serif; letter-spacing: .14em; color: #E2C77E; }
+
+.ndc-fx-conf { position: fixed; top: -10px; width: 8px; height: 14px; z-index: 8999; pointer-events: none; animation: ndcFxTombe linear forwards; }
+@keyframes ndcFxTombe { to { transform: translateY(105vh) rotate(720deg); } }
+
+.ndc-fx-brille { animation: ndcFxBrille 1.2s ease-in-out 2; }
+@keyframes ndcFxBrille { 50% { text-shadow: 0 0 30px rgba(226, 199, 126, .9); } }
+
+.ndc-fx-choc { animation: ndcFxChoc .5s linear 2; }
+@keyframes ndcFxChoc { 20% { transform: translateX(-7px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
+
+body.ndc-calme .ndc-fx-voile, body.ndc-calme .ndc-fx-banniere, body.ndc-calme .ndc-fx-grand, body.ndc-calme .ndc-fx-conf { display: none !important; }
+body.ndc-calme .ndc-fx-flash, body.ndc-calme .ndc-fx-brille, body.ndc-calme .ndc-fx-choc { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .ndc-fx-flash, .ndc-fx-brille, .ndc-fx-choc, .ndc-fx-banniere, .ndc-fx-grand b { animation: none !important; }
+  .ndc-fx-voile, .ndc-fx-banniere, .ndc-fx-grand, .ndc-fx-conf { display: none !important; }
+}

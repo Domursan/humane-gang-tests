@@ -1,0 +1,123 @@
+/* Admin › Jeux et cartes › GeoGuessr, Jeux quotidiens, Citations (admin-jeux.js). */
+.ajx { display: grid; gap: 16px; max-width: 980px; min-width: 0; }
+.ajx-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.ajx-intro { margin: 0; max-width: 60ch; }
+.ajx-stats { margin: 0; color: var(--muted); }
+.ajx-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.ajx-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); min-width: 0; }
+.ajx-row.is-off { opacity: .7; }
+.ajx-row-main { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px; overflow-wrap: anywhere; }
+.ajx-row .btn { min-height: 44px; }
+.ajx-quote { margin: 0; font-weight: 700; }
+.ajx-raw summary { cursor: pointer; min-height: 32px; display: inline-flex; align-items: center; }
+.ajx-raw pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; background: var(--bg); padding: 8px; border-radius: 8px; margin: 4px 0 0; }
+.ajx-form { display: grid; gap: 14px; }
+.ajx-fs { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; margin: 0; display: grid; gap: 10px; min-width: 0; }
+.ajx-fs legend { font-weight: 700; padding: 0 6px; }
+.ajx-fs p { margin: 0; }
+.ajx-check { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; }
+.ajx-inline { flex-direction: row; align-items: center; gap: 8px; }
+.ajx-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 12px; }
+.ajx-warn { color: var(--amber); margin: 0; font-weight: 700; }
+.ajx-lbl { font-weight: 600; font-size: 14px; }
+.ajx-geo-form { display: grid; gap: 14px; }
+.ajx-geo-map { height: 300px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #1A2130; }
+.ajx-photos-fs { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; margin: 0; min-width: 0; }
+.ajx-photos-fs legend { font-weight: 700; padding: 0 6px; }
+.ajx-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; max-height: 280px; overflow-y: auto; }
+.ajx-photos p { grid-column: 1 / -1; margin: 0; }
+.ajx-photo { position: relative; display: block; cursor: pointer; border-radius: 8px; overflow: hidden; border: 2px solid transparent; }
+.ajx-photo input { position: absolute; opacity: 0; inset: 0; }
+.ajx-photo img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.ajx-photo:has(input:checked) { border-color: var(--sand); }
+.ajx-photo:has(input:focus-visible) { outline: 2px solid var(--sand); outline-offset: 2px; }
+.ajx-geo-cur { max-height: 160px; width: auto; border-radius: 8px; margin-top: 8px; }
+.ajx-pin span { display: block; width: 20px; height: 20px; border-radius: 50%; background: var(--sand); border: 2px solid #121212; }
+
+/* ===== Humane Gang — administration : Sutom du gang (admin-sutom.js) ===== */
+.ads-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; align-items: end; }
+.ads-form .btn-row { grid-column: 1 / -1; }
+.ads-list { list-style: none; margin: 0; padding: 0; }
+.ads-list li { padding: 8px 0; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
+.ads-list li.is-off { opacity: .55; }
+
+/* ===== Preuves, Framed, Heardle, Bataille (J9, J10, J11, J15) ===== */
+/* ===== Admin : Framed et Heardle (J9, J10) et réglages de la Bataille (J15) ===== */
+.jm { display: flex; flex-direction: column; gap: 18px; }
+.jm-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.jm-chip { font: inherit; font-size: 13px; min-height: 44px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border-strong); background: transparent; color: var(--text); cursor: pointer; }
+.jm-chip[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); font-weight: 700; }
+.jm-sec { display: flex; flex-direction: column; gap: 10px; }
+.jm-sec h3 { margin: 0; font-size: 17px; }
+.jm-sec-h { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.jm-sec p { margin: 0; }
+.jm-inline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.jm-inline .input, .jm-inline .btn { min-height: 44px; }
+.jm-list { list-style: none; margin: 0; padding: 0; }
+.jm-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.jm-row:last-child { border-bottom: 0; }
+.jm-row .btn { min-height: 44px; }
+.jm-day { min-width: 130px; font-weight: 700; }
+.jm-t { flex: 1 1 200px; min-width: 0; overflow-wrap: anywhere; }
+.jm-form { display: flex; flex-direction: column; gap: 12px; }
+.jm-form h4 { margin: 0; }
+.jm-form p { margin: 0; }
+.jm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.jm-grid .field { display: flex; flex-direction: column; gap: 4px; }
+.jm-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.jm-slot { display: flex; flex-direction: column; gap: 6px; padding: 8px; border: 1px solid var(--border); border-radius: 10px; }
+.jm-slot img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; }
+.jm-empty { aspect-ratio: 16 / 9; display: grid; place-items: center; border: 1px dashed var(--border-strong); border-radius: 6px; }
+.jm-slot input[type="file"] { max-width: 100%; font-size: 12px; min-height: 44px; }
+.jm-actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+.jm-actions .btn, .jm-form .check { min-height: 44px; }
+.jm-form .check { display: flex; align-items: center; gap: 8px; }
+/* Framed : images depuis une affiche du site, import, ajout en masse */
+.jm-from { display: flex; }
+.jm-from .btn, .jm-bulk .btn { min-height: 44px; }
+.jm-picker { display: flex; flex-direction: column; gap: 10px; padding: 12px; border: 1px solid var(--border-strong); border-radius: 10px; }
+.jm-picker .field { display: flex; flex-direction: column; gap: 4px; }
+.jm-picker input[type="file"] { max-width: 100%; font-size: 13px; min-height: 44px; }
+.jm-pk-list { list-style: none; margin: 0; padding: 0; max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
+.jm-pk-item { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 4px 8px; font: inherit; font-size: 14px; text-align: left; color: var(--text); background: transparent; border: 1px solid transparent; border-radius: 8px; cursor: pointer; }
+.jm-pk-item:hover, .jm-pk-item:focus-visible { border-color: var(--border-strong); }
+.jm-pk-item img { width: 36px; height: 50px; object-fit: cover; border-radius: 4px; flex: none; background: var(--border); }
+.jm-pk-t { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.jm-bulk { display: flex; flex-direction: column; gap: 10px; }
+.jm-bulk p { margin: 0; }
+
+/* Arène v2 (admin-bataille.js) */
+.ar-adm-g { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin: 0; min-width: 0; }
+.ar-adm-legend { font-weight: 700; padding: 0 6px; }
+.ar-adm-etat { margin: 0; }
+.ar-adm-saison h4, .ar-adm-top h4, .ar-adm-past h4 { margin: 8px 0 4px; }
+.ar-adm-saison p { margin: 0 0 8px; }
+.ar-adm-liste { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; overflow-wrap: anywhere; }
+.ar-adm-rk { font-weight: 700; }
+.ar-adm-saison .btn, .ar-adm-g .input { min-height: 44px; }
+/* Banque de mots du Sutom : recherche, filtres, liste */
+.ads-outils { display: grid; gap: 8px; }
+.ads-filtres { display: flex; flex-wrap: wrap; gap: 6px; }
+.ads-mot { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: flex-start; }
+.ads-mot > div:first-child { flex: 1 1 16rem; min-width: 0; }
+.ads-mot .btn-row { margin: 0; }
+
+/* Puissance des cartes (Arène) : catégories, filtres et liste par carte. */
+.puiss { display: grid; gap: 14px; }
+.puiss-bloc { display: grid; gap: 10px; padding-top: 12px; border-top: 1px solid var(--border); }
+.puiss-bloc h4 { margin: 0; }
+.puiss-saisie { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.puiss-saisie .input { width: 7rem; max-width: 100%; }
+.puiss-explic { margin: 0; font-weight: 700; font-size: 14px; }
+.puiss-plus { margin: 0; }
+.puiss-plus summary { cursor: pointer; padding: 4px 0; }
+.puiss-filtres { display: flex; flex-wrap: wrap; gap: 6px; }
+.puiss-chip { min-height: 36px; padding: 6px 12px; border: 1px solid var(--border-strong); border-radius: 999px; background: transparent; color: inherit; font: inherit; font-size: 13px; cursor: pointer; }
+.puiss-chip[aria-pressed="true"] { background: var(--sand); font-weight: 700; }
+.puiss-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.puiss-ligne { display: flex; gap: 12px; align-items: flex-start; padding: 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); min-width: 0; }
+.puiss-vignette { flex: 0 0 auto; padding: 0 16px; }
+.puiss-infos { flex: 1 1 14rem; min-width: 0; display: grid; gap: 6px; }
+.puiss-nom { margin: 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.puiss-infos p { margin: 0; }
+@media (max-width: 480px) { .puiss-ligne { flex-direction: column; } .puiss-saisie .input { width: 6rem; } }

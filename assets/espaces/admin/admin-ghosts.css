@@ -1,0 +1,69 @@
+/* ===== Administration : comptes fantômes (préfixe agh-) ===== */
+.agh-card { display: flex; flex-direction: column; gap: 16px; }
+.agh-card + .agh-card { margin-top: 16px; }
+.agh-lead { margin: 0; color: var(--muted); font-size: 14px; }
+.agh-form { display: flex; flex-direction: column; gap: 14px; }
+.agh-form .card-title { margin: 0; }
+.agh-form-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.agh-span { grid-column: 1 / -1; }
+.agh-form textarea { resize: vertical; }
+.agh-list-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 12px; }
+.agh-list-head .card-title { margin: 0; }
+.agh-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.agh-item { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; display: flex; flex-direction: column; gap: 12px; background: var(--surface-2, transparent); min-width: 0; }
+.agh-head { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.agh-who { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.agh-name { overflow-wrap: anywhere; }
+.agh-name .pill { vertical-align: middle; margin-left: 4px; }
+.agh-note { margin: 0; font-size: 14px; overflow-wrap: anywhere; }
+.agh-k { display: inline-block; font-size: 13px; color: var(--muted); margin-right: 6px; text-transform: uppercase; letter-spacing: .04em; }
+.agh-code { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.agh-code-line { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.agh-code-val { font-size: 16px; letter-spacing: .08em; }
+.agh-code .small { margin: 0; }
+.agh-link { width: 100%; min-height: 44px; font: inherit; font-size: 14px; padding: 10px 12px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong); background: var(--bg); color: var(--text); overflow-x: auto; text-overflow: ellipsis; }
+.agh-btns, .agh-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.agh-btns .btn, .agh-actions .btn { flex: 1 1 auto; min-height: 44px; }
+.agh-item .btn-sm { min-height: 44px; padding: 8px 14px; }
+.agh-item .btn-sm svg { width: 16px; height: 16px; flex: none; }
+.agh-item .btn-danger { flex: 1 1 100%; }
+.agh-item .agh-actions .btn-primary { flex: 1 1 100%; }
+
+@media (min-width: 640px) {
+  .agh-form-grid { grid-template-columns: 1fr 1fr; }
+  .agh-item .agh-actions .btn-primary { flex: 0 1 auto; }
+  .agh-item .btn-danger { flex: 0 1 auto; margin-left: auto; }
+  .agh-sugg-row .btn { flex: 0 0 auto; }
+  .agh-merge-btns .btn { flex: 0 1 auto; }
+  .agh-merge-btns .btn-danger { margin-left: auto; }
+}
+
+/* ---------- Correspondances possibles ---------- */
+.agh-card[hidden] { display: none; }
+.agh-sugg-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.agh-sugg-item { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; background: var(--surface-2, transparent); }
+.agh-sugg-text { margin: 0; font-size: 14px; overflow-wrap: anywhere; }
+.agh-sugg-row { display: flex; }
+.agh-sugg-row .btn { flex: 1 1 auto; min-height: 44px; }
+.agh-sugg-err { font-size: 14px; color: var(--rose); }
+
+/* Bloc « Lier à un compte inscrit » (fiche d'un fantôme) et tiroir de liaison */
+.agh-lier { min-width: 0; }
+.agh-lier-sugg { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.agh-lier-pick { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.agh-lier .field input, .agh-lier .field select, .agh-drawer select { min-height: 44px; width: 100%; }
+.agh-drawer { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.agh-merge-recap p { margin: 0; font-size: 14px; overflow-wrap: anywhere; }
+.agh-merge-recap p + p { margin-top: 6px; }
+.agh-merge-err { margin: 0; font-size: 14px; color: var(--rose); overflow-wrap: anywhere; }
+.agh-merge-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.agh-merge-btns .btn { flex: 1 1 100%; min-height: 44px; }
+
+/* ----- Fiche d'un fantôme (zone principale de Comptes) et bannière d'un compte actif ----- */
+.agh-detail { gap: 14px; }
+.agh-banner { border-color: var(--border-strong); }
+.agh-banner-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; min-width: 0; }
+.agh-banner-row p { margin: 0; flex: 1 1 260px; font-size: 14px; overflow-wrap: anywhere; min-width: 0; }
+.agh-banner-row .btn { min-height: 44px; flex: 0 0 auto; }
+.agh-sugg-err { margin: 0; font-size: 14px; color: var(--rose); overflow-wrap: anywhere; }

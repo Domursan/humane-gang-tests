@@ -1,0 +1,224 @@
+// Tutos « Jeu de cartes : aller plus loin ». Données pures (aucun import) : lisibles dans le navigateur et dans Node.
+// Libellés relevés dans cartes.js, cartes-trades.js, cartes-showcase.js, card-drops.js, accueil.js et membre.js.
+/*
+ * Structure d'un groupe : { id, title, icon, tutos: [...] }.
+ * Structure d'un tuto : { slug, title, summary, page (page HTML concernée), steps: [{ title, text }], tips: [texte], keywords: [mots de recherche] }.
+ * La page d'aide (aide.js) affiche ces données ; elle ne les modifie pas.
+ */
+export default {
+  id: 'cartes-avance',
+  title: 'Jeu de cartes : aller plus loin',
+  icon: '🏆',
+  tutos: [
+    {
+      slug: 'proposer-un-echange',
+      title: 'Proposer un échange',
+      summary: 'Donner des cartes en double contre des cartes qui te manquent, avec ou sans Paillettes.',
+      page: '/humane-gang-tests/pages/cartes/cartes.html',
+      steps: [
+        { title: 'Ouvre l’onglet Échanges', text: 'Sur Cartes, touche « Échanges », puis le sous-onglet « Proposer ».' },
+        { title: 'Choisis le membre', text: 'Dans la liste « Membre », choisis la personne à qui tu fais l’offre, puis touche « Composer l’offre ».' },
+        { title: 'Sélectionne tes cartes', text: 'Dans la colonne « Je donne », touche les cartes à céder. Une carte sélectionnée reçoit une coche ✓. Les filtres « Rechercher », « Série », « Rareté » et « Doublons seulement » aident à trouver la bonne carte.' },
+        { title: 'Sélectionne les cartes demandées', text: 'Dans la colonne « Je demande à… », touche les cartes que tu veux recevoir. Le même filtrage est disponible.' },
+        { title: 'Ajoute des Paillettes si besoin', text: 'Renseigne « Paillettes que je donne » et/ou « Paillettes que je demande ». Ton solde s’affiche sous le champ : tu ne peux pas en donner plus que tu n’en as.' },
+        { title: 'Envoie l’offre', text: 'Relis le récapitulatif, ajoute un message facultatif, puis touche « Envoyer l’offre ». Elle apparaît dans l’onglet « Envoyées ».' },
+      ],
+      tips: [
+        'Le panneau « Aperçu » montre la carte survolée (ou mise au focus) sans la sélectionner. Sur téléphone, il se replie en haut de la fenêtre : touche « Détails » pour l’ouvrir.',
+        'Les cartes que tu donnes sont bloquées tant que l’offre est en attente : tu ne peux pas les proposer ailleurs.',
+        'Pour préparer l’offre à partir de la collection d’un membre, voir le tuto « Préparer un échange avec un membre ».',
+      ],
+      keywords: ['échange', 'proposer', 'offre', 'filtre', 'aperçu', 'paillettes', 'doublons'],
+    },
+    {
+      slug: 'repondre-a-une-offre',
+      title: 'Répondre à une offre reçue',
+      summary: 'Accepter, refuser ou annuler une offre d’échange, et comprendre le message Discord qui la signale.',
+      page: '/humane-gang-tests/pages/cartes/cartes.html',
+      steps: [
+        { title: 'Ouvre les offres reçues', text: 'Sur Cartes, touche « Échanges », puis le sous-onglet « Reçues ». Le nombre entre parenthèses indique les offres en attente.' },
+        { title: 'Lis l’offre', text: 'Chaque carte d’offre montre ce que le membre te donne, ce qu’il te demande, les Paillettes éventuelles et son message.' },
+        { title: 'Accepte, refuse ou contre-propose', text: 'Touche « Accepter » (une confirmation « Accepter cet échange ? » s’affiche : l’échange est définitif), « Refuser », ou « Contre-proposer » pour modifier l’offre.' },
+        { title: 'Retrouve l’échange conclu', text: 'Une offre acceptée passe dans « Historique » avec le statut « Acceptée ».' },
+      ],
+      tips: [
+        'Le MP Discord « te propose un échange » arrive seulement si tu as relié ton ID Discord, activé « Le bot peut m’écrire sur Discord » et laissé « Cartes · échanges » sur Discord dans « Mes notifications » (Mon compte).',
+        'Le MP renvoie vers la page Cartes : c’est là que tu réponds, rien ne se fait depuis Discord.',
+        'Une offre que tu as envoyée se retire avec « Annuler l’offre », dans l’onglet « Envoyées ».',
+      ],
+      keywords: ['offre', 'accepter', 'refuser', 'reçues', 'discord', 'mp', 'annuler'],
+    },
+    {
+      slug: 'contre-proposition',
+      title: 'Faire une contre-proposition',
+      summary: 'Modifier une offre reçue au lieu de l’accepter ou de la refuser.',
+      page: '/humane-gang-tests/pages/cartes/cartes.html',
+      steps: [
+        { title: 'Ouvre l’offre reçue', text: 'Sur Cartes, touche « Échanges », puis « Reçues », et repère l’offre à modifier.' },
+        { title: 'Touche « Contre-proposer »', text: 'La fenêtre s’ouvre avec le titre « Contre-proposition à… » et l’offre d’origine déjà remplie : les cartes données et demandées sont reprises.' },
+        { title: 'Modifie la sélection', text: 'Ajoute ou retire des cartes dans les deux colonnes, ajuste les Paillettes et le message.' },
+        { title: 'Envoie la contre-proposition', text: 'Touche « Envoyer la contre-proposition ». Ta proposition remplace l’offre reçue : l’offre d’origine n’est plus valable.' },
+      ],
+      tips: [
+        'Une contre-proposition ne peut pas être offerte en cadeau : le bouton « Offrir en cadeau » n’apparaît que pour une nouvelle offre.',
+        'Le membre reçoit ta contre-proposition comme une nouvelle offre dans son onglet « Reçues ».',
+      ],
+      keywords: ['contre-proposition', 'contre-proposer', 'modifier', 'offre'],
+    },
+    {
+      slug: 'offrir-une-carte',
+      title: 'Offrir une carte en cadeau',
+      summary: 'Donner une carte à un membre sans rien demander en retour.',
+      page: '/humane-gang-tests/pages/cartes/cartes.html',
+      steps: [
+        { title: 'Ouvre l’onglet Proposer', text: 'Sur Cartes, touche « Échanges », puis « Proposer ». Choisis le membre et touche « Composer l’offre ».' },
+        { title: 'Choisis la ou les cartes', text: 'Dans « Je donne », sélectionne au moins une carte. Les cartes et Paillettes demandées ne sont pas prises en compte pour un cadeau.' },
+        { title: 'Touche « Offrir en cadeau »', text: 'Le bouton est en bas de la fenêtre, à gauche de « Annuler ».' },
+        { title: 'Confirme', text: 'Dans la fenêtre « Offrir ce cadeau ? », touche « Offrir ». Le cadeau est définitif.' },
+      ],
+      tips: [
+        'Un cadeau apparaît dans « Historique » avec le libellé « Cadeau ».',
+        'Pour un échange avec du retour, propose plutôt un échange classique : il faut alors demander des cartes ou des Paillettes.',
+      ],
+      keywords: ['cadeau', 'offrir', 'don', 'gratuit'],
+    },
+    {
+      slug: 'preparer-un-echange',
+      title: 'Préparer un échange avec un membre',
+      summary: 'Voir la collection d’un membre, repérer les correspondances et proposer un échange sur mesure.',
+      page: '/humane-gang-tests/pages/cartes/cartes.html',
+      steps: [
+        { title: 'Ouvre la fiche du membre', text: 'Sur ta page « Carte d’identité », la liste du gang à côté de la carte mène à la fiche de chaque membre. Ouvre celle du membre avec qui tu veux échanger.' },
+        { title: 'Voir sa collection', text: 'Touche « Voir sa collection ». Tu vois ses cartes : elles te servent à repérer ce qui t’intéresse.' },
+        { title: 'Proposer un échange', text: 'Touche « Proposer un échange » : l’éditeur s’ouvre avec le membre déjà choisi. Termine ensuite comme pour une offre classique.' },
+        { title: 'Autre option : les correspondances', text: 'Sur Cartes, onglet « Échanges », sous-onglet « Correspondances » : chaque ligne indique une carte qu’un membre a et que tu souhaites, ou une carte que tu as en double et qu’un membre souhaite. « Proposer un échange » ouvre l’éditeur pré-rempli avec cette carte.' },
+      ],
+      tips: [
+        'Les correspondances s’appuient sur ta liste de souhaits : complète-la pour recevoir des propositions utiles.',
+      ],
+      keywords: ['collection', 'membre', 'correspondances', 'souhaits', 'préparer', 'échange'],
+    },
+    {
+      slug: 'quetes-de-la-semaine',
+      title: 'Les quêtes de la semaine',
+      summary: 'Accomplir les quêtes de la semaine et réclamer leurs Paillettes.',
+      page: '/humane-gang-tests/pages/cartes/cartes.html',
+      steps: [
+        { title: 'Trouve le bloc des quêtes', text: 'Sur Cartes, onglet « Ouverture », le bloc « Quêtes de la semaine » se trouve sous la zone d’ouverture des boosters.' },
+        { title: 'Lis l’avancement', text: 'Chaque quête affiche sa barre de progression et le compte « X / Y ». Elle se remplit toute seule au fil de tes actions (ouvrir des boosters, conclure un échange, etc.).' },
+        { title: 'Réclame la récompense', text: 'Quand une quête est terminée, touche « Réclamer · » suivi du montant. Les Paillettes sont ajoutées à ton solde.' },
+        { title: 'Attends le lundi suivant', text: 'Une fois réclamée, la quête affiche « Récompense reçue ». De nouvelles quêtes apparaissent le lundi suivant, à 00 h (heure de Zurich).' },
+      ],
+      tips: [
+        'Les quêtes ne se réclament pas automatiquement : pense à toucher « Réclamer ».',
+        'Le titre du bloc indique le nombre de quêtes terminées sur la semaine.',
+      ],
+      keywords: ['quête', 'semaine', 'réclamer', 'récompense', 'paillettes'],
+    },
+    {
+      slug: 'defis-du-gang',
+      title: 'Les défis du gang',
+      summary: 'Suivre l’objectif collectif en cours, dont chaque membre touche la récompense.',
+      page: '/humane-gang-tests/pages/compte/accueil.html',
+      steps: [
+        { title: 'Repère le bloc « Défi du gang »', text: 'Sur l’accueil, le bloc « Défi du gang » apparaît quand un défi est en cours. Sans défi actif, il reste masqué.' },
+        { title: 'Lis l’objectif', text: 'Chaque défi a un titre, une description, une barre de progression et un compteur « X / Y » sur l’action visée.' },
+        { title: 'Contribue', text: 'La progression est collective : chaque membre qui fait l’action fait avancer la barre (par exemple, ouvrir des boosters ou conclure des échanges).' },
+        { title: 'Reçois la récompense', text: 'Quand l’objectif est atteint, la récompense en Paillettes est versée automatiquement à chaque membre. Elle apparaît ensuite dans l’historique des Paillettes.' },
+      ],
+      tips: [
+        'Le montant de la récompense est indiqué sous la barre : « récompense : … Paillettes pour chacun ».',
+        'La récompense est versée par un contrôle régulier (toutes les heures) : un léger délai est normal après avoir atteint l’objectif.',
+      ],
+      keywords: ['défi', 'gang', 'collectif', 'objectif', 'accueil', 'récompense'],
+    },
+    {
+      slug: 'classement',
+      title: 'Lire le classement',
+      summary: 'Comprendre comment le score est calculé et ce que disent les lignes du classement.',
+      page: '/humane-gang-tests/pages/cartes/cartes.html',
+      steps: [
+        { title: 'Ouvre l’onglet Classement', text: 'Sur Cartes, touche « Classement ».' },
+        { title: 'Lis le score', text: 'Le score additionne la valeur de toutes les cartes possédées. Une carte brillante compte double.' },
+        { title: 'Lis les détails de chaque ligne', text: 'Sous le nom : le nombre de cartes uniques, d’exemplaires, de brillantes, d’identités et de séries. Ta ligne porte la mention « (toi) ».' },
+        { title: 'Prépare un échange', text: 'Pour proposer un échange à un membre, voir le tuto « Préparer un échange avec un membre ».' },
+      ],
+      tips: [
+        'Le classement se met à jour à chaque ouverture de l’onglet.',
+        'Chaque exemplaire compte dans le score : un doublon ajoute sa valeur, comme la première carte.',
+      ],
+      keywords: ['classement', 'score', 'brillante', 'valeur', 'rang'],
+    },
+    {
+      slug: 'vitrine',
+      title: 'Ta vitrine sur ta fiche membre',
+      summary: 'Mettre en avant jusqu’à trois cartes de ta collection sur ta fiche membre.',
+      page: '/humane-gang-tests/pages/compte/membre.html',
+      steps: [
+        { title: 'Ouvre ta fiche membre', text: 'Dans Compte, touche « Voir ma carte d’identité ». La section « Vitrine » est sur cette page.' },
+        { title: 'Touche « Modifier ma vitrine »', text: 'Le bouton n’apparaît que sur ta propre fiche. La fenêtre « Ma vitrine » s’ouvre.' },
+        { title: 'Choisis jusqu’à trois cartes', text: 'Dans « Ma collection », touche une carte pour l’ajouter à un emplacement. Touche-la de nouveau pour la retirer. Un emplacement se libère avec « Libérer ».' },
+        { title: 'Enregistre', text: 'Touche « Enregistrer ». Les cartes apparaissent dans ta vitrine, et les emplacements vides sont indiqués « Emplacement N libre ».' },
+      ],
+      tips: [
+        'Une carte recyclée ou cédée à un autre membre sort automatiquement de la vitrine.',
+        'Les autres membres voient ta vitrine sur ta fiche, mais ne peuvent pas la modifier.',
+      ],
+      keywords: ['vitrine', 'fiche', 'membre', 'carte', 'emplacement', 'mettre en avant'],
+    },
+    {
+      slug: 'attraper-une-carte-sauvage',
+      title: 'Attraper une carte sauvage',
+      summary: 'Cliquer le premier sur une carte qui apparaît au hasard pour la gagner.',
+      page: null,
+      steps: [
+        { title: 'Repère la carte', text: 'Une carte sauvage apparaît dans le coin inférieur droit de l’écran, sur n’importe quelle page du site.' },
+        { title: 'Lis le compteur', text: 'Sous la carte, le texte indique le nombre d’exemplaires restants, ou « Dernier exemplaire ! ».' },
+        { title: 'Clique sur la carte', text: 'Touche la carte elle-même. Le premier qui clique la gagne : elle s’affiche en révélation, « Tu as attrapé… ».' },
+        { title: 'Vérifie ta collection', text: 'La carte est ajoutée à ta collection. Si les exemplaires sont épuisés, un message « trop tard » s’affiche.' },
+      ],
+      tips: [
+        'Le bouton « × » en haut à gauche de la carte la masque sur cette page seulement.',
+        'Une carte que tu as déjà gagnée n’est plus proposée.',
+      ],
+      keywords: ['drop', 'carte sauvage', 'attraper', 'capturer', 'gagner', 'exemplaire'],
+    },
+    {
+      slug: 'series-completees',
+      title: 'Compléter une série',
+      summary: 'Repérer ta progression dans une série et toucher la récompense quand elle est complète.',
+      page: '/humane-gang-tests/pages/cartes/cartes.html',
+      steps: [
+        { title: 'Ouvre la collection', text: 'Sur Cartes, touche « Mes cartes ». Dans la liste « Série », choisis une série ou « Toutes les séries ».' },
+        { title: 'Lis la progression', text: 'Chaque série affiche ses cartes possédées sur le total et une barre de progression.' },
+        { title: 'Complète la série', text: 'Il te manque des cartes ? Ouvre des boosters ou attrape des cartes sauvages, ou propose un échange pour les obtenir.' },
+        { title: 'Reçois la récompense', text: 'Quand tu possèdes toutes les cartes d’une série, la récompense en Paillettes est versée automatiquement. Elle apparaît dans « Historique des Paillettes » avec le libellé « Série complétée ».' },
+      ],
+      tips: [
+        'Les cartes Identité ne comptent pas dans une série complétée.',
+        'La récompense n’est versée qu’une seule fois par série.',
+      ],
+      keywords: ['série', 'complétée', 'complète', 'récompense', 'collection', 'historique'],
+    },
+    {
+      slug: 'questions-du-gang',
+      title: 'Répondre aux questions du gang',
+      summary: 'Répondre aux questions de l’admin, filtrer par difficulté et gagner des Paillettes si ta réponse est juste.',
+      page: '/humane-gang-tests/pages/jeux/quiz.html',
+      steps: [
+        { title: 'Ouvre la page', text: 'Sur Cartes, dans l’encart « Questions du gang » sous les quêtes, touche le lien. Tu peux aussi ouvrir « Questions du gang » depuis le menu.' },
+        { title: 'Lis le résumé', text: 'En haut, tu vois les questions ouvertes, tes bonnes réponses et les Paillettes gagnées grâce aux questions.' },
+        { title: 'Filtre par difficulté', text: 'Les boutons « Tous », « Facile », « Moyen », « Difficile » et « Expert » ne gardent que les questions de ce niveau. Chaque pastille indique la difficulté avec ses étoiles.' },
+        { title: 'Choisis ta réponse', text: 'Selon le type : touche le bouton radio d’un choix, coche plusieurs cases si la consigne le demande, ou écris ta réponse dans le champ (un nombre accepte la virgule).' },
+        { title: 'Valide ta réponse', text: 'Touche « Valider ma réponse ». Tu n’as qu’une seule tentative : la réponse ne peut plus être modifiée.' },
+        { title: 'Lis le résultat', text: 'Un bandeau indique « Bravo » avec les Paillettes gagnées, « Raté », ou « En attente de validation par l’admin » pour une réponse libre. Il montre aussi la bonne réponse et l’explication.' },
+      ],
+      tips: [
+        'Les Paillettes d’une bonne réponse sont versées tout de suite, et apparaissent dans « Historique des Paillettes ».',
+        'Les questions répondues passent dans « Déjà répondues », repliable en bas de la page, avec ta réponse et la bonne réponse.',
+        'Une question a parfois une date limite (« Jusqu’au… »). Passé ce délai, elle n’apparaît plus.',
+      ],
+      keywords: ['quiz', 'questions', 'gang', 'question', 'réponse', 'paillettes', 'difficulté', 'facile', 'expert', 'récompense'],
+    },
+  ],
+};

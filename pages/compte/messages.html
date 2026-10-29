@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' https://zqbdzokyhgavgmqgiwuw.supabase.co wss://zqbdzokyhgavgmqgiwuw.supabase.co https://nominatim.openstreetmap.org; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <script src="/humane-gang-tests/assets/commun/theme-boot.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Messages · Humane Gang</title>
+  <link rel="canonical" href="https://humane-gang.com/pages/compte/messages.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Humane Gang">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Messages · Humane Gang">
+  <meta property="og:description" content="Messagerie privée du Humane Gang : conversations entre membres et messages anonymes du Secret Santa.">
+  <meta property="og:url" content="https://humane-gang.com/pages/compte/messages.html">
+  <meta property="og:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo du Humane Gang">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Messages · Humane Gang">
+  <meta name="twitter:description" content="Messagerie privée du Humane Gang : conversations entre membres et messages anonymes du Secret Santa.">
+  <meta name="twitter:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Messagerie privée du Humane Gang : conversations entre membres et messages anonymes du Secret Santa.">
+  <link rel="icon" type="image/png" href="/humane-gang-tests/assets/images/marque/favicon-64.png">
+  <link rel="manifest" href="/humane-gang-tests/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/humane-gang-tests/assets/images/marque/apple-touch-icon.png">
+  <meta name="theme-color" content="#0b0a10">
+  <link rel="preconnect" href="https://zqbdzokyhgavgmqgiwuw.supabase.co">
+  <link rel="modulepreload" href="/humane-gang-tests/assets/vendor/supabase-js-2.45.4.mjs">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/base.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/themes-decor.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/cartes/card-drops.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/messages/messages.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/compte/social.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/report.css">
+</head>
+<body class="page-msg">
+  <main class="container" id="app">
+    <div class="page-head msg-head">
+      <div>
+        <div class="eyebrow">Entre nous</div>
+        <h1 class="page-title">Messages</h1>
+      </div>
+      <!-- Place des boutons, réservée pendant le chargement (remplacée par renderShell) -->
+      <div class="btn-row msg-head-actions msg-sk-actions" aria-hidden="true">
+        <span class="btn btn-ghost" tabindex="-1">Nouveau groupe</span>
+        <span class="btn btn-primary" tabindex="-1">Nouveau message</span>
+      </div>
+    </div>
+    <p class="visually-hidden" role="status">Chargement des conversations…</p>
+    <!-- Squelette à la hauteur finale de la messagerie : pas de saut quand renderShell la remplace -->
+    <div class="msg-app msg-app-sk" aria-hidden="true" data-view="list">
+      <div class="msg-side">
+        <ul class="msg-convs">
+          <li class="msg-conv-sk"><span class="msg-sk msg-sk-av"></span><span class="msg-sk-lines"><span class="msg-sk msg-sk-l1"></span><span class="msg-sk msg-sk-l2"></span></span></li>
+          <li class="msg-conv-sk"><span class="msg-sk msg-sk-av"></span><span class="msg-sk-lines"><span class="msg-sk msg-sk-l1"></span><span class="msg-sk msg-sk-l2"></span></span></li>
+          <li class="msg-conv-sk"><span class="msg-sk msg-sk-av"></span><span class="msg-sk-lines"><span class="msg-sk msg-sk-l1"></span><span class="msg-sk msg-sk-l2"></span></span></li>
+          <li class="msg-conv-sk"><span class="msg-sk msg-sk-av"></span><span class="msg-sk-lines"><span class="msg-sk msg-sk-l1"></span><span class="msg-sk msg-sk-l2"></span></span></li>
+        </ul>
+      </div>
+      <div class="msg-main"></div>
+    </div>
+    <p class="muted small msg-admin-note"><span>Les messages peuvent être consultés par l’admin. <a href="/humane-gang-tests/pages/infos/legal.html#confidentialite">En savoir plus</a></span></p>
+  </main>
+
+  <dialog class="msg-dialog" id="msg-new-dlg" aria-labelledby="msg-new-title">
+    <form method="dialog" class="stack" id="msg-new-form">
+      <div class="msg-dialog-head">
+        <h2 id="msg-new-title" class="msg-dialog-title">Nouveau message</h2>
+        <button class="btn btn-ghost msg-icon-btn" type="submit" value="cancel" aria-label="Fermer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="field">
+        <label for="msg-new-search">Écrire à</label>
+        <input id="msg-new-search" type="search" autocomplete="off" placeholder="Chercher un membre…">
+      </div>
+      <ul class="msg-pick" id="msg-new-list" aria-label="Membres"></ul>
+    </form>
+  </dialog>
+
+  <script type="module" src="/humane-gang-tests/assets/commun/site-boot.js"></script>
+  <script type="module" src="/humane-gang-tests/assets/espaces/messages/messages.js"></script>
+</body>
+</html>

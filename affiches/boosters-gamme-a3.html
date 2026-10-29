@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https:; connect-src 'self' https://zqbdzokyhgavgmqgiwuw.supabase.co wss://zqbdzokyhgavgmqgiwuw.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=1123">
+<title>La gamme des boosters — affiche A3</title>
+<link rel="stylesheet" href="/humane-gang-tests/assets/fonts/polices-affiches.css">
+<link rel="stylesheet" href="/humane-gang-tests/affiches/affiche.css">
+<link rel="stylesheet" href="/humane-gang-tests/assets/espaces/cartes/cartes.css">
+<link rel="stylesheet" href="/humane-gang-tests/assets/espaces/cartes/cartes-boosters.css">
+<style>
+  /* Tableau de la gamme : une colonne par booster, une ligne par information. Rempli par gamme.js (repli) puis affiches.js (base). */
+  .gamme { width: 100%; border-collapse: collapse; table-layout: fixed; hyphens: none; }
+  /* Un mot trop large pour sa case (police de repli plus large que l’Inter / l’Archivo, ex. machine sans les polices web) se coupe
+     au lieu de déborder de la case ; avec les vraies polices, aucun mot n’est coupé et la mise en page ne change pas. */
+  .gamme th, .gamme td { overflow-wrap: anywhere; }
+  .gamme thead th { vertical-align: top; }
+  .gamme th.lab { width: 104px; text-align: left; vertical-align: bottom; padding: 0 6px 12px 0; font-size: 19px; font-weight: 800; color: var(--muted); }
+  .gamme th.bo { position: relative; padding: 16px 4px 12px; text-align: center; font-size: 18px; font-weight: 800; line-height: 1.15; color: #fff; hyphens: none; overflow-wrap: anywhere; word-break: keep-all; border-bottom: 2px solid var(--line); }
+  .gamme .barre { position: absolute; left: 4px; right: 4px; top: 0; height: 8px; background: var(--tint, var(--gold)); }
+  .gamme .vitrine { position: relative; display: block; width: 53px; height: 70px; margin: 8px auto 12px; }
+  .gamme .vitrine .cart-box { transform: scale(.24); transform-origin: top left; }
+  .gamme .bn .n { color: var(--gold); font-weight: 800; }
+  .gamme tbody th { padding: 12px 8px 12px 0; text-align: left; font-size: 19px; font-weight: 800; color: var(--text); border-top: 1px solid var(--line); }
+  .gamme tbody th.rar { color: var(--c, var(--text)); }
+  .gamme tbody tr.meta th { color: var(--muted); font-weight: 700; }
+  .gamme tbody td { padding: 12px 4px; text-align: center; font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text); border-top: 1px solid var(--line); border-left: 1px solid rgba(58, 54, 70, .45); }
+  .gamme tbody td.mc { padding-left: 2px; padding-right: 2px; }
+  .gamme tbody tr.meta td { hyphens: manual; }   /* coupures &shy; (ex. « Manquan&shy;tes ») gardées dans les cases */
+  .gamme tbody tr.meta td { font-size: 19px; font-weight: 700; color: var(--text); line-height: 1.25; }
+  .gamme .prix { font-family: var(--display); font-weight: 400; font-size: 19px; color: var(--gold-2); white-space: nowrap; }
+  .gamme td.zero { opacity: .35; }
+  .gamme tr.brill td, .gamme tr.brill th { color: var(--gold-2); }
+  .gamme tbody tr:last-child { border-bottom: 2px solid var(--line); }
+  .notes { margin: 0; font-size: 19px; line-height: 1.4; color: var(--muted); }
+  .notes b { color: var(--text); }
+</style>
+</head>
+<body>
+<main class="affiche" data-affiche="boosters-gamme">
+  <div class="band" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <header class="mast">
+    <img class="logo" src="/humane-gang-tests/assets/images/marque/logo-512.webp" alt="Logo Humane Gang">
+    <div>
+      <p class="kicker">Humane Gang · Page Cartes · Boutique</p>
+      <h1>La gamme des boosters</h1>
+      <p class="lede" id="gamme-intro">Neuf boosters pour agrandir ta collection, achetés avec des Paillettes dans la Boutique.</p>
+    </div>
+  </header>
+
+  <div class="corps">
+    <table class="gamme" aria-label="Les boosters, leurs prix et leurs taux">
+      <thead id="gamme-tete"></thead>
+      <tbody id="gamme"></tbody>
+    </table>
+
+    <p class="notes"><b>Taux</b> : en % de chaque carte tirée. <b>Tirage</b> : <b>Toutes</b> = toutes les cartes sauf les uniques ; <b>Série choisie</b> = la série choisie à l’ouverture ; <b>Manquantes</b> = seulement les cartes que tu n’as pas (la différence est remboursée). Les boosters s’achètent dans la Boutique. Le Classique est aussi offert 1 fois par jour. Sans pastille de limite : pas de limite.</p>
+  </div>
+
+  <footer class="pied">
+    <span>Taux en % par carte tirée</span>
+    <span id="gamme-date">Données écrites dans la page</span>
+  </footer>
+  <div class="band" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</main>
+<script src="/humane-gang-tests/affiches/gamme.js"></script>
+<script type="module" src="/humane-gang-tests/affiches/affiches.js"></script>
+</body>
+</html>

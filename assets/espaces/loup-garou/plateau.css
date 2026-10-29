@@ -1,0 +1,277 @@
+/* ===== Humane Gang — Loup-Garou : écran de partie (plateau.js, actions.js) =====
+   Mise en page : une colonne sur téléphone (ordre fixé avec « order »), deux colonnes à partir de 900 px.
+   Ambiance : .lg-pl[data-ambiance="nuit|jour"] (posée par plateau.js). Chat et écran ensanglanté : loup-garou.css. */
+
+.lg-pl {
+  --lg-pl-fond: #12151F; --lg-pl-bord: #252C3D; --lg-pl-accent: #7E93C9;
+  display: flex; flex-direction: column; gap: 16px;
+  max-width: 1200px; margin: 0 auto; padding: 8px 16px 56px;
+}
+.lg-pl[data-ambiance="jour"] { --lg-pl-fond: #1E1B14; --lg-pl-bord: #3A3424; --lg-pl-accent: #E2C77E; }
+
+.lg-pl-carte {
+  background: var(--lg-pl-fond); border: 1px solid var(--lg-pl-bord); border-radius: var(--radius);
+  padding: 18px; color: var(--text); min-width: 0;
+}
+.lg-pl-h { font-size: 16px; font-weight: 700; margin: 0 0 12px; font-family: var(--font-body); }
+.lg-pl-sous-titre { font-size: 13px; font-weight: 700; color: var(--muted); margin: 14px 0 8px; font-family: var(--font-body); }
+.lg-pl-eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.lg-pl-note { margin: 8px 0; display: flex; align-items: center; gap: 8px; font-weight: 700; }
+.lg-pl-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14px; }
+.lg-pl-desc { margin: 10px 0 0; }
+
+/* ---------- Bandeau de phase et minuteur ---------- */
+.lg-pl-bandeau { display: grid; gap: 14px; }
+.lg-pl-phase { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.lg-pl-lueur { width: 56px; height: 56px; display: grid; place-items: center; flex: none; border-radius: 50%; }
+.lg-pl-phase-texte { min-width: 0; }
+.lg-pl-titre { font-size: clamp(22px, 4vw, 30px); font-weight: 800; margin: 0; line-height: 1.15; font-family: var(--font-body); }
+.lg-pl-sous { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+.lg-pl-temps { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.lg-pl-temps-l { font-size: 13px; color: var(--muted); }
+.lg-pl-chrono { font-size: 28px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+.lg-pl-barre { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.lg-pl-barre > span { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--lg-pl-accent); transition: width .9s linear; }
+
+/* ---------- Table (le composant table.js occupe la zone) ---------- */
+.lg-pl-table { min-width: 0; }
+
+/* ---------- Colonne de droite ---------- */
+.lg-pl-colonne { display: contents; }
+.lg-pl-annonce-zone:empty, .lg-pl-action-zone:empty { display: none; }
+.lg-pl-annonce { background: var(--lg-pl-fond); border: 1px solid var(--rose); border-left-width: 4px; border-radius: var(--radius); padding: 16px 18px; }
+.lg-pl-annonce .lg-pl-h { color: var(--rose); }
+.lg-pl-annonce-corps p { margin: 0 0 6px; font-size: 15px; }
+.lg-pl-annonce-corps p:last-child { margin-bottom: 0; }
+
+.lg-pl-action-carte { display: flex; flex-direction: column; gap: 14px; border-color: var(--lg-pl-accent); }
+.lg-pl-action-tete { display: flex; align-items: center; gap: 14px; }
+.lg-pl-action-id { min-width: 0; display: grid; gap: 4px; }
+.lg-pl-action-role { margin: 0; font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.lg-pl-action-role strong { color: var(--text); }
+.lg-pl-action-titre { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 20px; font-weight: 800; font-family: var(--font-body); }
+.lg-pl-consigne { margin: 0; font-size: 15px; line-height: 1.5; }
+.lg-pl-consigne strong { color: var(--sand); }
+.lg-pl-pied { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+.lg-pl-pied .btn { min-height: 44px; }
+.lg-pl-attente p { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* Options pressables (aria-pressed) : la coche porte l'état, pas seulement la couleur */
+.lg-pl-options { display: grid; gap: 8px; grid-template-columns: 1fr; }
+.lg-pl-cartes { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.lg-pl-option {
+  font: inherit; font-size: 15px; font-weight: 600; color: var(--text); text-align: left;
+  min-height: 48px; padding: 8px 12px; border-radius: var(--radius-sm); cursor: pointer;
+  border: 1px solid var(--border-strong); background: var(--surface-2);
+  display: flex; align-items: center; gap: 10px;
+}
+.lg-pl-option[aria-pressed="true"] { border: 2px solid var(--lg-pl-accent); background: color-mix(in srgb, var(--lg-pl-accent) 16%, var(--surface-2)); }
+.lg-pl-option:disabled { opacity: .5; cursor: not-allowed; }
+.lg-pl-option .lg-pl-coche { margin-left: auto; color: var(--lg-pl-accent); }
+@media (hover: hover) { .lg-pl-option:not(:disabled):hover { border-color: var(--text); } }
+.lg-pl-carte-centre { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.lg-pl-inconnu { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: var(--surface-2); color: var(--muted); font-weight: 800; flex: none; }
+
+.lg-pl-cible { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 15px; min-height: 44px; }
+.lg-pl-cible-l { font-size: 13px; color: var(--muted); }
+.lg-pl-effacer { width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--border-strong); background: transparent; color: var(--text); display: inline-grid; place-items: center; cursor: pointer; }
+.lg-pl-potion-mort { display: grid; gap: 6px; padding-top: 6px; border-top: 1px dashed var(--border); }
+.lg-pl-potion-mort p { margin: 0; }
+.lg-pl-meute, .lg-pl-votes-liste { border-top: 1px dashed var(--border); padding-top: 10px; }
+.lg-pl-choix { margin: 0; font-size: 15px; }
+.lg-pl-coche-ok { color: var(--sage-text); }
+.lg-pl-action-carte .lg-pl-liste li { font-size: 14px; }
+
+/* ---------- Rôle et rôles restants ---------- */
+.lg-pl-role-tete { display: flex; align-items: center; gap: 14px; }
+.lg-pl-role-nom { margin: 0 0 6px; font-size: 20px; font-weight: 800; font-family: var(--font-body); }
+.lg-pl-restes { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.lg-pl-reste { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; min-height: 40px; }
+.lg-pl-reste-nom { font-size: 14px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lg-pl-reste-n { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--muted); }
+.lg-pl-reste.epuise { opacity: .45; }
+.lg-pl-reste.epuise .lg-pl-reste-nom { text-decoration: line-through; }
+
+/* ---------- Journal ---------- */
+.lg-pl-journal-corps { max-height: 320px; overflow-y: auto; padding-right: 4px; }
+.lg-pl-journal-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.lg-pl-j { font-size: 14px; line-height: 1.45; padding: 8px 10px; border-radius: var(--radius-sm); background: color-mix(in srgb, var(--lg-pl-fond) 60%, #000); border-left: 3px solid var(--border-strong); }
+.lg-pl-j-mort { border-left-color: var(--rose); }
+.lg-pl-j-vote { border-left-color: var(--sand); }
+.lg-pl-j-phase { border-left-color: var(--muted); color: var(--muted); }
+.lg-pl-j-prive { border-left-color: var(--lg-pl-accent); }
+.lg-pl-j-meneur { border-left-color: var(--amber); }
+.lg-pl-j-fin { border-left-color: var(--sage); }
+.lg-pl-pour-toi { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; color: var(--lg-pl-accent); margin-right: 4px; }
+.lg-pl-j-quand { white-space: nowrap; margin-left: 4px; }
+
+/* ---------- Chat : même zone que le reste, fil défilant ---------- */
+.lg-pl-chat { display: flex; flex-direction: column; gap: 10px; }
+.lg-pl-chat .lg-chat-fil { max-height: 300px; overflow-y: auto; }
+
+/* ---------- Écran ensanglanté : compléments ---------- */
+.lg-sang-titre { font-size: clamp(24px, 5vw, 32px); font-weight: 800; margin: 0; color: #F6E4E2; font-family: var(--font-body); }
+.lg-sang-role { margin: 0; font-size: 16px; color: #E9CFCB; }
+.lg-sang-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 15px; color: #E9CFCB; }
+.lg-sang-liste li { display: flex; gap: 10px; align-items: flex-start; }
+.lg-sang-liste .lg-ico { margin-top: 2px; color: #E0909A; }
+
+/* ---------- Ordre des blocs : téléphone = une colonne ---------- */
+.lg-pl-bandeau { order: 1; }
+.lg-pl-table { order: 2; }
+.lg-pl-annonce-zone { order: 3; }
+.lg-pl-action-zone { order: 4; }
+.lg-pl-chat { order: 5; }
+.lg-pl-role { order: 6; }
+.lg-pl-restants { order: 7; }
+.lg-pl-journal { order: 8; }
+
+/* Téléphone : le panneau d'action (vote, cible, pouvoir) passe avant la table, sinon il reste hors de l'écran. */
+@media (max-width: 899px) {
+  .lg-pl-action-zone { order: 2; }
+  .lg-pl-table { order: 3; }
+  .lg-pl-annonce-zone { order: 4; }
+}
+
+/* ---------- Ordinateur : table à gauche, colonne de droite, chat et journal dessous ---------- */
+@media (min-width: 900px) {
+  .lg-pl {
+    display: grid; grid-template-columns: minmax(0, 640px) minmax(0, 1fr);
+    gap: 20px; align-items: start;
+  }
+  .lg-pl-bandeau { grid-column: 1 / -1; grid-row: 1; order: 0; }
+  .lg-pl-table { grid-column: 1; grid-row: 2; order: 0; }
+  .lg-pl-colonne { display: flex; flex-direction: column; gap: 16px; grid-column: 2; grid-row: 2; min-width: 0; }
+  .lg-pl-chat { grid-column: 1; grid-row: 3; order: 0; }
+  .lg-pl-journal { grid-column: 2; grid-row: 3; order: 0; }
+  .lg-pl-bandeau { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px 24px; }
+  .lg-pl-bandeau .lg-pl-barre { grid-column: 1 / -1; }
+}
+
+/* ---------- Petits écrans : titres et lignes resserrés ---------- */
+@media (max-width: 420px) {
+  .lg-pl { padding-left: 16px; padding-right: 16px; }
+  .lg-pl-carte { padding: 16px; }
+  .lg-pl-lueur { width: 46px; height: 46px; }
+  .lg-pl-chrono { font-size: 24px; }
+  .lg-pl-action-tete { align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lg-pl-barre > span { transition: none; }
+}
+
+/* ---------- Mort qui observe : bords ensanglantés en permanence (ne capte aucun clic) ---------- */
+.lg-sang-fond { position: fixed; inset: 0; z-index: 60; pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, rgba(90, 8, 12, .45) 85%, rgba(60, 4, 8, .75) 100%); }
+.lg-sang-fond .lg-sang-coulures { height: 90px; opacity: .85; }
+body.lg-spectateur .lg-pl-bandeau { border-color: #8A1A20; }
+
+/* ---------- Thème du rôle (version « Horizon », themes.js) ----------
+   Variables posées par plateau.js : --th-a (accent), --th-rgb, --th-bg, --th-motif, --th-scene (images). */
+.lg-app { overflow-x: clip; }
+.lg-pl { position: relative; }
+.lg-pl > :not(.lg-pl-horizon) { position: relative; z-index: 1; }
+.lg-pl-horizon { display: none; }
+.lg-pl[data-theme] { padding-bottom: 240px; }
+.lg-pl[data-theme] .lg-pl-horizon { display: block; position: absolute; z-index: 0; left: 50%; transform: translateX(-50%); width: 100vw;
+  bottom: -48px; height: 720px; pointer-events: none;
+  background: var(--th-scene) center bottom / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 35%); mask-image: linear-gradient(180deg, transparent 0, #000 35%); }
+.lg-pl[data-theme] .lg-pl-carte { background: color-mix(in srgb, var(--lg-pl-fond) 90%, transparent); }
+.lg-pl[data-theme] .lg-pl-action-carte { position: relative; isolation: isolate; border-color: var(--th-a); box-shadow: 0 0 32px rgba(var(--th-rgb), .22);
+  background-image: linear-gradient(160deg, rgba(var(--th-rgb), .14) 0, transparent 55%); }
+/* Motif du rôle, discret, dans le coin du panneau d'action (derrière le texte) */
+.lg-pl[data-theme] .lg-pl-action-carte::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background: var(--th-motif) 0 0 / 160px 160px; opacity: .3;
+  -webkit-mask-image: linear-gradient(225deg, #000 0, transparent 50%); mask-image: linear-gradient(225deg, #000 0, transparent 50%); }
+.lg-pl[data-theme] .lg-pl-role { border-color: rgba(var(--th-rgb), .45); }
+.lg-pl-devise { margin: 10px 0 0; font-style: italic; color: var(--th-a, var(--lg-pl-accent)); }
+.lg-pl-table { position: relative; }
+.lg-pl-table-corps { position: relative; z-index: 1; }
+.lg-pl-embleme { position: absolute; z-index: 0; left: 50%; top: 50%; width: 78%; max-width: 520px; aspect-ratio: 1;
+  transform: translate(-50%, -50%); opacity: .16; pointer-events: none; }
+
+/* ---------- Effets de partie (vues/effets.js, table.js) ----------
+   Ajouts seulement : rien ne change de la mise en page. Tous les calques sont en pointer-events:none.
+   Coupés par body.lg-calme (mouvement réduit ou effets désactivés) : voir la fin du bloc. */
+
+/* Calque posé dans la zone de table (cartes, jetons, compteurs, tampons) */
+.lg-fx-calque { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+
+/* Anneau doré qui pulse sur mon siège quand une action m'attend, avec la pastille « À toi » */
+.lg-siege.lg-fx-atoi .lg-siege-av { box-shadow: 0 0 0 4px #E2C77E, 0 0 26px 6px rgba(226, 199, 126, .75); animation: lgFxPouls 1.2s ease-in-out infinite; }
+@keyframes lgFxPouls { 50% { box-shadow: 0 0 0 6px #E2C77E, 0 0 40px 12px rgba(226, 199, 126, .9); } }
+.lg-fx-puce { position: absolute; z-index: 4; left: 50%; top: -28px; transform: translateX(-50%); pointer-events: none;
+  background: #E2C77E; color: #0B0A10; font: 800 11px var(--font-body, Inter, sans-serif); letter-spacing: .06em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 999px; white-space: nowrap; animation: lgFxBulle 1.4s ease-in-out infinite; }
+@keyframes lgFxBulle { 50% { transform: translate(-50%, -3px); } }
+
+/* Panneau d'action surligné une fois quand l'action commence */
+.lg-fx-surligne { animation: lgFxCadre 1.3s ease-in-out 3; }
+@keyframes lgFxCadre { 50% { box-shadow: 0 0 0 3px #E2C77E, 0 0 34px rgba(226, 199, 126, .6); } }
+
+/* Secousse d'une victime (avatar) */
+.lg-siege.lg-fx-tremble .lg-siege-av { animation: lgFxSecoue .5s 2; }
+@keyframes lgFxSecoue { 20% { transform: translateX(-6px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(3px); } }
+
+/* Onde rouge autour d'un siège */
+.lg-fx-onde { position: absolute; z-index: 2; width: 90px; height: 90px; transform: translate(-50%, -50%); border-radius: 50%;
+  border: 4px solid #E5484D; animation: lgFxOnde .9s ease-out forwards; pointer-events: none; }
+@keyframes lgFxOnde { from { opacity: 1; transform: translate(-50%, -50%) scale(.5); } to { opacity: 0; transform: translate(-50%, -50%) scale(1.5); } }
+
+/* Carte de rôle retournée au-dessus d'un siège */
+.lg-fx-carte { position: absolute; z-index: 50; width: 74px; height: 104px; perspective: 600px; pointer-events: none; transform: translate(-50%, -100%); }
+.lg-fx-carte i { position: absolute; inset: 0; border-radius: 10px; backface-visibility: hidden; display: grid; place-items: center;
+  transition: transform .7s cubic-bezier(.3, .7, .3, 1); box-shadow: 0 10px 30px rgba(0, 0, 0, .6); }
+.lg-fx-carte .lg-fx-dos { background: repeating-linear-gradient(45deg, #1B2340 0 8px, #222C52 8px 16px); border: 2px solid #E2C77E; }
+.lg-fx-carte .lg-fx-face { background: #14110D; border: 2px solid #E2C77E; transform: rotateY(180deg); font: 700 11px var(--font-body, Inter, sans-serif);
+  color: #F2EFEA; padding: 6px; text-align: center; align-content: center; gap: 4px; }
+.lg-fx-carte .lg-fx-face img { width: 52px; height: 52px; border-radius: 8px; }
+.lg-fx-carte.lg-fx-tourne .lg-fx-dos { transform: rotateY(180deg); }
+.lg-fx-carte.lg-fx-tourne .lg-fx-face { transform: rotateY(360deg); }
+.lg-fx-carte.lg-fx-part { animation: lgFxPart .6s ease forwards; }
+@keyframes lgFxPart { to { opacity: 0; transform: translate(-50%, -130%); } }
+
+/* Jeton de vote qui vole vers le joueur visé, et son compteur */
+.lg-fx-jeton { position: absolute; z-index: 60; width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, .5);
+  pointer-events: none; transition: left .7s cubic-bezier(.3, .7, .3, 1), top .7s cubic-bezier(.3, .7, .3, 1), transform .7s; }
+.lg-fx-compte { position: absolute; z-index: 61; transform: translate(-50%, -50%); min-width: 30px; height: 30px; padding: 0 8px; border-radius: 999px;
+  background: #E5484D; color: #fff; font: 800 15px var(--font-body, Inter, sans-serif); display: grid; place-items: center; pointer-events: none;
+  box-shadow: 0 0 0 3px #1A0D0D, 0 0 24px rgba(229, 72, 77, .7); }
+.lg-fx-compte.lg-fx-pop { animation: lgFxPop .35s; }
+@keyframes lgFxPop { 50% { transform: translate(-50%, -50%) scale(1.35); } }
+
+/* Tampon « Éliminé » */
+.lg-fx-tampon { position: absolute; z-index: 62; transform: translate(-50%, -50%) rotate(-14deg) scale(2); opacity: 0; font: 900 22px var(--font-body, Inter, sans-serif);
+  color: #E5484D; border: 4px solid #E5484D; border-radius: 8px; padding: 2px 10px; background: rgba(20, 6, 6, .75); letter-spacing: .08em;
+  pointer-events: none; animation: lgFxTampon .5s ease forwards; }
+@keyframes lgFxTampon { to { opacity: 1; transform: translate(-50%, -50%) rotate(-14deg) scale(1); } }
+
+/* Passage nuit / jour : voile plein écran, astre et titre (corps de page, pointer-events:none) */
+.lg-fx-voile { position: fixed; inset: 0; z-index: 9000; pointer-events: none; opacity: 0; }
+.lg-fx-voile.lg-fx-nuit { background: radial-gradient(ellipse at 70% 10%, rgba(60, 80, 160, .55), rgba(5, 8, 25, .92) 60%); animation: lgFxNuit 2.6s ease forwards; }
+@keyframes lgFxNuit { 0% { opacity: 0; } 40% { opacity: 1; } 100% { opacity: 0; } }
+.lg-fx-voile.lg-fx-aube { background: linear-gradient(to top, rgba(255, 170, 60, .55), rgba(255, 120, 60, .25) 40%, rgba(10, 12, 30, .9)); animation: lgFxAube 3s ease forwards; }
+@keyframes lgFxAube { 0% { opacity: 1; } 100% { opacity: 0; } }
+.lg-fx-astre { position: fixed; z-index: 9001; width: 120px; height: 120px; border-radius: 50%; left: calc(50% - 60px); pointer-events: none; }
+.lg-fx-lune { background: #F4EBC8; box-shadow: -26px 10px 0 4px #0B1022 inset, 0 0 80px rgba(244, 235, 200, .5); animation: lgFxLune 2.6s ease forwards; }
+@keyframes lgFxLune { 0% { top: 110%; opacity: 0; } 45% { top: 18%; opacity: 1; } 100% { top: 18%; opacity: 0; } }
+.lg-fx-soleil { background: radial-gradient(circle, #FFE9A8, #FFB347 60%, #FF8A3D); box-shadow: 0 0 120px 40px rgba(255, 170, 60, .55); animation: lgFxSoleil 3s ease forwards; }
+@keyframes lgFxSoleil { 0% { top: 105%; opacity: 1; } 60% { top: 20%; opacity: 1; } 100% { top: 15%; opacity: 0; } }
+.lg-fx-titre { position: fixed; z-index: 9002; left: 50%; top: 42%; transform: translate(-50%, -50%); pointer-events: none; white-space: nowrap; opacity: 0;
+  font: 800 clamp(28px, 6vw, 64px) var(--font-body, Inter, sans-serif); color: #fff; text-shadow: 0 4px 30px rgba(0, 0, 0, .8); animation: lgFxTitre 2.4s ease forwards; }
+.lg-fx-titre small { display: block; text-align: center; font: 600 clamp(13px, 2vw, 18px) var(--font-body, Inter, sans-serif); opacity: .85; margin-top: 6px; }
+@keyframes lgFxTitre { 0% { opacity: 0; transform: translate(-50%, -40%); } 25% { opacity: 1; transform: translate(-50%, -50%); } 80% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Révélation : grande carte du rôle (écran de révélation) */
+.lg-fx-grande { position: fixed; inset: 0; z-index: 9100; display: grid; place-items: center; background: rgba(4, 5, 12, .78); pointer-events: none;
+  animation: lgFxFond 3.6s ease forwards; }
+@keyframes lgFxFond { 0% { opacity: 0; } 10% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; } }
+.lg-fx-carte.lg-fx-carte-grande { position: relative; transform: none; width: 190px; height: 270px; }
+.lg-fx-carte-grande .lg-fx-face { font-size: 18px; gap: 10px; }
+.lg-fx-carte-grande .lg-fx-face img { width: 130px; height: 130px; }
+
+/* Mouvement réduit ou effets désactivés : rien d'animé (les sièges restent statiques) */
+body.lg-calme .lg-siege.lg-fx-atoi .lg-siege-av, body.lg-calme .lg-fx-puce, body.lg-calme .lg-fx-surligne { animation: none !important; }
+body.lg-calme .lg-fx-voile, body.lg-calme .lg-fx-astre, body.lg-calme .lg-fx-titre, body.lg-calme .lg-fx-grande { display: none; }

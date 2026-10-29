@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' https://zqbdzokyhgavgmqgiwuw.supabase.co wss://zqbdzokyhgavgmqgiwuw.supabase.co https://nominatim.openstreetmap.org; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <script src="/humane-gang-tests/assets/commun/theme-boot.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assistance · Humane Gang</title>
+  <meta name="description" content="Assistance du Humane Gang : signaler un problème ou poser une question.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://humane-gang.com/pages/infos/assistance.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Humane Gang">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Assistance · Humane Gang">
+  <meta property="og:description" content="Assistance du Humane Gang : signaler un problème ou poser une question.">
+  <meta property="og:url" content="https://humane-gang.com/pages/infos/assistance.html">
+  <meta property="og:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo du Humane Gang">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Assistance · Humane Gang">
+  <meta name="twitter:description" content="Assistance du Humane Gang : signaler un problème ou poser une question.">
+  <meta name="twitter:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
+  <link rel="icon" type="image/png" href="/humane-gang-tests/assets/images/marque/favicon-64.png">
+  <link rel="manifest" href="/humane-gang-tests/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/humane-gang-tests/assets/images/marque/apple-touch-icon.png">
+  <meta name="theme-color" content="#0b0a10">
+  <link rel="preconnect" href="https://zqbdzokyhgavgmqgiwuw.supabase.co">
+  <link rel="modulepreload" href="/humane-gang-tests/assets/vendor/supabase-js-2.45.4.mjs">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/base.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/themes-decor.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/cartes/card-drops.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/infos/assistance.css">
+</head>
+<body>
+  <main class="container" id="app">
+    <div class="page-head">
+      <div>
+        <div class="eyebrow">Besoin d'un coup de main ?</div>
+        <h1 class="page-title">Assistance</h1>
+      </div>
+    </div>
+
+    <div class="support-layout">
+      <form class="card stack" id="support-form" novalidate>
+        <div class="field">
+          <label for="sp-pseudo">Ton pseudo</label>
+          <input id="sp-pseudo" name="pseudo" maxlength="40" autocomplete="nickname" required>
+          <p class="small muted hint" id="sp-pseudo-hint" hidden>Rempli depuis ton compte.</p>
+        </div>
+        <div class="field">
+          <label for="sp-subject">Sujet</label>
+          <select id="sp-subject" name="subject" required>
+            <option value="">Choisir…</option>
+            <option>Problème de compte / connexion</option>
+            <option>Secret Santa</option>
+            <option>Sortie IRL</option>
+            <option>Bug sur le site</option>
+            <option>Mes données personnelles</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sp-message">Message</label>
+          <textarea id="sp-message" name="message" rows="6" minlength="10" maxlength="4000" required placeholder="Explique ce qui se passe, ce que tu as essayé, sur quelle page…"></textarea>
+          <p class="small muted counter" id="sp-counter" aria-live="polite">0 / 4000</p>
+        </div>
+        <fieldset class="field sf-field" id="sp-files-field" hidden>
+          <legend class="sf-legend">Pièces jointes <span class="small muted">(facultatif)</span></legend>
+          <ul class="sf-prep" id="sp-files-list" aria-label="Pièces jointes à envoyer"></ul>
+          <div class="sf-add-row">
+            <button class="btn btn-ghost" type="button" id="sp-files-add" aria-describedby="sp-files-hint">Ajouter une image ou un PDF</button>
+          </div>
+          <input type="file" id="sp-files-input" accept="image/jpeg,image/png,image/webp,image/gif,application/pdf" multiple hidden>
+          <p class="small muted" id="sp-files-hint">JPG, PNG, WebP, GIF ou PDF · 5 Mo maximum par fichier · 3 fichiers au plus. Les images sont compressées avant l’envoi.</p>
+          <p class="small muted">Les pièces jointes ne sont visibles que par toi et le Staff.</p>
+          <p class="form-error" id="sp-files-error" role="alert" hidden></p>
+        </fieldset>
+        <div class="field">
+          <label for="sp-contact" id="sp-contact-label">Ton pseudo Discord pour la réponse</label>
+          <input id="sp-contact" name="contact" maxlength="100" autocomplete="off" placeholder="ex. pseudo_discord">
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="sp-website">Ne pas remplir ce champ</label>
+          <input id="sp-website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <p class="form-error" id="sp-error" role="alert" hidden></p>
+        <div class="btn-row">
+          <button class="btn btn-primary" type="submit">Envoyer la demande</button>
+        </div>
+        <p class="small muted"><span data-site-texte="assistance_intro">Ta demande est transmise à l'admin sur Discord par le bot Humane Gang. Ces infos servent uniquement à traiter ta demande.</span> <a href="/humane-gang-tests/pages/infos/legal.html#confidentialite">Confidentialité</a></p>
+      </form>
+
+      <aside class="card card-hist stack support-aside">
+        <h2>Avant d'écrire</h2>
+        <ul class="tips">
+          <li><strong>Mot de passe oublié :</strong> utilise le lien « Mot de passe oublié » sur la page <a href="/humane-gang-tests/pages/compte/compte.html">Connexion</a>.</li>
+          <li><strong>Code d'invitation :</strong> il ne sert qu'une fois. S'il ne marche pas, demande-en un nouveau ici.</li>
+          <li><strong>Tes données :</strong> tu peux les exporter ou supprimer ton compte toi-même depuis ta page <a href="/humane-gang-tests/pages/compte/compte.html">Compte</a>.</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="card done" id="support-done" hidden tabindex="-1" aria-labelledby="done-title">
+      <svg class="done-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>
+      <h2 id="done-title" class="display">Demande envoyée</h2>
+      <p><span data-site-texte="assistance_intro">Ta demande est transmise à l'admin sur Discord par le bot Humane Gang. Ces infos servent uniquement à traiter ta demande.</span></p>
+      <p class="muted" id="done-contact"></p>
+      <div class="btn-row">
+        <a class="btn btn-light" href="/humane-gang-tests/pages/compte/accueil.html">Retour à l'accueil</a>
+        <button class="btn btn-ghost" type="button" id="support-again">Nouvelle demande</button>
+      </div>
+    </section>
+
+    <section class="card stack my-support" id="my-support" hidden aria-labelledby="my-support-title">
+      <div id="my-support-list-view">
+        <h2 id="my-support-title">Mes demandes</h2>
+        <p class="small muted" id="my-support-empty" hidden>Tu n'as pas encore envoyé de demande.</p>
+        <p class="small muted" id="my-support-error" role="alert" hidden></p>
+        <ul class="my-support-list" id="my-support-list"></ul>
+      </div>
+      <div id="my-support-detail" hidden>
+        <button class="btn btn-ghost btn-sm" type="button" id="my-support-back">← Mes demandes</button>
+        <h3 class="my-support-subject" id="my-support-subject"></h3>
+        <p class="small muted" id="my-support-meta"></p>
+        <div class="my-thread" id="my-support-thread" role="log" aria-label="Fil de la demande"></div>
+        <p class="small muted">Pour ajouter une précision, envoie une nouvelle demande ci-dessus.</p>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/humane-gang-tests/assets/commun/site-boot.js"></script>
+  <script type="module" src="/humane-gang-tests/assets/espaces/infos/assistance.js"></script>
+</body>
+</html>

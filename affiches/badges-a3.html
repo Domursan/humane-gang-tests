@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https:; connect-src 'self' https://zqbdzokyhgavgmqgiwuw.supabase.co wss://zqbdzokyhgavgmqgiwuw.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=1123">
+<title>Les badges du gang</title>
+<link rel="stylesheet" href="/humane-gang-tests/assets/fonts/polices-affiches.css">
+<link rel="stylesheet" href="/humane-gang-tests/affiches/affiche.css">
+<style>
+  /* Trois colonnes équilibrées : le navigateur répartit le contenu selon sa hauteur réelle (un titre reste avec sa première carte, une carte ne se coupe pas). */
+  #sections { flex: 1; min-height: 0; columns: 3; column-gap: 22px; column-fill: balance; }
+  #sections .bloc { break-inside: auto; margin: 0 0 22px; }
+  #sections .sec-title { break-after: avoid; }
+  #sections .card, #sections .anc, #sections .lvl { break-inside: avoid; }
+  .sec-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 3px solid var(--framboise); }
+  .sec-title h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 32px; line-height: 1.05; text-transform: uppercase; color: #fff; }
+  .sec-title .tag { font-size: 19px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); }
+  .grid { display: flex; flex-direction: column; gap: 10px; }
+  .card { display: flex; gap: 14px; align-items: flex-start; padding: 12px 14px; background: var(--surface); border: 2px solid var(--line); border-radius: 14px; min-width: 0; }
+  .card.hot { border-color: var(--framboise); }
+  .card .ico, .lvl-ico { flex: 0 0 60px; width: 60px; height: 60px; display: grid; place-items: center; overflow: hidden; border-radius: 10px; background: var(--surface-2); font-size: 30px; }
+  .card .ico img, .lvl-ico img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+  .card h3 { margin: 0 0 4px; font-family: var(--display); font-weight: 400; font-size: 22px; line-height: 1.1; text-transform: uppercase; color: #fff; }
+  .card p { margin: 0; font-size: 19px; line-height: 1.32; color: var(--muted); }
+  /* Badges à niveaux : Ancienneté, Pentakill */
+  .anc { padding: 14px 16px; background: var(--surface); border: 2px solid var(--gold); border-radius: 14px; }
+  .anc h3 { margin: 0 0 4px; font-family: var(--display); font-weight: 400; font-size: 22px; line-height: 1.1; text-transform: uppercase; color: #fff; }
+  .anc-desc { margin: 0 0 10px; font-size: 19px; line-height: 1.32; color: var(--muted); }
+  .levels { display: flex; flex-direction: column; gap: 8px; }
+  .lvl { display: flex; align-items: center; gap: 12px; padding: 6px 12px 6px 6px; background: var(--surface-2); border-radius: 10px; }
+  .lvl .lvl-ico { flex: 0 0 48px; width: 48px; height: 48px; font-size: 24px; }
+  .lvl b { font-weight: 800; }
+  .lvl span { margin-left: auto; padding-left: 8px; font-weight: 800; color: var(--gold-2); text-align: right; line-height: 1.15; }
+
+  /* Plus de 21 badges (jusqu'à ~32) : quatre colonnes, pastilles et textes plus serrés. Ajouté par affiches.js.
+     Minimums d'impression : texte 12 pt (16 px), noms de badges 14 pt (19 px). */
+  .badges-dense #sections { columns: 4; column-gap: 14px; }
+  .badges-dense .sec-title { gap: 2px 10px; margin-bottom: 8px; padding-bottom: 6px; border-bottom-width: 2px; }
+  .badges-dense .sec-title h2 { font-size: 26px; }
+  .badges-dense .sec-title .tag { font-size: 16px; }
+  .badges-dense #sections .bloc { margin: 0 0 16px; }
+  .badges-dense .grid { gap: 7px; }
+  .badges-dense .card { gap: 9px; padding: 7px 9px; border-width: 2px; border-radius: 10px; }
+  .badges-dense .card .ico { flex: 0 0 40px; width: 40px; height: 40px; font-size: 22px; border-radius: 8px; }
+  .badges-dense .card h3 { margin: 0 0 2px; font-size: 19px; line-height: 1.05; }
+  .badges-dense .card p { font-size: 16px; line-height: 1.22; }
+  .badges-dense .anc { padding: 6px 6px; border-radius: 10px; }
+  .badges-dense .anc h3 { margin: 0 0 2px; font-size: 19px; line-height: 1.05; }
+  .badges-dense .anc-desc { margin: 0 0 6px; font-size: 16px; line-height: 1.22; }
+  .badges-dense .levels { gap: 4px; }
+  .badges-dense .lvl { gap: 4px; padding: 2px 5px 2px 2px; border-radius: 8px; flex-wrap: nowrap; }
+  .badges-dense .lvl .lvl-ico { flex: 0 0 22px; width: 22px; height: 22px; font-size: 12px; border-radius: 6px; }
+  .badges-dense .lvl b { font-size: 16px; min-width: 0; white-space: normal; line-height: 1.1; }
+  .badges-dense .lvl span { flex: none; font-size: 16px; padding-left: 2px; white-space: nowrap; }
+</style>
+</head>
+<body>
+<main class="affiche" data-affiche="badges">
+  <div class="band" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <header class="mast">
+    <img class="logo" src="/humane-gang-tests/assets/images/marque/logo-512.webp" alt="Logo Humane Gang">
+    <div>
+      <p class="kicker">Humane Gang · Guide des badges</p>
+      <h1>Les badges du gang</h1>
+      <p class="lede"><span id="nb-badges">21</span> badges à décrocher en vivant le gang. Chacun rapporte <b><span data-cfg="cartes.rewards.badge">500</span> ✦</b> Paillettes.</p>
+    </div>
+  </header>
+
+  <div class="corps">
+    <!-- Les sections (Secret Santa, Sorties IRL, Fidélité, Communauté, Secrets et cartes, Événements) sont construites par affiches.js à partir de hg_badges. -->
+    <div id="sections"></div>
+  </div>
+
+  <footer class="pied">
+    <span>Attribués automatiquement toutes les heures</span>
+    <span class="or">+<span data-cfg="cartes.rewards.badge">500</span> Paillettes par badge</span>
+  </footer>
+  <div class="band" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</main>
+<script type="module" src="/humane-gang-tests/affiches/affiches.js"></script>
+</body>
+</html>

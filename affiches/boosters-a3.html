@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https:; connect-src 'self' https://zqbdzokyhgavgmqgiwuw.supabase.co wss://zqbdzokyhgavgmqgiwuw.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=1123">
+<title>Obtenir des boosters — affiche A3</title>
+<link rel="stylesheet" href="/humane-gang-tests/assets/fonts/polices-affiches.css">
+<link rel="stylesheet" href="/humane-gang-tests/affiches/affiche.css">
+<style>
+/* Cartouche de booster : copie fidèle de assets/espaces/cartes/cartes.css (classes cart-*) */
+.cart-box { position: relative; width: 220px; height: 290px; }
+.cart-body { position: absolute; inset: 0; background: #2b2836;
+  clip-path: polygon(0px 12px,4px 12px,4px 8px,8px 8px,8px 4px,12px 4px,12px 0px,208px 0px,208px 4px,212px 4px,212px 8px,216px 8px,216px 12px,220px 12px,220px 282px,216px 282px,216px 286px,212px 286px,212px 290px,8px 290px,8px 286px,4px 286px,4px 282px,0px 282px); }
+.cart-notch { position: absolute; left: 78px; top: 0; width: 64px; height: 6px; background: #0b0508; }
+.cart-label { position: absolute; left: 22px; top: 26px; width: 176px; height: 150px; }
+.cart-label-fl { position: absolute; inset: 0; background: #B70127;
+  clip-path: polygon(0px 8px,4px 8px,4px 4px,8px 4px,8px 0px,168px 0px,168px 4px,172px 4px,172px 8px,176px 8px,176px 142px,172px 142px,172px 146px,168px 146px,168px 150px,8px 150px,8px 146px,4px 146px,4px 142px,0px 142px); }
+.cart-scr { position: absolute; left: 14px; top: 12px; width: 148px; height: 84px; background: #0b0508; overflow: hidden; }
+.cart-scr img { position: absolute; left: 40px; top: 8px; width: 68px; height: 68px; image-rendering: pixelated; }
+.cart-lbl1 { position: absolute; left: 22px; top: 128px; width: 176px; margin: 0; text-align: center; font-size: 16px; font-weight: 700; letter-spacing: .12em; line-height: 1; color: #fff; }
+.cart-lbl2 { position: absolute; left: 22px; top: 150px; width: 176px; margin: 0; text-align: center; font-size: 9.5px; letter-spacing: .2em; line-height: 1.2; color: #FBD32D; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cart-stripe { position: absolute; left: 22px; top: 186px; width: 176px; height: 8px; display: flex; }
+.cart-stripe i { flex: 1; display: block; }
+.cart-stripe i:nth-child(1) { background: #FE3104; }
+.cart-stripe i:nth-child(2) { background: #FCA301; }
+.cart-stripe i:nth-child(3) { background: #FBD32D; }
+.cart-stripe i:nth-child(4) { background: #159946; }
+.cart-stripe i:nth-child(5) { background: #2B5AE2; }
+.cart-stripe i:nth-child(6) { background: #4E2398; }
+.cart-ridge { position: absolute; left: 30px; top: 206px; width: 160px; height: 38px; background: repeating-linear-gradient(90deg, #15131c 0 4px, #4a4658 4px 8px); }
+.cart-foot { position: absolute; left: 0; right: 0; bottom: 14px; margin: 0; text-align: center; font-size: 11px; letter-spacing: .2em; color: #b7b0c4; }
+.cart-stk { position: absolute; right: -10px; top: 6px; width: 108px; height: 44px; margin: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: center; background: #159946; text-align: center; font-size: 11.5px; font-weight: 700;
+  line-height: 1.25; letter-spacing: .04em; text-transform: uppercase; color: #fff; text-shadow: 2px 2px 0 #0b0508; transform: rotate(8deg);
+  clip-path: polygon(0px 4px,4px 4px,4px 0px,104px 0px,104px 4px,108px 4px,108px 40px,104px 40px,104px 44px,4px 44px,4px 40px,0px 40px); }
+
+/* Quatre sources */
+.src { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.tile { position: relative; --tint: var(--gold); display: flex; flex-direction: column; min-width: 0; padding: 22px 16px 16px; background: var(--surface); border: 2px solid var(--line); border-radius: 14px; overflow: hidden; }
+.tile::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: var(--tint); border-radius: 14px 14px 0 0; }
+.tag { align-self: flex-start; padding: 4px 10px 3px; background: var(--tint); color: var(--bg); font-weight: 900; font-size: 19px; letter-spacing: .06em; text-transform: uppercase; border-radius: 4px; }
+.cwrap { position: relative; width: 121px; height: 160px; margin: 14px auto 12px; }
+.cwrap .cart-box { transform: scale(.55); transform-origin: top left; }
+.cwrap.stack > .st { position: absolute; left: 0; top: 0; width: 220px; height: 290px; transform-origin: top left; }
+.cwrap.stack > .st > .cart-box { transform: none; }
+.cwrap.stack > .st.back { filter: brightness(.68); }
+.tile h3 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font-size: 26px; line-height: 1.02; text-transform: uppercase; color: #fff; }
+.fig { margin: 4px 0 8px; font-family: var(--display); font-size: 42px; line-height: 1; color: var(--gold-2); font-variant-numeric: tabular-nums; }
+.fig small { display: block; margin-top: 4px; font-family: var(--body); font-size: 19px; font-weight: 700; color: var(--muted); }
+.tile p { margin: 0; color: var(--text); line-height: 1.35; }
+
+/* Contenu d'un booster */
+.inside { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 34px; align-items: start; }
+.big { position: relative; width: 220px; height: 290px; margin: 0 auto; }
+.cap { margin: 14px 0 0; text-align: center; color: var(--muted); line-height: 1.35; }
+.facts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.facts li { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 14px; align-items: center; padding: 12px 16px; background: var(--surface); border-left: 6px solid var(--gold); border-radius: 0 12px 12px 0; }
+.facts b { font-family: var(--display); font-weight: 400; font-size: 42px; line-height: 1; color: var(--gold-2); }
+.facts strong { color: #fff; font-weight: 800; }
+.odds-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; margin-top: 16px; }
+.odds { width: 100%; border-collapse: collapse; }
+.odds caption { padding-bottom: 8px; text-align: left; font-weight: 800; font-size: 19px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.odds th, .odds td { padding: 6px 2px; border-bottom: 1px solid var(--line); text-align: left; font-size: 19px; }
+.odds td { text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+.odds th { font-weight: 700; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.rar-commune { color: #c4c9d6; } .rar-peu { color: #2fd17a; } .rar-rare { color: #6b96ff; } .rar-epique { color: #b98bff; }
+.rar-leg { color: #FCA301; } .rar-myth { color: #ff6a4d; } .rar-id { color: #FBD32D; }
+</style>
+</head>
+<body>
+<main class="affiche" data-affiche="boosters">
+  <div class="band" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <header class="mast">
+    <img class="logo" src="/humane-gang-tests/assets/images/marque/logo-512.webp" alt="Logo Humane Gang">
+    <div>
+      <p class="kicker">Humane Gang · Page Cartes</p>
+      <h1>Obtenir des boosters</h1>
+      <p class="lede"><span data-cfg="cartes.booster_size">5</span> cartes par booster. Quatre façons de les ouvrir.</p>
+    </div>
+  </header>
+
+  <div class="corps">
+    <section>
+      <h2 class="sec-h"><span class="num">01</span>Les quatre sources<span class="line"></span></h2>
+      <div class="src">
+
+        <article class="tile" style="--tint:#159946">
+          <span class="tag">Gratuit</span>
+          <div class="cwrap"><div class="cart-box" aria-hidden="true">
+            <div class="cart-body"></div><div class="cart-notch"></div>
+            <div class="cart-label"><div class="cart-label-fl"></div><div class="cart-scr"><img src="/humane-gang-tests/assets/images/marque/logo-512.webp" alt=""></div></div>
+            <p class="cart-lbl1">LE GANG</p><p class="cart-lbl2">Collection</p>
+            <div class="cart-stripe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="cart-ridge"></div><p class="cart-foot"><span data-cfg="cartes.booster_size">5</span> CARTES</p>
+            <p class="cart-stk">Gratuit du jour</p>
+          </div></div>
+          <h3>Le booster gratuit</h3>
+          <div class="fig">1 fois<small>toutes les <span data-cfg="cartes.free_booster_hours">24</span> h</small></div>
+          <p>Sans Paillettes. Le premier est disponible tout de suite, puis le délai repart à chaque ouverture.</p>
+        </article>
+
+        <article class="tile" style="--tint:#FBD32D">
+          <span class="tag">Payant</span>
+          <div class="cwrap"><div class="cart-box" aria-hidden="true">
+            <div class="cart-body"></div><div class="cart-notch"></div>
+            <div class="cart-label"><div class="cart-label-fl"></div><div class="cart-scr"><img src="/humane-gang-tests/assets/images/marque/logo-512.webp" alt=""></div></div>
+            <p class="cart-lbl1">LE GANG</p><p class="cart-lbl2">Collection</p>
+            <div class="cart-stripe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="cart-ridge"></div><p class="cart-foot"><span data-cfg="cartes.booster_size">5</span> CARTES</p>
+          </div></div>
+          <h3>Le booster payant</h3>
+          <div class="fig"><span data-cfg="cartes.booster_price">100</span><small>Paillettes le booster</small></div>
+          <p>Ouvre-le quand tu veux, sans délai, si tu as assez de Paillettes.</p>
+        </article>
+
+        <article class="tile" style="--tint:#FCA301">
+          <span class="tag">Lot de 5</span>
+          <div class="cwrap stack">
+            <div class="st back" style="transform:translate(12px,-4px) rotate(7deg) scale(.55)"><div class="cart-box" aria-hidden="true">
+                <div class="cart-body"></div><div class="cart-notch"></div>
+                <div class="cart-label"><div class="cart-label-fl"></div><div class="cart-scr"><img src="/humane-gang-tests/assets/images/marque/logo-512.webp" alt=""></div></div>
+                <p class="cart-lbl1">LE GANG</p><p class="cart-lbl2">Collection</p>
+                <div class="cart-stripe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="cart-ridge"></div><p class="cart-foot"><span data-cfg="cartes.booster_size">5</span> CARTES</p>
+              </div></div>
+            <div class="st back" style="transform:translate(-8px,6px) rotate(-6deg) scale(.55)"><div class="cart-box" aria-hidden="true">
+                <div class="cart-body"></div><div class="cart-notch"></div>
+                <div class="cart-label"><div class="cart-label-fl"></div><div class="cart-scr"><img src="/humane-gang-tests/assets/images/marque/logo-512.webp" alt=""></div></div>
+                <p class="cart-lbl1">LE GANG</p><p class="cart-lbl2">Collection</p>
+                <div class="cart-stripe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="cart-ridge"></div><p class="cart-foot"><span data-cfg="cartes.booster_size">5</span> CARTES</p>
+              </div></div>
+            <div class="st" style="transform:scale(.55)"><div class="cart-box" aria-hidden="true">
+                <div class="cart-body"></div><div class="cart-notch"></div>
+                <div class="cart-label"><div class="cart-label-fl"></div><div class="cart-scr"><img src="/humane-gang-tests/assets/images/marque/logo-512.webp" alt=""></div></div>
+                <p class="cart-lbl1">LE GANG</p><p class="cart-lbl2">Collection</p>
+                <div class="cart-stripe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="cart-ridge"></div><p class="cart-foot"><span data-cfg="cartes.booster_size">5</span> CARTES</p>
+              </div></div>
+          </div>
+          <h3>Le lot de 5</h3>
+          <div class="fig"><span data-expr="cartes.booster_price*5">500</span><small>Paillettes pour 5 boosters</small></div>
+          <p>Cinq boosters payants ouverts d’un coup, avec un récapitulatif à la fin.</p>
+        </article>
+
+        <article class="tile" style="--tint:#a674f5">
+          <span class="tag">Offert</span>
+          <div class="cwrap"><div class="cart-box" aria-hidden="true">
+            <div class="cart-body"></div><div class="cart-notch"></div>
+            <div class="cart-label"><div class="cart-label-fl"></div><div class="cart-scr"><img src="/humane-gang-tests/assets/images/marque/logo-512.webp" alt=""></div></div>
+            <p class="cart-lbl1">LE GANG</p><p class="cart-lbl2">Collection</p>
+            <div class="cart-stripe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="cart-ridge"></div><p class="cart-foot"><span data-cfg="cartes.booster_size">5</span> CARTES</p>
+          </div></div>
+          <h3>Les boosters offerts</h3>
+          <div class="fig">N restants<small>affiché sur la page Cartes</small></div>
+          <p>Donnés par le gang, à des membres choisis ou à tous. Sans Paillettes, sans délai.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec-h"><span class="num">02</span>Ce qu’il y a dedans<span class="line"></span></h2>
+      <div class="inside">
+        <div>
+          <div class="big"><div class="cart-box" aria-hidden="true">
+            <div class="cart-body"></div><div class="cart-notch"></div>
+            <div class="cart-label"><div class="cart-label-fl"></div><div class="cart-scr"><img src="/humane-gang-tests/assets/images/marque/logo-512.webp" alt=""></div></div>
+            <p class="cart-lbl1">LE GANG</p><p class="cart-lbl2">Collection</p>
+            <div class="cart-stripe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="cart-ridge"></div><p class="cart-foot"><span data-cfg="cartes.booster_size">5</span> CARTES</p>
+          </div></div>
+          <p class="cap">Le booster Classique, comme il sort de la boîte.</p>
+        </div>
+        <div>
+          <ul class="facts">
+            <li><b><span data-cfg="cartes.booster_size">5</span></b><span><strong>cartes par booster</strong>, tirées une à une selon les taux ci-dessous.</span></li>
+            <li><b><span data-cfg="cartes.shiny_rate">3</span> %</b><span><strong>des cartes sont brillantes</strong> : même carte, version à part.</span></li>
+            <li><b><span data-cfg="cartes.pity_epique">20</span></b><span><strong>garantie épique</strong> : une carte Épique ou mieux au moins tous les <span data-cfg="cartes.pity_epique">20</span> boosters.</span></li>
+          </ul>
+          <div class="odds-wrap" role="group" aria-label="Taux de tirage, par carte">
+<table class="odds"><caption>Taux de tirage, par carte</caption><tbody>
+<tr><th scope="row" class="rar-commune">Commune</th><td><span data-cfg="cartes.rates.commune">60</span> %</td></tr>
+<tr><th scope="row" class="rar-peu">Peu commune</th><td><span data-cfg="cartes.rates.peu_commune">25</span> %</td></tr>
+<tr><th scope="row" class="rar-rare">Rare</th><td><span data-cfg="cartes.rates.rare">10</span> %</td></tr>
+<tr><th scope="row" class="rar-epique">Épique</th><td><span data-cfg="cartes.rates.epique">4</span> %</td></tr>
+</tbody></table>
+<table class="odds"><caption class="vh">Suite</caption><tbody>
+<tr><th scope="row" class="rar-leg">Légendaire</th><td><span data-cfg="cartes.rates.legendaire">0,88</span> %</td></tr>
+<tr><th scope="row" class="rar-myth">Mythique</th><td><span data-cfg="cartes.rates.mythique">0,1</span> %</td></tr>
+<tr><th scope="row" class="rar-id">Identité</th><td><span data-cfg="cartes.rates.identite">0,02</span> %</td></tr>
+</tbody></table></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="pied">
+    <span><b style="color:#fff">Pas de booster dans les quêtes.</b> Défis, séries, bonus quotidien et présence rapportent des Paillettes.</span>
+    <span class="or" style="white-space:nowrap">Page Cartes</span>
+  </footer>
+  <div class="band" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</main>
+<script type="module" src="/humane-gang-tests/affiches/affiches.js"></script>
+</body>
+</html>

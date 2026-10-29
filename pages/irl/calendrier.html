@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' https://zqbdzokyhgavgmqgiwuw.supabase.co wss://zqbdzokyhgavgmqgiwuw.supabase.co https://nominatim.openstreetmap.org; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <script src="/humane-gang-tests/assets/commun/theme-boot.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calendrier · Humane Gang</title>
+  <meta name="description" content="Calendrier du Humane Gang : sorties, soirées, ciné, rendez-vous des groupes et anniversaires.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://humane-gang.com/pages/irl/calendrier.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Humane Gang">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Calendrier · Humane Gang">
+  <meta property="og:description" content="Calendrier du Humane Gang : sorties, soirées, ciné, rendez-vous des groupes et anniversaires.">
+  <meta property="og:url" content="https://humane-gang.com/pages/irl/calendrier.html">
+  <meta property="og:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo du Humane Gang">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Calendrier · Humane Gang">
+  <meta name="twitter:description" content="Calendrier du Humane Gang : sorties, soirées, ciné, rendez-vous des groupes et anniversaires.">
+  <meta name="twitter:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
+  <link rel="icon" type="image/png" href="/humane-gang-tests/assets/images/marque/favicon-64.png">
+  <link rel="manifest" href="/humane-gang-tests/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/humane-gang-tests/assets/images/marque/apple-touch-icon.png">
+  <meta name="theme-color" content="#0b0a10">
+  <link rel="preconnect" href="https://zqbdzokyhgavgmqgiwuw.supabase.co">
+  <link rel="modulepreload" href="/humane-gang-tests/assets/vendor/supabase-js-2.45.4.mjs">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/base.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/themes-decor.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/cartes/card-drops.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/ui-confirm.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/irl/calendrier.css">
+</head>
+<body>
+  <main class="container cal" id="app" aria-busy="true">
+    <div class="page-head cal-head">
+      <div>
+        <div class="eyebrow">Calendrier du gang</div>
+        <h1 class="page-title" id="cal-title">Calendrier</h1>
+      </div>
+      <div class="cal-nav" role="group" aria-label="Changer de mois">
+        <button type="button" class="btn btn-ghost cal-navbtn" id="cal-prev" aria-label="Mois précédent"></button>
+        <button type="button" class="btn btn-ghost cal-today" id="cal-today">Aujourd’hui</button>
+        <button type="button" class="btn btn-ghost cal-navbtn" id="cal-next" aria-label="Mois suivant"></button>
+      </div>
+    </div>
+    <div class="cal-filters" id="cal-filters" role="group" aria-label="Types de rendez-vous affichés"><span class="cal-chip cal-sk-chip"></span><span class="cal-chip cal-sk-chip"></span><span class="cal-chip cal-sk-chip"></span><span class="cal-chip cal-sk-chip"></span><span class="cal-chip cal-sk-chip"></span><span class="cal-chip cal-sk-chip"></span></div>
+    <p class="visually-hidden" id="cal-status" role="status" aria-live="polite"></p>
+    <div class="cal-grid-wrap">
+      <div class="cal-dow" aria-hidden="true"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+      <div class="cal-grid" id="cal-grid" role="grid" aria-labelledby="cal-title"><span class="visually-hidden">Chargement du calendrier…</span><div class="cal-row" aria-hidden="true"><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span></div><div class="cal-row" aria-hidden="true"><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span></div><div class="cal-row" aria-hidden="true"><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span></div><div class="cal-row" aria-hidden="true"><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span></div><div class="cal-row" aria-hidden="true"><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span></div><div class="cal-row" aria-hidden="true"><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span><span class="cal-cell cal-sk-cell"></span></div></div>
+    </div>
+    <section class="card cal-day" id="cal-day" aria-live="polite" aria-labelledby="cal-day-title"><span class="cal-sk cal-sk-titre" aria-hidden="true"></span><span class="cal-sk cal-sk-ligne" aria-hidden="true"></span></section>
+    <div class="btn-row cal-actions">
+      <button type="button" class="btn btn-ghost" id="cal-sub"></button>
+      <button type="button" class="btn btn-ghost" id="cal-add"></button>
+      <button type="button" class="btn btn-ghost" id="cal-add-evt" hidden></button>
+    </div>
+    <section class="cal-slots" aria-labelledby="cal-slots-title">
+      <h2 class="cal-sec-title" id="cal-slots-title">Rendez-vous récurrents</h2>
+      <p class="small muted">« Campagne CK3 chaque jeudi à 20 h », « F1 du dimanche »… Crée-les une fois : ils apparaissent chaque semaine. Tu peux annuler une date précise depuis la liste du jour.</p>
+      <div id="cal-slots"></div>
+    </section>
+  </main>
+  <script type="module" src="/humane-gang-tests/assets/commun/site-boot.js"></script>
+  <script type="module" src="/humane-gang-tests/assets/espaces/irl/calendrier.js"></script>
+</body>
+</html>

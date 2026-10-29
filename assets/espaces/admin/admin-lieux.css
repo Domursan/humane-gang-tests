@@ -1,0 +1,184 @@
+/* ===== Humane Gang — administration : plateau (accueil) et pages de lieu =====
+   Le plateau dessine les lieux permis en plan (admin/lieux.js, renderPlateau) ; chaque lieu a sa couleur (--lieu, posée
+   en style en ligne). Une page de lieu : bandeau à la couleur du lieu, « À faire maintenant », puis toutes ses pages en
+   grosses tuiles groupées. Couleurs : jetons de base.css (clair et sombre) ; la couleur du lieu sert de filet et d'accent. */
+
+
+/* Plateau : grille de 12 colonnes. Chaque case porte sa place en style en ligne (grid-column / grid-row, admin/lieux.js) ;
+   une ligne = 150 px, écart 20 px (grid-auto-rows et gap : à garder alignés sur ROW_H et GAP de lieux.js). Un chemin
+   (SVG) relie les cases. Téléphone (≤ 760 px) : une colonne, pas de chemin. Mode disposition (≥ 900 px) : en fin de section. */
+.plateau { display: flex; flex-direction: column; gap: 18px; } /* marges : celles de .shell-groups */
+.plateau-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 16px; }
+.plateau-lead { margin: 0; flex: 1 1 360px; }
+.plateau-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.plateau-edit-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.plateau-confirm { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 14px; }
+.plateau-edit-btn[hidden], .plateau-edit-bar[hidden], .plateau-confirm[hidden] { display: none; }
+.plateau-board { position: relative; display: grid; gap: 20px; padding: 22px; border-radius: 28px; border: 1px solid var(--border);
+  background-color: var(--bg); background-image: radial-gradient(var(--border-strong) 1px, transparent 1px); background-size: 24px 24px;
+  grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: 150px; }
+.plateau-board > .plateau-road { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 0; }
+.plateau-board > .plateau-road path { fill: none; stroke: var(--border-strong); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 2 14; }
+.plateau-cell { position: relative; z-index: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 20px;
+  background: var(--surface); border: 2px solid var(--lieu); container-type: size; }
+.plateau-lieu { position: relative; display: flex; flex-direction: column; gap: 10px; min-width: 0; color: var(--text); text-decoration: none; border-radius: 14px; }
+.plateau-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.plateau-ico { width: 60px; height: 60px; flex: none; border-radius: 16px; display: grid; place-items: center; background: var(--lieu); color: #0D0B0A; }
+.plateau-ico svg { width: 32px; height: 32px; stroke-width: 2; }
+.plateau-pastille { min-width: 44px; height: 44px; box-sizing: border-box; padding: 0 14px; border-radius: 999px; background: var(--lieu); color: #0D0B0A;
+  font-family: var(--font-display); font-size: 20px; line-height: 44px; text-align: center; }
+.plateau-name { font-family: var(--font-display); font-size: 22px; line-height: 1.1; overflow-wrap: anywhere; }
+.plateau-tag { font-size: 15px; color: var(--muted); }
+.plateau-info { margin: 0; padding: 8px 12px; border-radius: 12px; background: color-mix(in srgb, var(--text) 6%, transparent); color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.plateau-pastille[hidden], .plateau-lieu [data-lieu-count][hidden], .plateau-info[hidden] { display: none; }
+.plateau-lieu:hover .plateau-name { text-decoration: underline; text-underline-offset: 4px; }
+.plateau-quick { margin-top: auto; display: flex; gap: 12px; flex-wrap: wrap; }
+.plateau-act { flex: 1 1 100px; min-width: 0; min-height: 60px; padding: 8px 14px; border-radius: 16px; border: 2px solid var(--lieu); background: var(--lieu);
+  color: #0D0B0A; font-family: inherit; font-size: 17px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; cursor: pointer; }
+.plateau-act--line { background: transparent; color: var(--text); }
+@media (hover: hover) { .plateau-act:hover { filter: brightness(1.08); } .plateau-act--line:hover { background: color-mix(in srgb, var(--lieu) 16%, transparent); filter: none; } }
+.plateau-lieu:focus-visible, .plateau-act:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+.plateau-cell[data-lieu="mairie"] .plateau-lieu { flex-direction: row; align-items: center; gap: 18px; }
+.plateau-cell[data-lieu="mairie"] .plateau-head { flex: none; }
+.plateau-cell[data-lieu="mairie"] .plateau-name { font-size: 22px; }
+.plateau-cell[data-lieu="mairie"] .plateau-tag { flex: 1; }
+
+/* Cases petites (taille de la case, container queries) : la ligne d'info part d'abord, puis la ligne d'aide ; sous 260 px
+   de large, les boutons se rangent en colonne. Le nom, la pastille et les boutons restent toujours. */
+@container (max-height: 272px) { .plateau-info { display: none; } }
+@container (max-height: 200px) { .plateau-tag { display: none; } }
+@container (max-width: 260px) {
+  .plateau-info, .plateau-tag { display: none; }
+  .plateau-ico { width: 48px; height: 48px; }
+  .plateau-ico svg { width: 26px; height: 26px; }
+  .plateau-name { font-size: 20px; }
+  .plateau-act { flex: 1 1 100%; min-height: 44px; font-size: 15px; }
+}
+@container (max-width: 120px) {
+  .plateau-ico { display: none; }
+  .plateau-pastille { min-width: 30px; height: 30px; line-height: 30px; font-size: 15px; padding: 0 8px; }
+}
+
+/* Mode disposition (≥ 900 px) : la case se glisse, sa poignée la redimensionne ; liens et boutons sont inertes. */
+.plateau-board--edit .plateau-cell { cursor: move; touch-action: none; user-select: none; outline: 2px dashed var(--border-strong); outline-offset: 6px; }
+.plateau-board--edit .plateau-cell:focus-visible { outline: 3px solid var(--text); outline-offset: 6px; }
+.plateau-board--edit .plateau-cell > :not(.plateau-handle) { pointer-events: none; }
+.plateau-cell--drag { z-index: 3; box-shadow: 0 14px 34px rgba(0, 0, 0, .4); }
+.plateau-handle { display: none; }
+.plateau-board--edit .plateau-handle { display: block; position: absolute; right: 8px; bottom: 8px; width: 24px; height: 24px; border-radius: 8px;
+  background: var(--lieu); cursor: nwse-resize; touch-action: none; }
+.plateau-board--edit .plateau-handle::after { content: ""; position: absolute; inset: 6px;
+  background: linear-gradient(135deg, transparent 42%, #0D0B0A 42% 50%, transparent 50% 66%, #0D0B0A 66% 74%, transparent 74%); }
+.plateau-ghost { position: absolute; z-index: 4; box-sizing: border-box; pointer-events: none; border: 3px dashed var(--sage); border-radius: 20px;
+  background: color-mix(in srgb, var(--sage) 16%, transparent); }
+.plateau-ghost--ko { border-color: #E5484D; background: color-mix(in srgb, #E5484D 18%, transparent); } /* rouge franc : la place est refusée */
+
+@media (max-width: 899px) { .plateau-edit-btn, .plateau-edit-bar, .plateau-confirm { display: none !important; } }
+@media (max-width: 760px) {
+  .plateau-board { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 14px; padding: 14px; border-radius: 22px; }
+  .plateau-board > .plateau-road { display: none; }
+  .plateau-cell { grid-column: auto !important; grid-row: auto !important; container-type: normal; padding: 18px; }
+  .plateau-cell[data-lieu="mairie"] .plateau-lieu { flex-direction: column; align-items: stretch; }
+  .plateau-quick .plateau-act { flex: 1 1 140px; }
+  .lieu-tiles { grid-template-columns: 1fr; }
+}
+
+.lieu-page { display: flex; flex-direction: column; gap: 24px; }
+.lieu { display: flex; flex-direction: column; gap: 24px; }
+.lieu-banner { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 18px 20px 18px 26px; border-radius: 20px; background: color-mix(in srgb, var(--lieu) 14%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--lieu) 50%, transparent); overflow: hidden; }
+.lieu-banner::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--lieu); }
+.lieu-tag { margin: 0; font-size: 15px; }
+.lieu-total { padding: 6px 12px; border-radius: 999px; background: var(--lieu); color: #0D0B0A; font-size: 13px; font-weight: 700; white-space: nowrap; }
+.lieu-total[hidden] { display: none; }
+.lieu-h { margin: 0 0 12px; font-family: var(--font-display); font-weight: 400; font-size: 19px; }
+
+.lieu-todo-box .empty, .lieu-todo-empty { margin: 0; padding: 16px 18px; border-radius: 16px; border: 1px dashed var(--border-strong); color: var(--muted); }
+.lieu-todo-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.lieu-todo-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 14px 16px;
+  border-radius: 16px; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--lieu); }
+.lieu-todo-title { margin: 0; font-weight: 600; }
+.lieu-todo-meta { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.lieu-todo-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.lieu-pages { display: flex; flex-direction: column; }
+.lieu-group { display: flex; flex-direction: column; gap: 10px; }
+.lieu-group + .lieu-group { margin-top: 18px; }
+.lieu-group-title { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.lieu-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.lieu-tile { position: relative; display: flex; align-items: flex-start; gap: 14px; min-height: 96px; padding: 16px 44px 16px 16px; border-radius: 18px;
+  background: var(--surface); border: 1px solid var(--border); color: var(--text); }
+@media (hover: hover) { .lieu-tile:hover { border-color: var(--lieu); background: var(--surface-2); } }
+.lieu-tile-ico { width: 44px; height: 44px; flex: none; border-radius: 14px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--lieu) 24%, transparent); color: var(--text); }
+.lieu-tile-ico svg { width: 22px; height: 22px; }
+.lieu-tile-txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.lieu-tile-name { font-weight: 600; font-size: 15px; overflow-wrap: anywhere; }
+.lieu-tile-help { font-size: 13px; color: var(--muted); }
+.lieu-tile-count { position: absolute; top: 12px; right: 12px; }
+
+/* Les liens « À faire » en bouton sable gardent la couleur du bouton (le fil .shell a { color: inherit } l'emporterait) */
+.shell .lieu-todo-actions a.btn-sand { color: #121212; }
+html[data-mode="clair"] .shell .lieu-todo-actions a.btn-sand { color: #FFFFFF; }
+/* Bouton principal (lien) de chaque case */
+a.plateau-act, a.plateau-act:visited { color: #0D0B0A; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+
+/* Mode clair : la surface du thème est blanche pure (theme-calc.js) ; sur un fond crème ou gris froid, les cartes
+   prennent la teinte du fond (surface-2, plus sombre que le fond de 3,5 %) et gardent leur filet de couleur de lieu. */
+html[data-mode="clair"] .plateau-cell,
+html[data-mode="clair"] .lieu-tile { background: var(--surface-2); }
+html[data-mode="clair"] .plateau-cell { box-shadow: 0 1px 2px rgba(30, 28, 34, .06); }
+
+/* ===== Refonte « Pixel Pop » (29/10/2026) : plateau (tableau de bord) et pages de lieu =====
+   Cases et tuiles : bordure 2 px à la couleur du lieu, rayons 14 px, montée en diagonale au survol avec une ombre franche
+   de la couleur du lieu ; compteurs en tuile noire bordée, chiffres en police pixel ; boutons à ombre noire qui s'enfoncent.
+   Mouvements coupés par le mouvement réduit et html[data-fx="off"] (fin de section). */
+.plateau-board { border-width: 2px; border-radius: 18px; }
+.plateau-board > .plateau-road path { stroke-dasharray: 8 12; stroke-linecap: butt; }
+.plateau-cell { border-radius: 14px; transition: transform .2s cubic-bezier(.2, .8, .2, 1), box-shadow .2s cubic-bezier(.2, .8, .2, 1); }
+@media (hover: hover) {
+  .plateau-board:not(.plateau-board--edit) .plateau-cell:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--lieu); }
+}
+.plateau-ico { border-radius: 12px; border: 2px solid #000; }
+/* Pastille « à traiter » du lieu : tuile noire, chiffre pixel à la couleur du lieu */
+.plateau-pastille { border-radius: 8px; border: 2px solid var(--lieu); background: #08080B; color: var(--lieu);
+  font-family: var(--font-pixel); font-size: 20px; line-height: 40px; box-shadow: 3px 3px 0 #000; }
+.plateau-name { letter-spacing: -.3px; }
+.plateau-info { border-radius: 10px; border: 2px solid color-mix(in srgb, var(--text) 10%, transparent); }
+.plateau-act { border-radius: 12px; border-color: #000; box-shadow: var(--px-shadow); transition: transform .12s ease, box-shadow .12s ease; }
+.plateau-act--line { border-color: var(--lieu); box-shadow: none; }
+@media (hover: hover) {
+  .plateau-act:not(.plateau-act--line):hover { filter: none; transform: translate(-2px, -2px); box-shadow: var(--px-shadow-up); }
+  .plateau-act--line:hover { transform: translateY(-2px); }
+}
+.plateau-act:not(.plateau-act--line):active { transform: translate(4px, 4px); box-shadow: 0 0 0 #000; }
+.plateau-board--edit .plateau-handle { border-radius: 4px; border: 2px solid #000; }
+.plateau-ghost { border-radius: 14px; }
+@container (max-width: 120px) { .plateau-pastille { line-height: 26px; } }
+
+/* Page de lieu */
+.lieu-banner { border-radius: 14px; border-width: 2px; border-color: var(--lieu); padding-left: 28px; }
+.lieu-banner::before { width: 8px; }
+.lieu-tag { font-size: 16px; }
+.lieu-total { border-radius: 6px; border: 2px solid #000; font-family: var(--font-pixel); font-weight: 400; font-size: 13px; letter-spacing: .5px; box-shadow: 3px 3px 0 #000; }
+.lieu-h { font-size: 22px; }
+.lieu-todo-box .empty, .lieu-todo-empty { border-width: 2px; border-radius: 12px; }
+.lieu-todo-item { border-radius: 14px; border: 2px solid var(--border); border-left: 8px solid var(--lieu); }
+.lieu-group-title { font-family: var(--font-pixel); font-weight: 400; font-size: 12px; letter-spacing: 2px; color: var(--esp-ink); display: flex; align-items: center; gap: 8px; }
+.lieu-group-title::before { content: ""; width: 8px; height: 8px; flex: none; background: var(--esp); } /* petit carré plein comme puce */
+.lieu-tile { border-radius: 14px; border: 2px solid var(--border); transition: transform .2s cubic-bezier(.2, .8, .2, 1), box-shadow .2s cubic-bezier(.2, .8, .2, 1), border-color .2s; }
+@media (hover: hover) { .lieu-tile:hover { border-color: var(--lieu); background: var(--surface); transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--lieu); } }
+.lieu-tile:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+.lieu-tile-ico { border-radius: 10px; border: 2px solid var(--lieu); background: color-mix(in srgb, var(--lieu) 18%, transparent); }
+.lieu-tile-name { font-weight: 700; }
+html[data-mode="clair"] .lieu-tile:hover { background: var(--surface-2); }
+
+/* Mouvement réduit ou effets coupés : rien ne bouge */
+@media (prefers-reduced-motion: reduce) {
+  .plateau-cell, .plateau-act, .lieu-tile { transition: none; }
+  .plateau-cell:hover, .plateau-act:hover, .plateau-act:active, .lieu-tile:hover { transform: none !important; }
+}
+html[data-fx="off"] :is(.plateau-cell, .plateau-act, .lieu-tile) { transition: none; }
+html[data-fx="off"] :is(.plateau-cell, .plateau-act, .lieu-tile):is(:hover, :active) { transform: none !important; }

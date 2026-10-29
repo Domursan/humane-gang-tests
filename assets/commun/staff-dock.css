@@ -1,0 +1,165 @@
+/* ===== Humane Gang — raccourcis Staff (core/staff-dock.js) =====
+   Ordinateur (à partir de 720 px) : barre verticale à gauche, sous l'en-tête (son haut suit --en-tete-bas, posé par core/init.js),
+   étroite, icônes toujours visibles ; le nom sort en bulle au survol ou au focus.
+   Le contenu est décalé de la largeur de la barre (html[data-staff-dock] body) : rien n'est masqué.
+   Téléphone (moins de 720 px) : bouton flottant en bas à gauche ; la liste s'ouvre au-dessus, sans décaler la page ;
+   il se replie pendant un défilement vers le bas (html[data-defil="bas"]).
+   Couleurs : jetons de base.css (--surface, --surface-2, --border, --text, --muted, --accent, --sand). */
+
+:root { --sd-w: 56px; }
+
+/* Transition entre pages : la barre reste en place (nom unique par page : un seul #staff-dock) */
+.sd { view-transition-name: hg-raccourcis; }
+
+/* Attribut hidden toujours respecté dans la barre (les règles display ci-dessous ne doivent pas le contredire) */
+.sd [hidden], .sd-dialog [hidden] { display: none !important; }
+
+/* ---------- Ordinateur : barre à gauche ---------- */
+@media (min-width: 720px) {
+  .sd {
+    position: fixed; left: 0; top: max(var(--en-tete-bas, 0px), calc(var(--god-h, 0px) + var(--va-h, 0px))); bottom: 0; z-index: 55;
+    width: var(--sd-w); display: flex; flex-direction: column;
+    background: var(--surface); border-right: 1px solid var(--border); border-top: 1px solid var(--border); color: var(--text);
+  }
+  .sd-fab { display: none; }
+  .sd-body { display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 0; padding: 10px 6px; }
+  .sd-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .sd-links:empty { display: none; }
+  /* Une icône par raccourci, toujours visible */
+  .sd-links a, .sd-config { position: relative; display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+    border-radius: 10px; border: 1px solid transparent; background: transparent; color: var(--text);
+    font: inherit; text-decoration: none; cursor: pointer; }
+  .sd-links a:hover, .sd-config:hover, .sd-links a:focus-visible, .sd-config:focus-visible { background: var(--surface-2); border-color: var(--border); }
+  .sd-config { margin-top: auto; color: var(--muted); }
+  /* Nom du raccourci : bulle qui sort à droite de l'icône au survol ou au focus clavier (toujours lu par les lecteurs d'écran) */
+  .sd-label { position: absolute; left: calc(100% + 10px); top: 50%; z-index: 2; padding: 7px 12px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--border-strong, var(--border)); color: var(--text);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .28); font-size: 14px; font-weight: 600; white-space: nowrap; pointer-events: none;
+    opacity: 0; transform: translate(-6px, -50%) scale(.92); transform-origin: left center; transition: opacity .14s ease, transform .14s ease; }
+  .sd-links a:hover .sd-label, .sd-config:hover .sd-label, .sd-links a:focus-visible .sd-label, .sd-config:focus-visible .sd-label {
+    opacity: 1; transform: translate(0, -50%) scale(1); }
+}
+@media (min-width: 720px) and (prefers-reduced-motion: reduce) { .sd-label { transition: none; } }
+
+.sd-ico { width: 22px; height: 22px; flex: none; }
+
+/* Pastille « à traiter » : posée sur le coin de l'icône */
+.sd-count { position: absolute; left: 20px; top: 4px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px;
+  background: var(--accent); color: var(--accent-text); font-size: 11px; font-weight: 700; line-height: 18px; text-align: center; }
+.sd-count[hidden] { display: none; }
+.sd-links a:focus-visible, .sd-config:focus-visible, .sd-fab:focus-visible, .sd-dlg-ok:focus-visible,
+.sd-opt input:focus-visible {
+  outline: 2px solid var(--sand); outline-offset: 2px;
+}
+
+/* Décalage du contenu : la page laisse la place à la barre (la vue « comme un membre » et la barre ne vont pas ensemble) */
+@media (min-width: 720px) {
+  html[data-staff-dock="on"] body { padding-left: var(--sd-w); }
+  html[data-staff-dock] .kbd-hint { left: calc(var(--sd-w) + 16px); }
+  /* La barre arc-en-ciel et la ligne de l'en-tête passent au-dessus de la barre (--ext-g, lu par base.css) */
+  html[data-staff-dock="on"] { --ext-g: var(--sd-w); }
+}
+
+/* ---------- Téléphone : bouton flottant et liste ---------- */
+@media (max-width: 719.98px) {
+  .sd {
+    position: fixed; left: max(12px, env(safe-area-inset-left)); bottom: calc(12px + env(safe-area-inset-bottom));
+    z-index: 55; width: auto; background: transparent; border: 0; box-shadow: none; overflow: visible; transition: transform .2s ease;
+  }
+  .sd:hover, .sd:focus-within { width: auto; box-shadow: none; }
+  /* Espace en bas pour que le bouton ne cache jamais le dernier élément ; masqué pendant une partie (actions en bas) */
+  html[data-staff-dock] body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  html[data-sd-partie] .sd { display: none; }
+  html[data-sd-partie][data-staff-dock] body { padding-bottom: 0; }
+  /* Défilement vers le bas : le bouton se replie hors de l'écran (il revient en remontant ou en bas de page) */
+  html[data-defil="bas"] .sd:not([data-open="1"]) { transform: translateY(calc(100% + 24px)); }
+  .sd-fab { position: relative; display: grid; place-items: center; width: 52px; height: 52px; padding: 0; border-radius: 50%;
+    border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .35); }
+  .sd-fab[aria-expanded="true"] { background: var(--surface-2); border-color: var(--sand); }
+  .sd-fab-n { position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 999px;
+    background: var(--accent); color: var(--accent-text); font-size: 11px; font-weight: 700; line-height: 20px; text-align: center; }
+  .sd-fab-n[hidden] { display: none; }
+  /* La liste s'ouvre au-dessus du bouton, seulement quand elle est ouverte */
+  .sd-body { display: none; position: absolute; left: 0; bottom: calc(100% + 10px); width: min(288px, calc(100vw - 24px));
+    flex-direction: column; gap: 6px; padding: 10px; border-radius: 14px; background: var(--surface);
+    border: 1px solid var(--border-strong); box-shadow: 0 18px 48px rgba(0, 0, 0, .45); }
+  .sd[data-open="1"] .sd-body { display: flex; }
+  .sd-toggle { display: none; }
+  .sd-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .sd-links:empty { display: none; }
+  .sd-links a, .sd-config { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px;
+    padding: 0 12px; border-radius: 10px; border: 1px solid transparent; background: transparent; color: var(--text);
+    font: inherit; font-size: 15px; font-weight: 600; text-align: left; text-decoration: none; cursor: pointer; }
+  .sd-links a:hover, .sd-config:hover { background: var(--surface-2); }
+  .sd-config { border-top: 1px solid var(--border); border-radius: 0 0 10px 10px; margin-top: 4px; padding-top: 10px; }
+  .sd-label { opacity: 1; }
+  .sd-count { left: 22px; top: 6px; }
+}
+
+/* ---------- Fenêtre « Choisir mes raccourcis » ---------- */
+.sd-dialog { width: min(420px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 1px solid var(--border-strong);
+  border-radius: 16px; background: var(--surface); color: var(--text); box-shadow: 0 24px 80px rgba(0, 0, 0, .5); }
+.sd-dialog::backdrop { background: rgba(0, 0, 0, .55); }
+.sd-dlg-form { display: flex; flex-direction: column; gap: 12px; padding: 20px; }
+.sd-dlg-form h2 { margin: 0; font-size: 18px; line-height: 1.3; }
+.sd-dlg-note { margin: 0; font-size: 14px; color: var(--muted); }
+.sd-dlg-set { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.sd-dlg-leg { padding: 0; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.sd-opt { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--surface-2); font-size: 15px; cursor: pointer; }
+.sd-opt input { width: 20px; height: 20px; margin: 0; flex: none; accent-color: var(--accent); cursor: pointer; }
+.sd-dlg-actions { display: flex; justify-content: flex-end; }
+.sd-dlg-ok { min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid var(--border-strong);
+  background: var(--surface-2); color: var(--text); font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+.sd-dlg-ok:hover { border-color: var(--sand); }
+
+/* Sans animation si la préférence système le demande */
+@media (prefers-reduced-motion: reduce) {
+  .sd, .sd-label, .sd-toggle .sd-ico { transition: none; }
+}
+
+/* ===== Refonte « Pixel Pop » (29/10/2026) =====
+   Bordures de 2 px, coins de 10 à 14 px, ombres noires franches (sans flou) ; survol et focus : bord et ombre à la couleur
+   d'espace --esp ; pastilles en police pixel. Mouvements coupés par le mouvement réduit et html[data-fx="off"]. */
+@media (min-width: 720px) {
+  .sd { border-right-width: 2px; border-top-width: 2px; }
+  .sd-links a, .sd-config { border-width: 2px; transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease; }
+  .sd-links a:hover, .sd-config:hover, .sd-links a:focus-visible, .sd-config:focus-visible {
+    background: var(--surface-2); border-color: var(--esp); transform: translate(-2px, -2px); box-shadow: 3px 3px 0 var(--esp); }
+  .sd-links a[aria-current="page"] { background: var(--esp); color: var(--esp-text); border-color: #000; box-shadow: 3px 3px 0 #000; }
+  .sd-config { border-top: 2px solid var(--border); border-radius: 10px; }
+  /* Bulle du nom : bord 2 px, ombre noire franche, coins de 10 px */
+  .sd-label { border-radius: 10px; border-width: 2px; box-shadow: var(--px-shadow); font-weight: 700; }
+}
+.sd-count { font-family: var(--font-pixel); font-weight: 400; font-size: 10px; border-radius: 6px; border: 2px solid var(--surface); line-height: 14px; }
+@media (max-width: 719.98px) {
+  .sd-fab { border-radius: 14px; border: 2px solid #000; background: var(--esp); color: var(--esp-text); box-shadow: var(--px-shadow); transition: transform .12s ease, box-shadow .12s ease; }
+  .sd-fab:active { transform: translate(4px, 4px); box-shadow: 0 0 0 #000; }
+  .sd-fab[aria-expanded="true"] { background: var(--surface-2); color: var(--text); border-color: var(--esp); box-shadow: 4px 4px 0 var(--esp); }
+  .sd-fab-n { font-family: var(--font-pixel); font-weight: 400; font-size: 11px; border-radius: 6px; border: 2px solid #000; line-height: 16px; }
+  .sd-body { border-width: 2px; border-radius: 14px; box-shadow: var(--px-shadow-up); }
+  .sd-links a, .sd-config { border-width: 2px; }
+  .sd-links a:hover, .sd-config:hover { border-color: var(--esp); }
+  .sd-links a[aria-current="page"] { background: var(--esp); color: var(--esp-text); border-color: #000; }
+  .sd-config { border-top-width: 2px; }
+}
+
+/* Fenêtre « Choisir mes raccourcis » */
+.sd-dialog { border-width: 2px; border-radius: 14px; box-shadow: 8px 8px 0 #000; }
+.sd-dialog::backdrop { background: rgba(8, 8, 11, .7); }
+.sd-dlg-form h2 { font-family: var(--font-display); font-weight: 400; font-size: 22px; }
+.sd-dlg-leg { font-family: var(--font-pixel); font-weight: 400; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--esp-ink); }
+.sd-opt { border-width: 2px; border-radius: 12px; }
+.sd-opt:has(input:checked) { border-color: var(--esp); }
+.sd-opt input { accent-color: var(--esp); }
+.sd-dlg-ok { border: 2px solid #000; border-radius: 12px; background: var(--esp); color: var(--esp-text); box-shadow: var(--px-shadow); transition: transform .12s ease, box-shadow .12s ease; }
+.sd-dlg-ok:hover { border-color: #000; }
+.sd-dlg-ok:active { transform: translate(4px, 4px); box-shadow: 0 0 0 #000; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sd-links a, .sd-config, .sd-fab, .sd-dlg-ok { transition: none; }
+  .sd-links a:hover, .sd-config:hover, .sd-links a:focus-visible, .sd-config:focus-visible, .sd-fab:active, .sd-dlg-ok:active { transform: none !important; }
+}
+html[data-fx="off"] :is(.sd-links a, .sd-config, .sd-fab, .sd-dlg-ok) { transition: none; }
+html[data-fx="off"] :is(.sd-links a, .sd-config, .sd-fab, .sd-dlg-ok):is(:hover, :focus-visible, :active) { transform: none !important; }

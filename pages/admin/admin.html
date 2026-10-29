@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' https://zqbdzokyhgavgmqgiwuw.supabase.co wss://zqbdzokyhgavgmqgiwuw.supabase.co https://nominatim.openstreetmap.org; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <script src="/humane-gang-tests/assets/commun/theme-boot.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administration · Humane Gang</title>
+  <meta name="description" content="Administration du Humane Gang, réservée à l'administrateur.">
+  <link rel="canonical" href="https://humane-gang.com/pages/admin/admin.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Humane Gang">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Administration · Humane Gang">
+  <meta property="og:description" content="Administration du Humane Gang, réservée à l'administrateur.">
+  <meta property="og:url" content="https://humane-gang.com/pages/admin/admin.html">
+  <meta property="og:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo du Humane Gang">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Administration · Humane Gang">
+  <meta name="twitter:description" content="Administration du Humane Gang, réservée à l'administrateur.">
+  <meta name="twitter:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/humane-gang-tests/assets/images/marque/favicon-64.png">
+  <link rel="manifest" href="/humane-gang-tests/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/humane-gang-tests/assets/images/marque/apple-touch-icon.png">
+  <meta name="theme-color" content="#0b0a10">
+  <link rel="preconnect" href="https://zqbdzokyhgavgmqgiwuw.supabase.co">
+  <link rel="modulepreload" href="/humane-gang-tests/assets/vendor/supabase-js-2.45.4.mjs">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/base.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/themes-decor.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/cartes/card-drops.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/ui-confirm.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-shell.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-nav.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-ui.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-live.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-accounts.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-messages.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-tools.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-events.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-access.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-roles.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-ghosts.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/cartes/cartes-card.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-cards.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-staff.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-sorties.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-souvenirs.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-reglages.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-identite.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-pilotage.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-quiz.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-jeux.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-quiz-stats.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-eggs.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-arcade.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-loup-garou.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-uno.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-duels.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-ndc.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-plateaux.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-fil.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-vd.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-champs.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-proofs.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-planning.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-mj.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-relance.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/compte/social.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-errors.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-eco.css">
+  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/admin/admin-lieux.css">
+</head>
+<body>
+  <div class="shell" id="shell" data-screen="page" data-list="no" data-info="no">
+    <a class="skip-link" href="#app">Aller au contenu</a>
+    <header class="shell-top" id="shell-top" aria-label="Panel d’administration">
+      <a class="shell-logo" href="/humane-gang-tests/pages/compte/accueil.html" title="Retour à l'accueil" aria-label="Retour à l'accueil du Humane Gang" data-site-identite="initiales">HG</a>
+      <p class="shell-brand">Humane Gang <span>· Admin</span></p>
+      <button class="shell-all" id="admin-goto" type="button" aria-haspopup="dialog" aria-label="Tout le panel (Ctrl K)" title="Tout le panel (Ctrl K)">
+        <span class="shell-all-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg></span>
+        <span class="shell-all-txt">Tout le panel</span>
+      </button>
+      <a class="shell-site" href="/humane-gang-tests/pages/compte/accueil.html">Voir le site</a>
+      <div class="shell-live" id="shell-live"></div>
+      <button class="shell-ico shell-god" id="shell-god" type="button" aria-pressed="false" data-admin-only aria-label="Mode sans limite" title="Mode sans limite"></button>
+      <div class="shell-account">
+        <button class="shell-avatar" id="shell-avatar" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="shell-menu">··</button>
+        <div class="shell-menu" id="shell-menu" role="menu" aria-label="Compte" hidden>
+          <a role="menuitem" href="/humane-gang-tests/pages/compte/accueil.html">Retour au site</a>
+          <button role="menuitem" type="button" data-menu="prefs">Préférences d’affichage</button>
+          <button role="menuitem" type="button" data-menu="logout">Se déconnecter</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="shell-body">
+      <aside class="shell-col" id="shell-col" aria-label="Liste" hidden>
+        <div class="shell-col-list" id="shell-col-list"></div>
+      </aside>
+
+      <main class="shell-zone" id="app" tabindex="-1" aria-labelledby="zone-title">
+        <header class="zone-head" aria-label="Page en cours">
+          <div class="zone-nav">
+            <a class="zone-back" id="zone-back" href="#plateau" hidden>Plateau</a>
+            <nav class="zone-crumb" id="zone-crumb" aria-label="Fil d’Ariane"></nav>
+          </div>
+          <div class="zone-title-row">
+            <h1 class="zone-title" id="zone-title" tabindex="-1"></h1>
+            <div class="zone-actions" id="zone-actions"></div>
+          </div>
+        </header>
+        <div class="shell-noaccess" id="shell-noaccess" hidden>
+          <p>Aucune section n’est accessible pour tes droits.</p>
+        </div>
+        <div class="shell-groups" id="shell-groups">
+          <div class="plateau" id="plateau-root" hidden></div>
+          <div class="lieu-page" id="lieu-root" hidden></div>
+        </div>
+      </main>
+
+      <aside class="shell-info" id="shell-info" aria-label="Informations" hidden>
+        <div id="shell-info-host"></div>
+      </aside>
+    </div>
+
+    <nav class="shell-tabs" id="shell-tabs" aria-label="Plateau et lieux"></nav>
+  </div>
+
+  <!-- Sections du panel : placées dans la zone principale à la première visite (admin/shell.js) -->
+  <div id="shell-parking" hidden>
+        <section id="comptes" class="admin-section" aria-labelledby="h-comptes">
+          <h2 id="h-comptes" class="section-title">Comptes</h2>
+          <div id="acc-root"><div class="empty">Chargement des comptes…</div></div>
+        </section>
+        <section id="acces" class="admin-section" aria-labelledby="h-acces">
+          <h2 id="h-acces" class="section-title">Accès aux pages</h2>
+          <div id="access-root"><div class="empty">Chargement des accès…</div></div>
+        </section>
+        <section id="roles" class="admin-section" aria-labelledby="h-roles">
+          <h2 id="h-roles" class="section-title">Rôles</h2>
+          <div id="roles-root"><div class="empty">Chargement des rôles…</div></div>
+        </section>
+        <section id="membres" class="admin-section" aria-labelledby="h-membres">
+          <h2 id="h-membres" class="section-title">Invitations</h2>
+          <div class="card inv-card">
+            <h3 class="card-title">Codes d'invitation</h3>
+            <p class="muted small">Chaque code permet à une personne de créer son compte. Il devient inutilisable une fois utilisé.</p>
+            <div id="invite-new"></div>
+            <div id="invite-list"></div>
+          </div>
+          <div class="card" id="links-root"><div class="empty">Chargement des liens…</div></div>
+        </section>
+        <section id="secret-santa" class="admin-section" data-perm="secret_santa" aria-labelledby="h-ss">
+          <h2 id="h-ss" class="section-title">Secret Santa</h2>
+          <div id="ss-root"><div class="empty">Chargement…</div></div>
+        </section>
+        <section id="membres-irl" class="admin-section" aria-labelledby="h-membres-irl">
+          <h2 id="h-membres-irl" class="section-title">Membres IRL</h2>
+          <div id="membres-irl-root"><div class="empty">Chargement des membres IRL…</div></div>
+        </section>
+        <section id="sorties" class="admin-section" aria-labelledby="h-sorties" data-perm="evenements">
+          <h2 id="h-sorties" class="section-title">Sorties IRL</h2>
+          <div id="sorties-root"><div class="empty">Chargement des sorties…</div></div>
+        </section>
+        <section id="badges" class="admin-section" aria-labelledby="h-badges">
+          <h2 id="h-badges" class="section-title">Badges</h2>
+          <div class="card">
+            <h3 class="card-title">Attribuer ou retirer</h3>
+            <div class="field narrow">
+              <label for="badge-member">Membre</label>
+              <select id="badge-member"></select>
+            </div>
+            <div id="badge-toggles" class="badge-toggles"></div>
+          </div>
+          <p class="small muted vie-note">Les badges marqués « automatique » sont attribués par le site et ne peuvent pas être supprimés. Ceux que tu crées s'attribuent à la main.</p>
+          <div class="badge-grid" id="badge-grid"></div>
+          <input type="file" id="badge-file" accept="image/png,image/webp,image/jpeg,image/svg+xml" hidden>
+        </section>
+        <section id="evenements" class="admin-section" aria-labelledby="h-evenements">
+          <h2 id="h-evenements" class="section-title">Événements</h2>
+          <div id="events-root"><div class="empty">Chargement des événements…</div></div>
+        </section>
+        <section id="souvenirs" class="admin-section" aria-labelledby="h-souvenirs" data-perm="souvenirs">
+          <h2 id="h-souvenirs" class="section-title">Souvenirs et photos</h2>
+          <div id="souvenirs-root"><div class="empty">Chargement des souvenirs…</div></div>
+        </section>
+        <section id="cartes-gestion" class="admin-section" data-perm="cartes" aria-labelledby="h-cartes-gestion">
+          <h2 id="h-cartes-gestion" class="section-title">Gestion globale</h2>
+          <div id="gestion-root"><div class="empty">Chargement de la gestion globale…</div></div>
+        </section>
+        <section id="cartes" class="admin-section" data-perm="cartes" aria-labelledby="h-cartes">
+          <h2 id="h-cartes" class="section-title">Cartes à collectionner</h2>
+          <div id="cards-root"><div class="empty">Chargement des cartes…</div></div>
+        </section>
+        <section id="drops" class="admin-section" data-perm="cartes" aria-labelledby="h-drops">
+          <h2 id="h-drops" class="section-title">Drops de cartes</h2>
+          <div id="drops-root"><div class="empty">Chargement des drops…</div></div>
+        </section>
+        <section id="cagnotte" class="admin-section" data-perm="cartes" aria-labelledby="h-cagnotte">
+          <h2 id="h-cagnotte" class="section-title">Cagnotte et bulletin</h2>
+          <div id="pots-root"><div class="empty">Chargement de la cagnotte…</div></div>
+        </section>
+        <section id="champions" class="admin-section" data-perm="cartes" aria-labelledby="h-champions">
+          <h2 id="h-champions" class="section-title">Cartes Champions</h2>
+          <div id="champions-root"><div class="empty">Chargement des propositions…</div></div>
+        </section>
+        <section id="defis" class="admin-section" data-perm="cartes" aria-labelledby="h-defis">
+          <h2 id="h-defis" class="section-title">Défis du gang</h2>
+          <div id="challenges-root"><div class="empty">Chargement des défis…</div></div>
+        </section>
+        <section id="quiz" class="admin-section" data-perm="quiz" aria-labelledby="h-quiz">
+          <h2 id="h-quiz" class="section-title">Questions du gang</h2>
+          <div id="quiz-root"><div class="empty">Chargement des questions…</div></div>
+        </section>
+        <section id="sutom" class="admin-section" data-perm="souvenirs" aria-labelledby="h-sutom">
+          <h2 id="h-sutom" class="section-title">Sutom du gang</h2>
+          <div id="sutom-root"><div class="empty">Chargement des mots…</div></div>
+        </section>
+        <section id="idees" class="admin-section" aria-labelledby="h-idees">
+          <h2 id="h-idees" class="section-title">Boîte à idées</h2>
+          <div id="ideas-root" class="detail-host"></div>
+        </section>
+        <section id="assistance" class="admin-section" aria-labelledby="h-assistance">
+          <h2 id="h-assistance" class="section-title">Assistance</h2>
+          <div id="support-root" class="detail-host"></div>
+        </section>
+        <section id="messagerie" class="admin-section" aria-labelledby="h-messagerie">
+          <h2 id="h-messagerie" class="section-title">Messagerie</h2>
+          <div id="messages-root"><div class="empty">Chargement…</div></div>
+        </section>
+        <section id="journal" class="admin-section" aria-labelledby="h-journal">
+          <h2 id="h-journal" class="section-title">Journal</h2>
+          <div id="log-root" class="stack"><div class="empty">Chargement…</div></div>
+        </section>
+        <section id="staff" class="admin-section" aria-labelledby="h-staff" data-admin-only>
+          <h2 id="h-staff" class="section-title">Staff</h2>
+          <div id="staff-root"><div class="empty">Chargement du Staff…</div></div>
+        </section>
+        <section id="rdv" class="admin-section" data-perm="evenements" aria-labelledby="h-rdv">
+          <h2 id="h-rdv" class="section-title">Calendrier et ciné</h2>
+          <div id="rdv-root"><div class="empty">Chargement…</div></div>
+        </section>
+        <section id="commandes" class="admin-section" data-perm="bot" aria-labelledby="h-commandes">
+          <h2 id="h-commandes" class="section-title">Commandes slash</h2>
+          <div id="commandes-root"><div class="empty">Chargement…</div></div>
+        </section>
+        <section id="bot" class="admin-section" aria-labelledby="h-bot">
+          <h2 id="h-bot" class="section-title">Bot Discord</h2>
+          <div id="bot-root"><div class="empty">Chargement…</div></div>
+        </section>
+        <section id="reglages" class="admin-section" data-perm="reglages" aria-labelledby="h-reglages">
+          <h2 id="h-reglages" class="section-title">Réglages du site</h2>
+          <div id="identite-root" class="rg-identite"></div>
+          <div id="reglages-root"><div class="empty">Chargement des réglages…</div></div>
+        </section>
+        <section id="saisons" class="admin-section" data-perm="themes" aria-labelledby="h-saisons">
+          <h2 id="h-saisons" class="section-title">Saisons</h2>
+          <div id="saisons-root"><div class="empty">Chargement…</div></div>
+        </section>
+        <section id="eggs" class="admin-section" data-perm="reglages" aria-labelledby="h-eggs">
+          <h2 id="h-eggs" class="section-title">Secrets</h2>
+          <div id="eggs-root"><div class="empty">Chargement des secrets…</div></div>
+        </section>
+        <section id="jeux-geo" class="admin-section" data-perm="souvenirs" aria-labelledby="h-jeux-geo">
+          <h2 id="h-jeux-geo" class="section-title">GeoGuessr du gang</h2>
+          <div id="geo-admin-root"><div class="empty">Chargement des manches…</div></div>
+        </section>
+        <section id="jeux-citations" class="admin-section" data-perm="quiz" aria-labelledby="h-jeux-citations">
+          <h2 id="h-jeux-citations" class="section-title">Citations « Qui a dit ça ? »</h2>
+          <div id="citations-admin-root"><div class="empty">Chargement des citations…</div></div>
+        </section>
+        <section id="preuves" class="admin-section" data-perm="preuves" aria-labelledby="h-preuves">
+          <h2 id="h-preuves" class="section-title">Preuves de quêtes</h2>
+          <div id="proofs-root"><div class="empty">Chargement des preuves…</div></div>
+        </section>
+        <section id="jeux-medias" class="admin-section" data-perm="souvenirs" aria-labelledby="h-jeux-medias">
+          <h2 id="h-jeux-medias" class="section-title">Framed et Heardle</h2>
+          <div id="jeux-medias-root"><div class="empty">Chargement des films et des morceaux…</div></div>
+        </section>
+        <section id="arcade" class="admin-section" data-perm="reglages" aria-labelledby="h-arcade">
+          <h2 id="h-arcade" class="section-title">Arcade (pages 404)</h2>
+          <div id="arcade-root"><div class="empty">Chargement de l’arcade…</div></div>
+        </section>
+        <section id="loup-garou" class="admin-section" data-admin-only aria-labelledby="h-loup-garou">
+          <h2 id="h-loup-garou" class="section-title">Loup-Garou</h2>
+          <div id="loup-garou-root"><div class="empty">Chargement du Loup-Garou…</div></div>
+        </section>
+        <section id="uno" class="admin-section" data-admin-only aria-labelledby="h-uno">
+          <h2 id="h-uno" class="section-title">Uno</h2>
+          <div id="uno-root"><div class="empty">Chargement d’Uno…</div></div>
+        </section>
+        <section id="duels" class="admin-section" data-admin-only aria-labelledby="h-duels">
+          <h2 id="h-duels" class="section-title">Duels</h2>
+          <div id="duels-root"><div class="empty">Chargement des duels…</div></div>
+        </section>
+        <section id="plateaux" class="admin-section" data-admin-only aria-labelledby="h-plateaux">
+          <h2 id="h-plateaux" class="section-title">Jeux de plateau</h2>
+          <div id="plateaux-root"><div class="empty">Chargement des jeux de plateau…</div></div>
+        </section>
+        <section id="nom-de-code" class="admin-section" data-admin-only aria-labelledby="h-nom-de-code">
+          <h2 id="h-nom-de-code" class="section-title">Nom de code</h2>
+          <div id="nom-de-code-root"><div class="empty">Chargement de Nom de code…</div></div>
+        </section>
+        <section id="bataille" class="admin-section" data-perm="cartes" aria-labelledby="h-bataille">
+          <h2 id="h-bataille" class="section-title">Arène de cartes</h2>
+          <div id="bataille-root"><div class="empty">Chargement des réglages…</div></div>
+        </section>
+        <section id="fil" class="admin-section" data-perm="reglages" aria-labelledby="h-fil">
+          <h2 id="h-fil" class="section-title">Fil d’activité</h2>
+          <div id="fil-root"><div class="empty">Chargement du fil…</div></div>
+        </section>
+        <section id="parrainage" class="admin-section" data-perm="membres" aria-labelledby="h-parrainage">
+          <h2 id="h-parrainage" class="section-title">Parrainage</h2>
+          <div id="parrainage-root"><div class="empty">Chargement du parrainage…</div></div>
+        </section>
+        <section id="competences" class="admin-section" data-perm="membres" aria-labelledby="h-competences">
+          <h2 id="h-competences" class="section-title">Compétences</h2>
+          <div id="competences-root"><div class="empty">Chargement des compétences…</div></div>
+        </section>
+        <section id="accueil-membres" class="admin-section" data-perm="reglages" aria-labelledby="h-accueil-membres">
+          <h2 id="h-accueil-membres" class="section-title">Accueil des membres</h2>
+          <div id="accueil-root"><div class="empty">Chargement…</div></div>
+        </section>
+        <section id="champs" class="admin-section" data-perm="reglages" aria-labelledby="h-champs">
+          <h2 id="h-champs" class="section-title">Champs du profil</h2>
+          <div id="champs-root"><div class="empty">Chargement des champs…</div></div>
+        </section>
+        <section id="planning" class="admin-section" aria-labelledby="h-planning">
+          <h2 id="h-planning" class="section-title">Planning</h2>
+          <div id="planning-root"><div class="empty">Chargement du planning…</div></div>
+        </section>
+        <section id="relance" class="admin-section" data-perm="membres" aria-labelledby="h-relance">
+          <h2 id="h-relance" class="section-title">À relancer</h2>
+          <div id="relance-root"><div class="empty">Chargement…</div></div>
+        </section>
+        <section id="mj" class="admin-section" data-perm="mj" aria-labelledby="h-mj">
+          <h2 id="h-mj" class="section-title">Mes jeux</h2>
+          <div id="mj-root"><div class="empty">Chargement de tes jeux…</div></div>
+        </section>
+        <section id="social" class="admin-section" data-perm="reglages" aria-labelledby="h-social">
+          <h2 id="h-social" class="section-title">Vie sociale</h2>
+          <div id="social-root"><div class="empty">Chargement des réglages…</div></div>
+        </section>
+        <section id="erreurs" class="admin-section" data-perm="reglages" aria-labelledby="h-erreurs">
+          <h2 id="h-erreurs" class="section-title">Erreurs du site</h2>
+          <div id="errors-root"><div class="empty">Chargement des erreurs…</div></div>
+        </section>
+        <section id="archives" class="admin-section" data-admin-only aria-labelledby="h-archives">
+          <h2 id="h-archives" class="section-title">Archives</h2>
+          <div id="archives-root"><div class="empty">Chargement…</div></div>
+        </section>
+        <section id="theme" class="admin-section" aria-labelledby="h-theme">
+          <h2 id="h-theme" class="section-title">Thème</h2>
+          <div id="theme-root"><div class="empty">Chargement des thèmes…</div></div>
+        </section>
+  </div>
+
+  <script type="module" src="/humane-gang-tests/assets/commun/site-boot.js"></script>
+  <script type="module" src="/humane-gang-tests/assets/espaces/admin/admin.js"></script>
+</body>
+</html>
