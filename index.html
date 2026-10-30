@@ -2,73 +2,28 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' https://zqbdzokyhgavgmqgiwuw.supabase.co wss://zqbdzokyhgavgmqgiwuw.supabase.co https://nominatim.openstreetmap.org; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
-  <script src="/humane-gang-tests/assets/commun/theme-boot.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#FFF6E9">
   <title>Humane Gang</title>
-  <link rel="canonical" href="https://humane-gang.com/">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Humane Gang">
-  <meta property="og:locale" content="fr_FR">
-  <meta property="og:title" content="Humane Gang">
-  <meta property="og:description" content="Le QG du Humane Gang : Secret Santa, sorties IRL et souvenirs du gang.">
-  <meta property="og:url" content="https://humane-gang.com/">
-  <meta property="og:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Logo du Humane Gang">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Humane Gang">
-  <meta name="twitter:description" content="Le QG du Humane Gang : Secret Santa, sorties IRL et souvenirs du gang.">
-  <meta name="twitter:image" content="https://humane-gang.com/assets/images/marque/og-image.png">
-  <meta name="description" content="Le QG du Humane Gang : Secret Santa, sorties IRL et souvenirs du gang.">
-  <link rel="icon" type="image/png" href="/humane-gang-tests/assets/images/marque/favicon-64.png">
-  <link rel="manifest" href="/humane-gang-tests/manifest.webmanifest">
-  <link rel="apple-touch-icon" href="/humane-gang-tests/assets/images/marque/apple-touch-icon.png">
-  <meta name="theme-color" content="#0b0a10">
-  <script src="/humane-gang-tests/assets/espaces/accueil/intro-redirect.js"></script>
-  <!-- Le logo passe avant tout le reste -->
-  <link rel="preload" as="image" href="/humane-gang-tests/assets/images/marque/logo-1600.webp" type="image/webp" fetchpriority="high">
-  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/base.css">
-  <link rel="stylesheet" href="/humane-gang-tests/assets/commun/themes-decor.css">
-  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/cartes/card-drops.css">
-  <link rel="stylesheet" href="/humane-gang-tests/assets/espaces/accueil/intro.css">
-  <!-- Polices non bloquantes (l'intro n'en a presque pas besoin) -->
-  <!-- Mise en cache, en basse priorité, de la bibliothèque utilisée par l'accueil (le .js : le .mjs n'est qu'un relais de 1 Ko,
-       chargé comme script classique, donc sans crossorigin) -->
-  <link rel="prefetch" href="/humane-gang-tests/assets/vendor/supabase-js-2.45.4.js">
+  <link rel="icon" href="./img/favicon-64.png" type="image/png">
+  <link rel="apple-touch-icon" href="./img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Rammetto+One&display=swap">
+  <link rel="stylesheet" href="./style/site.css">
+  <script src="./vendor/supabase-js-2.45.4.js" defer></script>
+  <script type="module" src="./app/app.js"></script>
 </head>
-<body class="intro">
-  <a class="intro-skip btn btn-ghost" href="/humane-gang-tests/pages/compte/accueil.html?intro=vu" id="skip">Passer l'intro</a>
-
-  <div class="intro-track" id="track">
-    <div class="intro-stage" id="stage" aria-hidden="true">
-      <canvas class="intro-sky" id="sky"></canvas>
-      <div class="intro-glow" id="glow"></div>
-      <div class="intro-world" id="world">
-        <div class="intro-logo" id="logo">
-          <img id="logo-img" src="/humane-gang-tests/assets/images/marque/logo-1600.webp" alt="" width="1600" height="1600" fetchpriority="high" decoding="async" draggable="false">
-          <script src="/humane-gang-tests/assets/espaces/accueil/intro-logo.js"></script>
-          <span class="intro-logo-fallback display" data-site-identite="initiales">HG</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <h1 class="visually-hidden" data-site-identite="nom">Humane Gang</h1>
-  <p class="intro-hint" id="hint">
-    <span class="visually-hidden" data-site-texte="intro_indice">Fais défiler vers le bas pour entrer sur le site</span>
-    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-  </p>
-  <button class="intro-enter btn btn-light" type="button" id="enter" hidden data-site-texte="intro_bouton">Entrer</button>
-
-  <div class="intro-progress" role="progressbar" aria-label="Progression de l'intro" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress">
-    <div class="intro-progress-fill" id="progress-fill"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-  </div>
-  <div class="intro-fade" id="fade"></div>
-
-  <noscript><p class="intro-noscript"><a href="/humane-gang-tests/pages/compte/accueil.html">Entrer sur le site</a></p></noscript>
-  <script type="module" src="/humane-gang-tests/assets/commun/site-boot.js"></script>
-  <script type="module" src="/humane-gang-tests/assets/espaces/accueil/intro.js"></script>
+<body>
+  <a class="evitement" href="#contenu">Aller au contenu</a>
+  <div class="arc" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <header class="haut" id="haut"></header>
+  <main id="contenu" tabindex="-1">
+    <p class="chargement">Chargement du QG…</p>
+  </main>
+  <nav class="onglets" id="onglets" aria-label="Navigation principale (téléphone)" hidden></nav>
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+  <noscript><p class="chargement">Ce site a besoin de JavaScript.</p></noscript>
 </body>
 </html>
