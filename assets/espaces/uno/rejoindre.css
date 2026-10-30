@@ -43,3 +43,34 @@
   .uno-rejoindre-carte { margin-top: 16px; padding: 20px; }
   .uno-rejoindre-nom { font-size: 28px; }
 }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Carte de connexion au salon : surface teintée de l'espace, titre en Bricolage, couleurs qui suivent le mode */
+.uno-rejoindre-carte { border-radius: var(--r-xl); padding: 30px; box-shadow: var(--ombre-2);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--esp) 8%, var(--surface)), var(--surface) 200px); }
+.uno-rejoindre-surtitre { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--esp-ink); }
+.uno-rejoindre-statut, .uno-rejoindre-hote { color: var(--muted); }
+.uno-rejoindre-nom { font-family: var(--font-titre); font-weight: 800; font-size: clamp(28px, 4.4vw, 36px); letter-spacing: -.03em; line-height: 1.05; }
+.uno-hote { color: var(--sand); }
+.uno-rejoindre-erreur { border-radius: var(--r-md); color: var(--rose); background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); }
+
+/* Places */
+.uno-places-ligne { color: var(--muted); }
+.uno-places-ligne .uno-places-val { color: var(--text); font-variant-numeric: tabular-nums; }
+.uno-places-barre { height: 10px; background: color-mix(in srgb, var(--text) 8%, transparent); }
+.uno-places-barre > span { background: var(--esp); }
+
+/* Règles en pilules */
+.uno-chips li { border-radius: 999px; background: color-mix(in srgb, var(--surface-2) 80%, transparent); border-color: var(--border-strong); color: var(--text); }
+
+/* Pseudo et actions */
+.uno-rejoindre-form > label { color: var(--text); }
+.uno-rejoindre-bouton { min-height: 52px; font-size: 16px; }
+.uno-lien-compte { color: var(--esp-ink); border-radius: 999px; }
+.uno-lien-compte:hover { text-decoration: none; background: color-mix(in srgb, var(--esp) 10%, transparent); }
+.uno-lien-compte:focus-visible, .uno-retour:focus-visible { outline-color: var(--esp); }
+
+@media (max-width: 760px) {
+  .uno-rejoindre-carte { border-radius: var(--r-lg); padding: 22px; }
+}

@@ -163,55 +163,46 @@ fieldset.acc-lock { border: 0; padding: 0; margin: 0; min-width: 0; display: fle
 .adc-row-title { margin: 0; font-size: 17px; overflow-wrap: anywhere; }
 .adc-row .btn-row { margin-top: 4px; }
 
-/* ===== Refonte « Pixel Pop » (29/10/2026) : habillage commun des sections =====
-   Compteurs en tuiles à chiffres pixel ; onglets et filtres actifs (.chip[aria-pressed], [role="tab"][aria-selected]) en
-   aplat --esp (jaune de l'admin) avec texte --esp-text ; bordures de 2 px ; en-têtes de tableau en police pixel. */
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Titres de section en Bricolage Grotesque ; compteurs en grandes cartes à chiffres Inter gras ; filtres en pastilles. */
+.section-title { font-family: var(--font-titre); font-weight: 800; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.05; letter-spacing: -.02em; }
+.card-title { font-family: var(--font-titre); font-weight: 800; font-size: 19px; letter-spacing: -.01em; }
 
-/* Compteurs : tuiles, chiffre pixel dans --esp-ink, montée en diagonale au survol quand la tuile est un lien */
-.stat { border-width: 2px; border-radius: 14px; gap: 8px; transition: transform .2s cubic-bezier(.2, .8, .2, 1), box-shadow .2s cubic-bezier(.2, .8, .2, 1), border-color .2s; }
-.stat-value { font-family: var(--font-pixel); font-weight: 400; font-size: 34px; color: var(--esp-ink); font-variant-numeric: tabular-nums; }
-.stat-label { font-family: var(--font-pixel); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
-.stat.attention { border-color: var(--esp); }
-.stat.attention .stat-value { color: var(--esp-ink); }
-@media (hover: hover) { a.stat:hover, button.stat:hover { border-color: var(--esp); transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--esp); } }
-
-/* Filtres et onglets en puces : actifs en aplat --esp */
-.chip { border-width: 2px; border-radius: 12px; transition: transform .15s ease, border-color .15s ease, background .15s ease; }
-@media (hover: hover) { .chip:not([aria-pressed="true"]):hover { border-color: var(--esp); transform: translateY(-2px); } }
-.chip[aria-pressed="true"] { background: var(--esp); color: var(--esp-text); border-color: #000; box-shadow: 3px 3px 0 #000; }
-.badge-toggles .chip[aria-pressed="true"] { box-shadow: 3px 3px 0 #000; }
-
-/* Onglets (role="tab") de toutes les sections : actif en aplat --esp, texte noir */
-.shell [role="tablist"] [role="tab"][aria-selected="true"] { background: var(--esp); color: var(--esp-text); border-color: #000; }
-.shell [role="tablist"] [role="tab"][aria-selected="true"] * { color: inherit; }
-
-/* Interrupteurs : bord 2 px, curseur carré */
-.switch-ui { border-width: 2px; border-radius: 8px; }
-.switch-ui::after { top: 2px; left: 2px; border-radius: 4px; }
-.switch input:checked + .switch-ui { background: var(--esp); border-color: #000; }
-.switch input:checked + .switch-ui::after { background: var(--esp-text); }
-
-/* Listes, éléments et journal */
-.member-row, .item { border-bottom-width: 2px; }
-.new-codes { border-width: 2px; border-radius: 12px; }
-.code { font-family: var(--font-pixel); font-weight: 400; letter-spacing: 2px; }
-.badge-card { border-width: 2px; border-radius: 14px; }
-.badge-img { border-width: 2px; border-radius: 12px; }
-.season-opt { border-width: 2px; border-radius: 12px; }
-.season-opt[aria-checked="true"] { background: var(--esp); color: var(--esp-text); border-color: #000; box-shadow: 3px 3px 0 #000; }
-.season-dot { border-radius: 2px; border: 2px solid #000; }
-.log-row { border-width: 2px; border-radius: 12px; }
-.log-row time { font-family: var(--font-pixel); font-size: 12px; }
-.card-preview { border-width: 2px; }
-
-/* Tableaux des sections : en-têtes en police pixel, lignes séparées par un filet de 2 px */
-.shell table thead th { font-family: var(--font-pixel); font-weight: 400; letter-spacing: 1px; }
-.shell table :is(th, td) { border-bottom-width: 2px; }
-
-/* Mouvement réduit ou effets coupés : rien ne bouge */
-@media (prefers-reduced-motion: reduce) {
-  .stat, .chip { transition: none; }
-  .stat:hover, .chip:hover { transform: none !important; }
+/* Compteurs : grandes cartes, chiffre Inter gras, petit titre en capitales ; une carte cliquable se soulève */
+.stat { gap: 6px; padding: 20px 22px; border-radius: var(--r-lg); border: 1px solid var(--border);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, var(--text) 8%), var(--surface) 140px);
+  box-shadow: var(--ombre-1); transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s ease; }
+.stat-value { font-family: var(--font-body); font-weight: 800; font-size: 40px; line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: var(--text); }
+.stat-label { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--esp-ink); }
+.stat.attention { border-color: color-mix(in srgb, var(--sand) 50%, var(--border)); }
+.stat.attention .stat-value { color: var(--sand); }
+@media (hover: hover) { a.stat:hover, button.stat:hover { transform: translateY(-3px); box-shadow: var(--ombre-2); border-color: color-mix(in srgb, var(--esp) 45%, var(--border)); } }
+@media (prefers-reduced-motion: reduce) { .stat { transition: none; } a.stat:hover, button.stat:hover { transform: none; } }
+html[data-fx="off"] .stat { transition: none; }
+html[data-fx="off"] a.stat:hover, html[data-fx="off"] button.stat:hover { transform: none; }
+@media (max-width: 600px) {
+  .stat { padding: 14px 16px; }
+  .stat-value { font-size: 32px; }
 }
-html[data-fx="off"] :is(.stat, .chip) { transition: none; }
-html[data-fx="off"] :is(.stat, .chip):hover { transform: none !important; }
+
+/* Filtres et onglets en pastilles : actif = fond or doux (--esp), texte --text en gras */
+.chip { border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-weight: 600; }
+.chip[aria-pressed="true"], .badge-toggles .chip[aria-pressed="true"] { background: color-mix(in srgb, var(--esp) 18%, transparent); color: var(--text); border-color: color-mix(in srgb, var(--esp) 45%, var(--border)); font-weight: 700; }
+.shell [role="tablist"] [role="tab"][aria-selected="true"] { background: color-mix(in srgb, var(--esp) 18%, transparent); color: var(--text); border-color: color-mix(in srgb, var(--esp) 45%, var(--border)); font-weight: 700; }
+
+/* Interrupteurs : pastille à curseur rond */
+.switch-ui { border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border-strong); }
+.switch input:checked + .switch-ui { background: color-mix(in srgb, var(--esp) 35%, var(--surface-2)); border-color: color-mix(in srgb, var(--esp) 60%, transparent); }
+.switch input:checked + .switch-ui::after { background: var(--text); }
+
+/* Cartes, lignes et journaux : surfaces arrondies */
+.season-opt { border-radius: var(--r-md); border: 1px solid var(--border); background: var(--surface); }
+.season-opt[aria-checked="true"] { background: color-mix(in srgb, var(--esp) 18%, transparent); border-color: color-mix(in srgb, var(--esp) 45%, var(--border)); color: var(--text); font-weight: 700; }
+.season-dot { border: 0; }
+.new-codes { border-radius: var(--r-md); }
+.log-row { border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--ombre-1); }
+.log-row time { font-variant-numeric: tabular-nums; }
+.badge-card { border-radius: var(--r-lg); background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, var(--text) 8%), var(--surface) 140px); box-shadow: var(--ombre-1); }
+.badge-img { border-radius: var(--r-md); }
+.card-preview { border-radius: var(--r-md); }
+.member-row, .item { border-bottom-color: var(--border); }

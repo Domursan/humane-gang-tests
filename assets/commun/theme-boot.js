@@ -15,7 +15,7 @@ try {
   r.style.colorScheme = m === 'clair' ? 'light' : 'dark';
 } catch (e) {}
 
-/* Espace de la page (refonte Pixel Pop) : posé sur <html> en data-espace, il donne à chaque espace sa couleur de la
+/* Espace de la page (design « Soirée ») : posé sur <html> en data-espace, il donne à chaque espace sa couleur de la
    traînée arc-en-ciel du logo (variable --c de base.css). Premier dossier ou nom de page reconnu, sinon « accueil ». */
 (function () {
   var p = location.pathname, e = 'accueil';
@@ -24,21 +24,6 @@ try {
     ['/humane-gang-tests/pages/jeux/', 'jeux'], ['/humane-gang-tests/pages/irl/', 'irl'], ['/humane-gang-tests/pages/infos/', 'infos']];
   for (var i = 0; i < t.length; i++) if (p.indexOf(t[i][0]) !== -1) { e = t[i][1]; break; }
   document.documentElement.setAttribute('data-espace', e);
-})();
-
-/* Traînée arc-en-ciel du logo au changement de page (refonte Pixel Pop) : classe px-arrivee sur <html> quand on arrive
-   d'une autre page du site par un lien (pas au premier chargement, ni au rechargement, ni avec les effets coupés ou le
-   mouvement réduit). Le dessin et l'animation sont dans base.css (html.px-arrivee::after) ; la classe est retirée ensuite. */
-(function () {
-  try {
-    var r = document.documentElement, p = JSON.parse(localStorage.getItem('hg_prefs') || '{}');
-    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
-    var interne = document.referrer && document.referrer.indexOf(location.origin + '/') === 0;
-    if (p.effects === false || !interne || (nav && nav.type !== 'navigate')) return;
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    r.classList.add('px-arrivee');
-    setTimeout(function () { r.classList.remove('px-arrivee'); }, 1200);
-  } catch (e) {}
 })();
 
 /* Anti-encadrement (clickjacking) : GitHub Pages ne permet pas d'envoyer l'en-tête frame-ancestors, et la balise

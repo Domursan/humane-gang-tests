@@ -32,6 +32,7 @@ import {
   ICON_STATUT,
 } from './icons.js';
 import { bindRechercheLien, ouvreRecherche } from './recherche-lien.js';
+import { svg } from '../icons.js';
 import { bindShortcuts } from './shortcuts.js';
 import { siteIdentite, navLibelle } from './site-defaults.js';
 import { MENUS, menuKey } from './menu-def.js';
@@ -156,6 +157,31 @@ function navHtml(profile) {
         <div class="nav-menu" id="nav-menu-${m.id}" hidden>${inner}</div>
       </div>`;
   }).join('');
+}
+
+/* ---------- Barre d'onglets du téléphone (design « Soirée ») ---------- */
+
+/** Onglets du bas de l'écran (téléphone) : page, adresse, icône (icons.js). Un onglet n'apparaît que si la page est accessible. */
+const ONGLETS = [
+  { page: 'accueil', label: 'QG', href: '/humane-gang-tests/pages/compte/accueil.html', icone: 'home' },
+  { page: 'cartes', label: 'Cartes', href: '/humane-gang-tests/pages/cartes/cartes.html', icone: 'star' },
+  { page: 'jeux', label: 'Jeux', href: '/humane-gang-tests/pages/jeux/jeux.html', icone: 'dice' },
+  { page: 'irl', label: 'IRL', href: '/humane-gang-tests/pages/irl/irl.html', icone: 'pin' },
+  { page: 'messages', label: 'Messages', href: '/humane-gang-tests/pages/compte/messages.html', icone: 'msg' },
+];
+/**
+ * HTML de la barre d'onglets (vide sans profil). L'onglet de la page affichée porte aria-current.
+ * @param {object|null} profile Profil courant.
+ * @returns {string}
+ */
+function ongletsHtml(profile) {
+  if (!profile) return '';
+  const liens = ONGLETS.filter((o) => o.page === 'accueil' || canAccess(o.page)).map((o) => {
+    const ici = location.pathname === o.href || (o.page === 'jeux' && location.pathname.includes('/pages/jeux/'))
+      || (o.page === 'irl' && location.pathname.includes('/pages/irl/'));
+    return `<a class="tab-item" href="${esc(o.href)}"${ici ? ' aria-current="page"' : ''}>${svg(o.icone, { size: 22 })}<span>${esc(o.label)}</span>${o.page === 'messages' ? '<span class="nav-badge tab-badge" hidden></span>' : ''}</a>`;
+  }).join('');
+  return `<nav class="tabbar" aria-label="Navigation rapide">${liens}</nav>`;
 }
 
 /* ---------- Pastille glissante (refonte Pixel Pop) ---------- */
@@ -424,6 +450,9 @@ export function updateNav(profile = getCachedProfile()) {
   const nav = header?.querySelector('.nav');
   if (!nav) return;
   nav.innerHTML = navHtml(profile);
+  // Onglets du téléphone : refaits quand les pages accessibles sont connues
+  header.querySelector(".tabbar")?.remove();
+  header.insertAdjacentHTML("beforeend", ongletsHtml(profile));
   requestAnimationFrame(() => movePill(header));
   const toggle = header.querySelector('.nav-toggle');
   if (toggle) {
@@ -497,10 +526,11 @@ export function renderHeader(profile, { nav = true } = {}) {
     <div class="rainbow" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
     <div class="container">
       <span class="nav-pill" aria-hidden="true" hidden></span>
-      <a class="brand" href="/humane-gang-tests/pages/compte/accueil.html"><img class="brand-logo" src="${esc(logo.src)}"${logo.srcset ? ` srcset="${esc(logo.srcset)}" sizes="44px"` : ''} width="44" height="44" alt=""><span>${esc(siteIdentite().nom.toUpperCase())}</span></a>
+      <a class="brand" href="/humane-gang-tests/pages/compte/accueil.html"><img class="brand-logo" src="${esc(logo.src)}"${logo.srcset ? ` srcset="${esc(logo.srcset)}" sizes="44px"` : ''} width="44" height="44" alt=""><span>${esc(siteIdentite().nom)}</span></a>
       <nav class="nav" id="site-nav" aria-label="Navigation principale">${nav ? navHtml(profile) : ''}</nav>
       <div class="nav-tools">${profile ? search : ''}${toggle}${right}</div>
-    </div>`;
+    </div>
+    ${ongletsHtml(profile)}`;
   // Cible du lien d'évitement : le contenu principal de la page (tabindex -1 : atteignable par script et par le lien)
   const main = document.getElementById('app');
   if (main && !main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');

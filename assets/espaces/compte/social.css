@@ -325,44 +325,44 @@
 .ha-name { flex: 1 1 160px; min-width: 0; }
 .ha-row .check { min-height: 44px; align-items: center; }
 
-/* ===== Refonte « Pixel Pop » (29/10/2026) : Mon compte et carte de membre seulement (html[data-espace="compte"]) =====
+
+/* ===== Design « Soirée » (30/10/2026) : Mon compte et carte de membre seulement (html[data-espace="compte"]) =====
    Ce fichier sert aussi l'accueil, la messagerie, l'IRL et l'admin : ces pages gardent leur style. */
-/* Profil gaming (compte) : jeux favoris en étiquettes pixel, cochées en aplat violet */
-html[data-espace="compte"] .gm-fav { border: 2px solid var(--border-strong); border-radius: 10px; font: 400 13px var(--font-pixel); letter-spacing: .5px; text-transform: uppercase;
-  transition: transform .12s ease, box-shadow .12s ease; }
-html[data-espace="compte"] .gm-fav input { accent-color: var(--esp-text); }
-html[data-espace="compte"] .gm-fav:has(input:checked) { background: var(--esp); border-color: #000; color: var(--esp-text); box-shadow: 3px 3px 0 #000; }
-html[data-espace="compte"] .gm-fav:has(input:focus-visible) { outline: 2px solid var(--esp-ink); outline-offset: 2px; }
-@media (hover: hover) { html[data-espace="compte"] .gm-fav:not(:has(input:disabled)):hover { transform: translate(-2px, -2px); border-color: var(--esp); } }
-html[data-espace="compte"] .gm-dot { border-radius: 0; }
-html[data-espace="compte"] .gm-head .vis-tag { border-color: var(--esp); color: var(--esp-ink); }
+/* Profil gaming : jeux favoris en pastilles, cochées en teinte d'espace */
+html[data-espace="compte"] .gm-fav { border: 1px solid var(--border-strong); border-radius: 999px; font-size: 14px; font-weight: 600;
+  transition: background .2s ease, border-color .2s ease, color .2s ease; }
+html[data-espace="compte"] .gm-fav input { accent-color: var(--esp); }
+html[data-espace="compte"] .gm-fav:has(input:checked) { background: color-mix(in srgb, var(--esp) 18%, transparent); border-color: color-mix(in srgb, var(--esp) 50%, var(--border)); color: var(--text); font-weight: 700; }
+html[data-espace="compte"] .gm-fav:has(input:focus-visible) { outline: 2px solid var(--esp); outline-offset: 2px; }
+@media (hover: hover) { html[data-espace="compte"] .gm-fav:not(:has(input:disabled)):hover { border-color: color-mix(in srgb, var(--esp) 45%, var(--border)); } }
+html[data-espace="compte"] .gm-dot { border-radius: 50%; }
+html[data-espace="compte"] .gm-head .vis-tag { border-color: color-mix(in srgb, var(--esp) 45%, transparent); color: var(--esp-ink); }
 
 /* Fiche (membre) : blocs « En jeu », « Toi et … », compétences, « Qui joue à… » */
-html[data-espace="compte"] .gm-row { border-width: 2px; border-radius: 10px; }
-html[data-espace="compte"] .gm-now { border-width: 2px; border-radius: 6px; }
-html[data-espace="compte"] .gm-who { border-width: 2px; }
-html[data-espace="compte"] .gm-who-title { font-family: var(--font-display); font-weight: 400; font-size: 20px; }
-html[data-espace="compte"] .gm-tab { border: 2px solid var(--border-strong); border-radius: 10px; font: 400 13px var(--font-pixel); letter-spacing: .5px; text-transform: uppercase; }
-html[data-espace="compte"] .gm-tab[aria-selected="true"] { background: var(--esp); color: var(--esp-text); border-color: #000; box-shadow: 3px 3px 0 #000; }
-html[data-espace="compte"] .gm-tab:focus-visible { outline: 2px solid var(--esp-ink); outline-offset: 2px; }
-html[data-espace="compte"] .fr-card { border-width: 2px; }
-html[data-espace="compte"] .fr-row { border-width: 2px; border-radius: 10px; }
-html[data-espace="compte"] .fr-ic { border-radius: 4px; }
-html[data-espace="compte"] .fr-verdict { border-radius: 2px; font-family: var(--font-pixel); font-weight: 400; text-transform: uppercase; }
-html[data-espace="compte"] .sk-pill { border: 2px solid var(--border); border-radius: 10px; }
-html[data-espace="compte"] .sk-pill-on { color: var(--esp-ink); border-color: var(--esp); background: color-mix(in srgb, var(--esp) 12%, transparent); }
-html[data-espace="compte"] .sk-chip { border: 2px solid var(--border-strong); border-radius: 10px; font: 400 13px var(--font-pixel); letter-spacing: .5px; text-transform: uppercase; }
+html[data-espace="compte"] .gm-who { border-radius: var(--r-lg); }
+html[data-espace="compte"] .gm-who-title { font-family: var(--font-titre); font-weight: 800; font-size: 20px; letter-spacing: -.015em; }
+html[data-espace="compte"] .gm-row { border-radius: var(--r-md); }
+html[data-espace="compte"] .gm-tab { border: 1px solid var(--border-strong); border-radius: 999px; font-size: 14px; font-weight: 600; }
+html[data-espace="compte"] .gm-tab[aria-selected="true"] { background: color-mix(in srgb, var(--esp) 18%, transparent); border-color: color-mix(in srgb, var(--esp) 50%, var(--border)); color: var(--text); font-weight: 700; box-shadow: none; }
+html[data-espace="compte"] .gm-tab:focus-visible { outline: 2px solid var(--esp); outline-offset: 2px; }
+html[data-espace="compte"] .fr-card { border-radius: var(--r-lg); background: linear-gradient(180deg, color-mix(in srgb, var(--esp) 7%, var(--surface)), var(--surface)); border-color: color-mix(in srgb, var(--esp) 25%, var(--border)); box-shadow: var(--ombre-1); }
+html[data-espace="compte"] .fr-row { border-radius: var(--r-md); }
+html[data-espace="compte"] .fr-ic { border-radius: 12px; }
+html[data-espace="compte"] .fr-verdict { border-radius: 999px; padding: 2px 9px; font: 700 12px/1.4 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
+html[data-espace="compte"] .sk-pill { border: 1px solid var(--border-strong); border-radius: 999px; }
+html[data-espace="compte"] .sk-pill-on { color: var(--esp-ink); border-color: color-mix(in srgb, var(--esp) 55%, var(--border)); background: color-mix(in srgb, var(--esp) 14%, transparent); }
+html[data-espace="compte"] .sk-chip { border: 1px solid var(--border-strong); border-radius: 999px; font: 600 14px/1.2 var(--font-body); letter-spacing: 0; text-transform: none; }
 html[data-espace="compte"] .sk-chip[aria-pressed="true"],
-html[data-espace="compte"] .sk-chip[aria-pressed="true"]:hover { background: var(--esp); color: var(--esp-text); border-color: #000; box-shadow: 3px 3px 0 #000; }
-html[data-espace="compte"] .sk-result { border-width: 2px; border-radius: 12px; }
+html[data-espace="compte"] .sk-chip[aria-pressed="true"]:hover { background: color-mix(in srgb, var(--esp) 18%, transparent); color: var(--text); border-color: color-mix(in srgb, var(--esp) 50%, var(--border)); font-weight: 700; box-shadow: none; }
+html[data-espace="compte"] .sk-result { border-width: 1px; border-radius: var(--r-md); box-shadow: var(--ombre-1); }
 
 /* Entraide et liens (compte) */
-html[data-espace="compte"] .acc-social-sub { font: 400 14px var(--font-pixel); letter-spacing: 1px; text-transform: uppercase; color: var(--esp-ink); }
-html[data-espace="compte"] .acc-social-opts { border-top-width: 2px; }
+html[data-espace="compte"] .acc-social-sub { font: 700 12px/1.4 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--esp-ink); }
+html[data-espace="compte"] .acc-social-opts { border-top-width: 1px; }
 
-/* Boîte de dialogue commune : bord et ombre francs */
-html[data-espace="compte"] .soc-dialog { border-width: 2px; box-shadow: 8px 8px 0 #000; }
-html[data-mode="clair"][data-espace="compte"] .soc-dialog { box-shadow: 8px 8px 0 #1B1A1F; }
+/* Boîte de dialogue commune : verre arrondi, ombre douce */
+html[data-espace="compte"] .soc-dialog { border: 1px solid var(--border-strong); border-radius: var(--r-xl); box-shadow: var(--ombre-2); }
+html[data-espace="compte"] .soc-dialog-title { font-family: var(--font-titre); font-weight: 800; font-size: 22px; letter-spacing: -.02em; }
 
 @media (prefers-reduced-motion: reduce) {
   html[data-espace="compte"] .gm-fav { transition: none; }

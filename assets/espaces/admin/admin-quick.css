@@ -114,7 +114,25 @@
   .qk-seg button { flex: 1 1 0; padding: 0 8px; }
 }
 
-/* Refonte « Pixel Pop » (29/10/2026) : ombre noire franche, coins de 14 px, bouton de fermeture carré */
-.qk-dlg { border-radius: 14px; box-shadow: 8px 8px 0 #000; }
-.qk-x { border-radius: 12px; border-width: 2px; }
-.qk-label { font-family: var(--font-pixel); font-weight: 400; font-size: 11px; letter-spacing: 1.5px; }
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Fenêtres d'actions rapides : verre flottant, bord teinté de la couleur de la fenêtre (--qk-c), titres Bricolage Grotesque. */
+.qk-dlg { border: 1px solid color-mix(in srgb, var(--qk-c, var(--border-strong)) 45%, var(--border)); border-radius: var(--r-xl);
+  background: var(--verre); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); box-shadow: var(--ombre-2); }
+.qk-dlg::backdrop { background: rgba(6, 4, 12, .5); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+.qk-title { font-family: var(--font-titre); font-weight: 800; font-size: 30px; letter-spacing: -.02em; line-height: 1.05; }
+.qk-x { border-radius: 999px; border: 1px solid var(--border); }
+.qk-label { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--esp-ink); }
+
+/* Membres et choix : pastilles ; choisi = teinte de la fenêtre */
+.qk-chip { border-radius: 999px; border: 1px solid var(--border-strong); }
+.qk-chip[aria-pressed="true"] { background: color-mix(in srgb, var(--qk-c) 22%, transparent); border-color: color-mix(in srgb, var(--qk-c) 60%, transparent); color: var(--text); font-weight: 700; }
+.qk-seg { background: color-mix(in srgb, var(--surface-2) 70%, transparent); border: 1px solid var(--border); }
+.qk-seg button[aria-pressed="true"] { background: color-mix(in srgb, var(--qk-c) 22%, transparent); color: var(--text); font-weight: 700; }
+.qk-step-btn { border-radius: 999px; }
+.qk-amount input { border-radius: var(--r-md); }
+.qk-sum, .qk-err, .qk-adv { border-radius: var(--r-md); }
+.qk-sum { background: color-mix(in srgb, var(--surface-2) 80%, transparent); }
+.qk-foot { border-top: 1px solid var(--border); }
+.qk-btns .btn { border-radius: 999px; }
+.qk-btns .btn-primary { box-shadow: 0 8px 22px -10px color-mix(in srgb, var(--qk-c) 80%, transparent); }
+@media (max-width: 480px) { .qk-dlg { border-radius: var(--r-lg); } }

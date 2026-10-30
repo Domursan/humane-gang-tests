@@ -101,3 +101,43 @@
 
 /* ----- Mouvement réduit ----- */
 @media (prefers-reduced-motion: reduce) { .uno-progres span, .uno-interr::after { transition: none; } }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Salle Uno : cartes à grands rayons et ombre douce, joueurs en lignes arrondies, règles en pilules */
+.uno-salle { gap: 22px; }
+.uno-salle .uno-titre { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.03em; }
+.uno-salle-carte, .uno-salle-chat, .uno-salle-actions { border-radius: var(--r-xl); box-shadow: var(--ombre-1);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, var(--text) 8%), var(--surface) 140px); }
+.uno-salle-carte h2 { font-family: var(--font-titre); font-weight: 800; font-size: 22px; letter-spacing: -.02em; }
+.uno-salle-etiq { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--esp-ink); }
+.uno-salle .uno-salle-codeaff { font-variant-numeric: tabular-nums; }
+.uno-salle-entete strong { font-variant-numeric: tabular-nums; }
+
+/* Progression et joueurs */
+.uno-progres { height: 10px; background: color-mix(in srgb, var(--text) 8%, transparent); }
+.uno-joueurs { gap: 6px; }
+.uno-joueur { border-bottom: 0; border-radius: var(--r-md); padding: 8px 12px; background: color-mix(in srgb, var(--surface-2) 60%, transparent); }
+.uno-joueur.moi { box-shadow: inset 3px 0 0 var(--esp); }
+.uno-joueur.moi .uno-pseudo { text-decoration: none; font-weight: 700; }
+.uno-etiquette { border-radius: 999px; background: color-mix(in srgb, var(--surface-2) 70%, transparent); }
+.uno-place-vide { border-color: color-mix(in srgb, var(--esp) 35%, var(--border)); }
+.uno-btn-icone { border-radius: 50%; }
+.uno-btn-icone:focus-visible, .uno-regle-seg button:focus-visible, .uno-interr:focus-visible { outline-color: var(--esp); }
+
+/* Règles */
+.uno-regles li::before { background: var(--esp); }
+.uno-regle { border-bottom-color: color-mix(in srgb, var(--border) 80%, transparent); }
+.uno-regle-seg { border-radius: 999px; padding: 3px; gap: 0; }
+.uno-regle-seg button { border-radius: 999px; }
+.uno-regle-seg button[aria-pressed="true"] { background: color-mix(in srgb, var(--esp) 18%, transparent); color: var(--text); box-shadow: none; font-weight: 700; }
+.uno-modifie { color: var(--esp-ink); }
+
+/* Actions */
+.uno-salle-actions-ligne .btn { min-height: 52px; padding: 0 28px; font-size: 16px; }
+.uno-salle .uno-lien-action { border-radius: 999px; padding: 0 12px; }
+.uno-salle .uno-lien-action:focus-visible { outline-color: var(--esp); }
+
+@media (max-width: 600px) {
+  .uno-salle-carte, .uno-salle-chat, .uno-salle-actions { border-radius: var(--r-lg); padding: 18px; }
+  .uno-salle-actions-ligne .btn { width: 100%; }
+}

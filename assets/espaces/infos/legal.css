@@ -68,3 +68,47 @@
   .legal-table tbody th { white-space: normal; }
   .legal-table td + td { color: var(--muted); font-size: 14px; }
 }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Lecture : largeur de texte de 70 caractères, sommaire en pilules, sections en cartes douces */
+.legal-updated { font-size: 14px; color: var(--muted); }
+.legal-layout { gap: 48px; grid-template-columns: 220px minmax(0, 1fr); }
+.legal-toc { top: 28px; }
+.legal-toc-title { font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--esp-ink); margin-bottom: 12px; }
+.legal-toc a { border-radius: 12px; padding: 9px 14px; color: var(--muted); font-weight: 500; transition: background .2s ease, color .2s ease; }
+.legal-toc a:hover { background: color-mix(in srgb, var(--text) 6%, transparent); color: var(--text); }
+.legal-toc a[aria-current="true"] { background: color-mix(in srgb, var(--esp) 16%, transparent); border-left-color: var(--esp); color: var(--text); font-weight: 700; }
+
+.legal-body { max-width: none; }
+.legal-summary { margin: 0 0 28px; padding: 20px 24px; border-radius: var(--r-lg); box-shadow: var(--ombre-1);
+  border: 1px solid color-mix(in srgb, var(--esp) 30%, var(--border));
+  background: color-mix(in srgb, var(--esp) 8%, var(--surface)); max-width: 70ch; line-height: 1.6; }
+
+.legal-section { padding: 40px; border-radius: var(--r-xl); box-shadow: var(--ombre-1); scroll-margin-top: 28px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 93%, var(--text) 7%), var(--surface) 160px); }
+.legal-section > h2 { font-family: var(--font-titre); font-weight: 800; font-size: clamp(28px, 4vw, 36px); letter-spacing: -.03em; line-height: 1.1; margin-bottom: 20px; }
+.legal-section h3 { font-family: var(--font-titre); font-weight: 800; font-size: 19px; letter-spacing: -.01em; color: var(--esp-ink); margin: 28px 0 10px; }
+.legal-section p, .legal-section li { max-width: 70ch; line-height: 1.65; }
+.legal-section ul { max-width: 70ch; }
+.legal-section li::marker { color: var(--esp); }
+.legal-dl dt { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+
+.table-wrap { border-radius: var(--r-md); border-color: var(--border); }
+.legal-table thead th { font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.legal-table code { color: var(--esp-ink); }
+
+.rights-grid { gap: 14px; }
+.right { border-radius: var(--r-md); padding: 18px; background: var(--surface-2); box-shadow: var(--ombre-1); }
+.right h3 { font-family: var(--font-titre) !important; font-weight: 800 !important; }
+
+@media (max-width: 900px) {
+  .legal-layout { gap: 20px; }
+  .legal-toc a[aria-current="true"] { border-color: var(--esp); }
+}
+@media (max-width: 600px) {
+  .legal-section { padding: 24px 20px; border-radius: var(--r-lg); }
+  .legal-section p, .legal-section li { font-size: 16px; }
+  .legal-summary { padding: 16px 18px; }
+  .legal-toc a { min-height: 44px; display: inline-flex; align-items: center; }
+  .legal-table td + td { color: var(--muted); }
+}

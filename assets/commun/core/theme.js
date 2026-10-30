@@ -13,6 +13,7 @@
 import { siteLogo } from './site-defaults.js';
 import { getPrefs, applyPrefsAttrs } from './prefs-state.js';
 import { DEFAULT_THEME, themeVars, rainbowVars } from './theme-calc.js';
+import { paletteDe } from './theme-palettes.js';
 import { startEffects, applyFromageClass } from './effects.js';
 
 /* ---------- État ---------- */
@@ -41,7 +42,7 @@ function displayTheme(site) {
  */
 function setRootVars(t) {
   const root = document.documentElement;
-  const vars = themeVars(t.colors);
+  const vars = themeVars(paletteDe(t)); // design « Soirée » : couleurs du code (theme-palettes.js), pas de la base
   // Barre arc-en-ciel : palette du thème pour un thème spécial, couleurs de marque sinon (retirées si on revient au défaut)
   Object.assign(vars, t.is_default ? {} : rainbowVars(vars));
   for (const [k, v] of Object.entries(vars)) root.style.setProperty(k, v);

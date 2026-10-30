@@ -6,7 +6,7 @@
 .sz-stack { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
 .sz-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
 .sz-eyebrow { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--sand); margin: 0; }
-.sz-title { font-family: var(--font-display); font-size: clamp(24px, 6vw, 30px); line-height: 1.05; margin: 2px 0 4px; }
+.sz-title { font-family: var(--font-titre); font-size: clamp(24px, 6vw, 30px); line-height: 1.05; margin: 2px 0 4px; }
 .sz-h3 { font-size: 15px; font-weight: 700; margin: 0; font-family: var(--font-body); }
 .sz-muted { color: var(--muted); }
 .sz-small { font-size: 13px; }
@@ -20,8 +20,8 @@
 .av-reveal-media { flex: none; }
 .av-reveal-body { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 6px; }
 .av-reveal .sz-eyebrow { color: var(--rose); }
-.av-reveal-title { font-family: var(--font-display); font-size: 20px; line-height: 1.1; margin: 0; }
-.av-big { font-family: var(--font-display); font-size: 40px; color: var(--sand); line-height: 1; }
+.av-reveal-title { font-family: var(--font-titre); font-size: 20px; line-height: 1.1; margin: 0; }
+.av-big { font-family: var(--font-titre); font-size: 40px; color: var(--sand); line-height: 1; }
 .av-photo { width: 108px; height: 108px; border-radius: 12px; object-fit: cover; background: var(--surface-2); display: block; }
 .av-booster { width: 84px; height: 112px; border-radius: 12px; border: 2px solid var(--sand); display: grid; place-items: center; text-align: center;
   background: linear-gradient(160deg, #9E3543, #4E2398); color: #fff; font-size: 12px; padding: 6px; }
@@ -74,7 +74,7 @@
 .an-hero { position: relative; overflow: hidden; background: radial-gradient(circle at 85% 20%, rgba(158, 53, 67, .45), transparent 60%), var(--surface);
   border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; display: flex; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .an-hero-txt { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
-.an-age { font-family: var(--font-display); font-size: clamp(72px, 22vw, 110px); line-height: .9; flex: none;
+.an-age { font-family: var(--font-titre); font-size: clamp(72px, 22vw, 110px); line-height: .9; flex: none;
   background: linear-gradient(180deg, var(--rb-2), var(--rb-1) 35%, var(--rb-4) 65%, var(--rb-5)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .an-gift { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
 .an-pack { width: 76px; height: 108px; border-radius: 12px; border: 2px solid var(--sand); background: linear-gradient(160deg, #9E3543, #4E2398);

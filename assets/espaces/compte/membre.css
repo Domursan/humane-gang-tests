@@ -1,5 +1,7 @@
 /* ===== Humane Gang — carte d'identité + annuaire (membre.html) ===== */
-:root { --font-pixel: 'Silkscreen', ui-monospace, monospace; }
+/* Police de la carte d'identité seulement (.idc, dessin et image téléchargée) : le reste de la page n'utilise plus de police pixel. */
+@font-face { font-family: 'Silkscreen'; font-style: normal; font-weight: 400; font-display: swap; src: url('/humane-gang-tests/assets/fonts/silkscreen-400.woff2') format('woff2'); } /* carte d'identité du membre : garde sa police pixel */
+.idc { --font-pixel: 'Silkscreen', ui-monospace, monospace; }
 
 .mb-loading { min-height: 50vh; }
 .mb-head { padding-bottom: 20px; }
@@ -15,7 +17,7 @@
 
 .mb-section-title { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 400; font-size: 22px; margin-bottom: 16px; }
 .mb-section-title svg { color: var(--sand); }
-.mb-count { font-family: var(--font-pixel); font-size: 14px; padding: 2px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+.mb-count { font-family: var(--font-body); font-size: 14px; padding: 2px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
 
 /* ---------- La carte ---------- */
 .idc-wrap { container-type: inline-size; width: 100%; max-width: 640px; perspective: 1100px; }
@@ -168,7 +170,7 @@
 .badge-img img { width: 100%; height: 100%; object-fit: cover; }
 .badge-name { font-weight: 700; font-size: 14px; overflow-wrap: anywhere; }
 .badge-desc { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
-.badge-date { font-family: var(--font-pixel); font-size: 12px; color: var(--muted); letter-spacing: .06em; }
+.badge-date { font-family: var(--font-body); font-size: 12px; color: var(--muted); letter-spacing: .06em; }
 .skeleton-line { display: block; height: 14px; border-radius: 6px; background: var(--surface-2); margin: 10px 0; animation: mb-pulse 1.4s ease-in-out infinite; }
 .skeleton-line.short { width: 60%; }
 
@@ -181,7 +183,7 @@
 .gang-item.is-current { border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
 .gang-txt { display: flex; flex-direction: column; min-width: 0; }
 .gang-txt strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.gang-me { font-family: var(--font-pixel); font-size: 12px; font-weight: 400; padding: 1px 6px; border-radius: 999px; background: var(--surface-2); color: var(--muted); vertical-align: 2px; }
+.gang-me { font-family: var(--font-body); font-size: 12px; font-weight: 400; padding: 1px 6px; border-radius: 999px; background: var(--surface-2); color: var(--muted); vertical-align: 2px; }
 .gang-skel { height: 64px; border-radius: var(--radius-sm); background: var(--surface); animation: mb-pulse 1.4s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -194,7 +196,7 @@
 .badge-img:has(.badge-lvl) { overflow: visible; }
 .badge-img:has(.badge-lvl) img { border-radius: 50%; }
 .badge-lvl { position: absolute; right: -8px; bottom: -6px; min-width: 24px; height: 20px; padding: 0 5px; border-radius: 6px; display: grid; place-items: center;
-  font: 700 12px/1 var(--font-pixel); color: #121212; background: var(--sand); border: 2px solid var(--surface-2); }
+  font: 700 12px/1 var(--font-body); color: #121212; background: var(--sand); border: 2px solid var(--surface-2); }
 .badge-item .lvl-pips { margin: 2px 0; }
 .badge-item .lvl-name { font-size: 12px; }
 .mb-actions { display: flex; justify-content: center; margin: 0 0 16px; }
@@ -206,61 +208,60 @@
 .idc-titles { display: flex; flex-wrap: wrap; gap: 4px; }
 .idc-titles .pill { font-size: 12px; }
 
-/* ===== Refonte « Pixel Pop » (29/10/2026) : carte de membre en violet d'espace (--esp), bordures 2 px, ombres franches =====
-   La carte d'identité elle-même (.idc) garde son dessin : elle reste sombre dans tous les modes et sert aussi à l'image téléchargée. */
-.mb-head .eyebrow { display: inline-flex; align-items: center; gap: 10px; }
-.mb-head .eyebrow::before { content: ''; width: 10px; height: 10px; flex: none; background: var(--esp); }
-.mb-section-title { font-size: 26px; letter-spacing: -.2px; }
+/* ===== Design « Soirée » (30/10/2026) =====
+   La carte d'identité (.idc : dessin et image téléchargée) ne change pas. Le style Soirée touche le titre de section,
+   les badges en cartes douces, le gang et la vitrine. */
+.mb-section-title { font-family: var(--font-titre); font-weight: 800; font-size: clamp(24px, 3.4vw, 30px); letter-spacing: -.02em; }
 .mb-section-title svg { color: var(--esp-ink); }
-.mb-count { border: 2px solid var(--esp); border-radius: 4px; background: transparent; color: var(--text); font-weight: 400; }
-.idc { filter: drop-shadow(8px 8px 0 #000); }
-.idc-brand-sub { color: #C4B5FD; }
+.mb-count { padding: 3px 11px; border: 0; border-radius: 999px; font-family: var(--font-body); font-size: 13px; font-weight: 700;
+  font-variant-numeric: tabular-nums; background: color-mix(in srgb, var(--esp) 16%, transparent); color: var(--esp-ink); }
 
-/* Statistiques de la carte : tuiles à liseré gauche de couleur, chiffres pixel */
-.idc-stats li { box-shadow: inset calc(var(--u) * .7) 0 0 0 var(--c); padding-left: calc(var(--u) * 1.8); }
-.idc-stats strong { font-weight: 400; }
-
-/* Badges : grille de tuiles aux couleurs de la traînée du logo, qui montent en diagonale au survol */
-@media (min-width: 521px) { .badge-grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); } }
-.badge-item { --c: #FE3104; border-width: 2px; border-radius: 12px; border-color: color-mix(in srgb, var(--c) 55%, var(--border));
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; animation: px-pop .25s cubic-bezier(.2, 1.4, .4, 1) both; }
-.badge-item:nth-child(7n+2) { --c: #FCA301; } .badge-item:nth-child(7n+3) { --c: #FBD32D; } .badge-item:nth-child(7n+4) { --c: #2FD16B; }
-.badge-item:nth-child(7n+5) { --c: #3D7BFF; } .badge-item:nth-child(7n+6) { --c: #8B5CF6; } .badge-item:nth-child(7n+7) { --c: #FF3B5C; }
-@media (hover: hover) { .badge-item:hover { transform: translate(-3px, -3px); border-color: var(--c); box-shadow: 6px 6px 0 var(--c); } }
-/* Médaille carrée en aplat de couleur, initiales en noir (contraste ≥ 4,5:1 sur toutes les couleurs vives) */
-.badge-img { border-radius: 6px; border: 2px solid #000; background: var(--c); color: #08080B; font: 400 20px/1 var(--font-display); box-shadow: var(--px-shadow); }
-.badge-img:has(.badge-lvl) img, .badge-img img { border-radius: 4px; }
-.badge-lvl { border-radius: 2px; background: #08080B; color: #F4F1EA; border: 2px solid var(--c); font-weight: 400; }
-.badge-name { font-size: 15px; }
-.badge-item .lvl-name { color: var(--esp-ink); }
-
-/* Le gang : tuiles à bord franc, avatar carré, toi et la fiche en cours marqués en violet */
-.mb-gang .mb-section-title { font-size: clamp(26px, 4vw, 34px); }
-.gang-grid { gap: 14px; }
-.gang-item { border-width: 2px; border-radius: 12px; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
-@media (hover: hover) { .gang-item:hover { transform: translate(-3px, -3px); border-color: var(--esp); box-shadow: 6px 6px 0 var(--esp); } }
-.gang-item:focus-visible { outline: 2px solid var(--esp-ink); outline-offset: 3px; }
-.gang-item .avatar { border-radius: 4px; border: 2px solid #000; font-family: var(--font-pixel); }
-.gang-item.is-current { border-color: var(--esp); box-shadow: inset 6px 0 0 var(--esp); }
-.gang-me { border-radius: 2px; background: var(--esp); color: var(--esp-text); }
-.gang-skel { border-radius: 12px; }
-
-/* Vitrine : les cartes exposées montent en diagonale au survol, ombre franche violette */
-.mb-showcase .shw-slots > li { transition: transform .18s ease, filter .18s ease; }
-@media (hover: hover) { .mb-showcase .shw-slots > li:hover { transform: translate(-4px, -4px) rotate(-1deg); filter: drop-shadow(6px 6px 0 var(--esp)); } }
-.mb-showcase .shw-empty { border-radius: 8px; font: 400 12px var(--font-pixel); text-transform: uppercase; letter-spacing: .5px; }
-
-/* Mode clair : ombres en noir doux comme le reste du site */
-html[data-mode="clair"] .idc { filter: drop-shadow(8px 8px 0 #1B1A1F); }
-
-/* Mouvement réduit ou effets coupés : ni inclinaison, ni apparition, ni montée au survol */
-@media (prefers-reduced-motion: reduce) {
-  .badge-item { animation: none; transition: none; }
-  .gang-item, .mb-showcase .shw-slots > li { transition: none; }
-  .badge-item:hover, .gang-item:hover, .mb-showcase .shw-slots > li:hover { transform: none !important; }
-  .idc-skeleton, .skeleton-line, .gang-skel { animation: none; }
+/* Badges : cartes douces, médaille ronde teintée ; au survol, halo violet d'espace */
+.badge-grid { gap: 14px; }
+@media (min-width: 521px) { .badge-grid { grid-template-columns: repeat(auto-fill, minmax(136px, 1fr)); } }
+.badge-item { --c: var(--rb-1); position: relative; gap: 6px; padding: 18px 12px; border-radius: var(--r-lg); border: 1px solid var(--border);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 8%, var(--surface-2)), var(--surface-2)); box-shadow: var(--ombre-1);
+  animation: so-monte .45s var(--ease) both; transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s ease; }
+.badge-item:nth-child(6n+2) { --c: var(--rb-2); } .badge-item:nth-child(6n+3) { --c: var(--rb-3); } .badge-item:nth-child(6n+4) { --c: var(--rb-4); }
+.badge-item:nth-child(6n+5) { --c: var(--rb-5); } .badge-item:nth-child(6n+6) { --c: var(--rb-6); }
+@media (hover: hover) {
+  .badge-item:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--esp) 55%, var(--border));
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--esp) 35%, transparent), 0 0 36px -6px color-mix(in srgb, var(--esp) 50%, transparent), var(--ombre-2); }
 }
+.badge-img { width: 68px; height: 68px; border-radius: 50%; border: 2px solid var(--c); background: color-mix(in srgb, var(--c) 16%, var(--surface));
+  color: var(--text); font: 800 22px/1 var(--font-titre); box-shadow: 0 10px 22px -12px var(--c); }
+.badge-img img { border-radius: 50%; }
+.badge-name { font-size: 15px; font-weight: 700; }
+.badge-desc { font-size: 13px; }
+.badge-date { font-family: var(--font-body); font-size: 12px; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.badge-lvl { right: -6px; bottom: -4px; min-width: 26px; height: 20px; padding: 0 7px; border-radius: 999px; font: 700 11px/1 var(--font-body);
+  color: #14101A; background: var(--sand); border: 2px solid var(--surface-2); }
+.badge-item .lvl-name { color: var(--esp-ink); font-size: 12px; }
+
+/* Le gang : cartes de verre aux coins doux, avatar rond, la fiche en cours marquée de la couleur d'espace */
+.gang-grid { gap: 12px; }
+.gang-item { border-radius: var(--r-md); border: 1px solid var(--border); background: var(--surface); box-shadow: var(--ombre-1);
+  transition: transform .25s var(--ease), border-color .25s ease, box-shadow .25s var(--ease); }
+@media (hover: hover) { .gang-item:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--esp) 45%, var(--border)); box-shadow: var(--ombre-2); } }
+.gang-item:focus-visible { outline: 2px solid var(--esp); outline-offset: 3px; }
+.gang-item .avatar { border-radius: 999px; }
+.gang-item.is-current { border-color: color-mix(in srgb, var(--esp) 55%, var(--border)); box-shadow: inset 3px 0 0 var(--esp), var(--ombre-1); }
+.gang-me { padding: 3px 8px; border-radius: 999px; background: var(--esp); color: var(--esp-text); font: 700 11px/1 var(--font-body);
+  letter-spacing: .12em; text-transform: uppercase; vertical-align: 1px; }
+.gang-skel { border-radius: var(--r-md); }
+
+/* Vitrine : les cartes exposées se soulèvent doucement au survol ; l'état vide reste en texte doux */
+.mb-showcase .shw-slots > li { transition: transform .25s var(--ease); }
+@media (hover: hover) { .mb-showcase .shw-slots > li:hover { transform: translateY(-4px); } }
+.mb-showcase .shw-empty { border-radius: var(--r-sm); font: 600 13px/1.3 var(--font-body); letter-spacing: 0; text-transform: none; color: var(--muted); }
+
+/* Mouvement réduit ou effets coupés : ni apparition, ni montée au survol */
+@media (prefers-reduced-motion: reduce) {
+  .badge-item, .gang-item, .mb-showcase .shw-slots > li { transition: none; }
+  .badge-item, .idc-skeleton, .skeleton-line, .gang-skel { animation: none; }
+  .badge-item:hover, .gang-item:hover, .mb-showcase .shw-slots > li:hover { transform: none !important; }
+}
+html[data-fx="off"] :is(.badge-item, .idc-skeleton, .skeleton-line, .gang-skel) { animation: none; }
+html[data-fx="off"] :is(.badge-item:hover, .gang-item:hover, .mb-showcase .shw-slots > li:hover) { transform: none !important; }
 html[data-fx="off"] .idc { transform: none !important; }
 html[data-fx="off"] .idc-glare { display: none; }
-html[data-fx="off"] :is(.badge-item, .idc-skeleton, .skeleton-line, .gang-skel) { animation: none; }
-html[data-fx="off"] :is(.badge-item, .gang-item, .mb-showcase .shw-slots > li):hover { transform: none !important; }

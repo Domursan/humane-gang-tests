@@ -149,61 +149,49 @@
   .shell-all { width: 44px; }
 }
 
-/* ===== Refonte « Pixel Pop » (29/10/2026) : coquille du panel =====
-   Couleur d'espace --esp (jaune #FBD32D pour l'admin, posée par theme-boot.js) : navigation active en aplat --esp et texte
-   --esp-text ; bordures de 2 px, ombres noires franches (--px-shadow), petits titres et compteurs en police pixel.
-   Mouvements coupés par le mouvement réduit et html[data-fx="off"] (fin de section). */
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Panel : fond encre (les halos de base.css traversent le panel), en-tête et zones en verre arrondi.
+   Le panel n'a pas de rail : la navigation active (barre du bas, téléphone) est une pastille or douce (--sand). */
+.shell { background: transparent; }
+.shell::before { height: 2px; opacity: .8; }
 
-/* Ruban arc-en-ciel qui glisse lentement (comme la traînée du logo) */
-.shell::before { height: 4px; background: linear-gradient(90deg, var(--rb-1), var(--rb-2), var(--rb-3), var(--rb-4), var(--rb-5), var(--rb-6), var(--rb-1));
-  background-size: 200% 100%; animation: shell-arc 6s linear infinite; }
-@keyframes shell-arc { from { background-position: 0 0; } to { background-position: 200% 0; } }
+/* En-tête : barre flottante en verre */
+.shell-top { margin: 10px 12px 0; padding: 8px 14px; min-height: 60px; border: 1px solid var(--border); border-radius: 22px;
+  background: var(--verre); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); box-shadow: var(--ombre-2); }
+.shell-logo { border-radius: 14px; background: linear-gradient(135deg, var(--accent), var(--esp)); color: var(--accent-text);
+  box-shadow: 0 8px 20px -10px color-mix(in srgb, var(--accent) 80%, transparent); }
+.shell-brand { font-family: var(--font-titre); font-weight: 800; font-size: 18px; letter-spacing: -.02em; }
+.shell-brand span { font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--esp-ink); }
+.shell-all { border-radius: 999px; border-color: var(--border); background: color-mix(in srgb, var(--surface) 70%, transparent); }
+@media (hover: hover) { .shell-all:hover { border-color: color-mix(in srgb, var(--esp) 45%, var(--border)); } }
+@media (hover: hover) { .shell-ico:hover { background: color-mix(in srgb, var(--esp) 12%, transparent); } }
+.shell-god.is-on { background: color-mix(in srgb, var(--sand) 20%, transparent); }
+.shell-menu { border-radius: 20px; background: var(--verre); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); box-shadow: var(--ombre-2); }
+.shell-menu a:hover, .shell-menu button:hover, .shell-menu :focus-visible { background: color-mix(in srgb, var(--esp) 12%, transparent); }
 
-/* En-tête */
-.shell-top { margin-top: 4px; border-bottom-width: 2px; }
-.shell-logo { border-radius: 12px; border: 2px solid #000; box-shadow: 3px 3px 0 #000; }
-.shell-brand span { font-family: var(--font-pixel); font-weight: 400; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--esp-ink); }
-.shell-all { border-radius: 12px; border-width: 2px; transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease; }
-@media (hover: hover) { .shell-all:hover { border-color: var(--esp); transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--esp); } }
-.shell-ico { border-radius: 12px; }
-.shell-god.is-on { color: var(--esp-text); background: var(--esp); border: 2px solid #000; }
-.shell-god.is-on::after { border-radius: 0; background: var(--esp-text); }
-.shell-avatar { border-radius: 12px; border: 2px solid #000; }
-.shell-avatar[aria-expanded="true"] { box-shadow: 3px 3px 0 var(--esp); }
-.shell-menu { border-width: 2px; box-shadow: var(--px-shadow-up); }
-.shell-menu a:hover, .shell-menu button:hover, .shell-menu :focus-visible { background: var(--esp); color: var(--esp-text); }
-
-/* En-tête de zone : fil d'Ariane en petit titre pixel (--esp-ink), grand titre Archivo Black */
-.zone-head { border-bottom-width: 2px; padding-top: 22px; padding-bottom: 18px; }
-.zone-back { min-height: 32px; border-radius: 10px; border-width: 2px; font-family: var(--font-pixel); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
-@media (hover: hover) { .zone-back:hover { border-color: var(--esp); color: var(--text); } }
-.zone-crumb { font-family: var(--font-pixel); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--esp-ink); }
+/* Corps : colonnes et zone principale en verre, séparées par un intervalle */
+.shell-body { gap: 12px; padding: 12px; }
+.shell-col, .shell-zone, .shell-info { background: var(--verre); backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  border: 1px solid var(--border); border-radius: var(--r-xl); box-shadow: var(--ombre-1); }
+.shell-info { padding: 18px 16px; }
+.zone-head { padding: 22px 26px 18px; border-bottom: 1px solid var(--border); }
+.zone-back { border-radius: 999px; }
+@media (hover: hover) { .zone-back:hover { border-color: color-mix(in srgb, var(--esp) 45%, var(--border)); } }
+.zone-crumb { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--esp-ink); }
 .zone-crumb a { color: var(--muted); }
-.zone-crumb [aria-current] { color: var(--esp-ink); font-weight: 400; }
-.zone-sep { color: var(--muted); }
-.zone-title { font-size: clamp(28px, 3.6vw, 44px); line-height: 1; letter-spacing: -.5px; }
+.zone-title { font-family: var(--font-titre); font-weight: 800; font-size: clamp(26px, 3.2vw, 36px); line-height: 1.05; letter-spacing: -.02em; }
 
-/* Colonne de liste */
-.shell-col { border-right-width: 2px; }
-.shell-info { border-left-width: 2px; }
+/* Compteur « à traiter » : pastille */
+.nav-count { border-radius: 999px; }
+.nav-count.hot { background: var(--accent); color: var(--accent-text); }
 
-/* Compteur « à traiter » : chiffres pixel, coins presque carrés */
-.nav-count { font-family: var(--font-pixel); font-weight: 400; font-size: 12px; border-radius: 6px; padding: 2px 7px; border: 2px solid var(--border); }
-.nav-count.hot { border-color: #000; }
-.shell-badge { font-family: var(--font-pixel); font-weight: 400; font-size: 11px; border-radius: 6px; }
-
-/* Barre du bas (téléphone) : lieu actif en aplat --esp, texte noir */
+/* Barre du bas (téléphone) : flottante, en verre ; lieu actif en pastille or douce */
 @media (max-width: 760px) {
-  .shell-tabs { border-top-width: 2px; }
-  .shell-tab-pic { border-radius: 10px; border: 2px solid transparent; }
-  .shell-tab[aria-current="true"] .shell-tab-pic { background: var(--esp); color: var(--esp-text); border-color: #000; box-shadow: 2px 2px 0 #000; }
+  .shell-body { gap: 0; padding: 8px 10px 10px; }
+  .shell-col, .shell-zone { border-radius: 22px; }
+  .shell-top { margin: 8px 10px 0; padding: 6px 12px; border-radius: 20px; }
+  .shell-tabs { margin: 0 10px calc(10px + env(safe-area-inset-bottom, 0px)); padding: 6px; border: 1px solid var(--border); border-radius: 22px;
+    background: var(--verre); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); box-shadow: var(--ombre-2); }
+  .shell-tab-pic { border-radius: 999px; border: 0; }
+  .shell-tab[aria-current="true"] .shell-tab-pic { background: color-mix(in srgb, var(--sand) 24%, transparent); color: var(--text); box-shadow: none; }
 }
-
-/* Mouvement réduit ou effets coupés : rien ne bouge */
-@media (prefers-reduced-motion: reduce) {
-  .shell::before { animation: none; }
-  .shell-all { transition: none; }
-  .shell-all:hover { transform: none; }
-}
-html[data-fx="off"] .shell::before { animation: none; }
-html[data-fx="off"] .shell-all:hover { transform: none; }

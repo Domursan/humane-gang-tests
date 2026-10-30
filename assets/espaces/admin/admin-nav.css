@@ -22,17 +22,18 @@
 .apal-empty { padding: 12px; color: var(--muted); }
 .apal-hint { margin: 0; }
 
-/* ===== Refonte « Pixel Pop » (29/10/2026) : palette « Tout le panel » =====
-   Fenêtre à bord 2 px et ombre noire franche ; élément choisi en aplat --esp (jaune de l'admin) avec texte --esp-text. */
-.apal-backdrop { background: rgba(8, 8, 11, .7); }
-.apal { border-width: 2px; border-radius: 14px; box-shadow: 8px 8px 0 #000; animation: apal-pop .22s cubic-bezier(.2, 1.4, .4, 1) both; }
-@keyframes apal-pop { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
-.apal-title { font-family: var(--font-display); font-weight: 400; font-size: 22px; }
-.apal-input { border-width: 2px; border-radius: 12px; }
-.apal-input:focus-visible { outline: none; border-color: var(--esp); box-shadow: 4px 4px 0 var(--esp); }
-.apal-item { border-radius: 10px; border: 2px solid transparent; }
-.apal-item[aria-selected="true"] { background: var(--esp); color: var(--esp-text); border-color: #000; box-shadow: none; }
-.apal-item[aria-selected="true"] :is(.apal-kind, .apal-group) { color: var(--esp-text); }
-.apal-kind { font-family: var(--font-pixel); font-size: 11px; letter-spacing: 1px; }
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Palette « Tout le panel » : verre flottant, élément choisi en pastille or douce (--esp). */
+.apal-backdrop { background: rgba(6, 4, 12, .5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.apal { border: 1px solid var(--border); border-radius: var(--r-xl); background: var(--verre);
+  backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); box-shadow: var(--ombre-2); animation: so-monte .25s var(--ease) both; }
+.apal-title { font-family: var(--font-titre); font-weight: 800; font-size: 20px; letter-spacing: -.02em; }
+.apal-input { border-radius: 999px; padding: 10px 18px; background: color-mix(in srgb, var(--bg) 60%, transparent); border: 1px solid var(--border); }
+.apal-input:focus-visible { outline: none; border-color: color-mix(in srgb, var(--esp) 60%, transparent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--esp) 22%, transparent); }
+.apal-item { border-radius: 14px; border: 0; }
+.apal-item[aria-selected="true"] { background: color-mix(in srgb, var(--esp) 18%, transparent); color: var(--text); box-shadow: none; font-weight: 600; }
+.apal-item[aria-selected="true"] :is(.apal-kind, .apal-group) { color: var(--esp-ink); }
+.apal-kind { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--esp-ink); }
+.apal-group { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--esp-ink); }
 @media (prefers-reduced-motion: reduce) { .apal { animation: none; } }
 html[data-fx="off"] .apal { animation: none; }

@@ -68,3 +68,26 @@
 .rj-icon { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(242, 239, 234, .25); color: var(--rj-gold); }
 .rj-icon svg { width: 26px; height: 26px; }
 .rj-icon.is-error { color: #E0909A; border-color: rgba(224, 144, 154, .45); }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Carte d'invitation : halo de la couleur d'espace sur le fond encre, étoiles conservées ; titres en Bricolage */
+.rj-sky {
+  border-radius: var(--r-xl); border: 1px solid color-mix(in srgb, var(--esp) 26%, var(--border));
+  background: radial-gradient(120% 90% at 50% -8%, color-mix(in srgb, var(--esp) 22%, var(--bg)) 0%, var(--bg) 58%, var(--bg) 100%);
+  box-shadow: var(--ombre-2);
+}
+.rj-title { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; }
+.rj-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; color: var(--esp-ink); }
+.rj-lead { color: var(--muted); }
+.rj-code-box { border-radius: var(--r-lg); border: 1px solid var(--border-strong); background: var(--verre); backdrop-filter: blur(14px); box-shadow: var(--ombre-1); }
+.rj-code-k { color: var(--muted); letter-spacing: .14em; }
+.rj-code { font-variant-numeric: tabular-nums; }
+.rj-sky .btn-ghost { border-color: color-mix(in srgb, var(--text) 25%, transparent); }
+.rj-foot a { color: var(--esp-ink); }
+.rj-icon { border-radius: 50%; border-color: color-mix(in srgb, var(--esp) 35%, transparent); background: color-mix(in srgb, var(--esp) 10%, transparent); color: var(--esp-ink); }
+.rj-icon.is-error { color: var(--rose); }
+.rj-logo { filter: drop-shadow(0 14px 34px rgba(0, 0, 0, .5)); }
+@media (max-width: 600px) {
+  .rj-sky { border-radius: var(--r-lg); padding: 36px 18px; }
+  .rj-code-box { padding: 16px 14px; }
+}

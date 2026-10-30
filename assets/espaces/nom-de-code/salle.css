@@ -134,3 +134,46 @@
   .ndc-lancer { font-size: 26px; }
   .ndc-joueur { padding-right: 6px; }
 }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Salle Codenames : panneaux à grands rayons, code en pilule, menu de l'hôte sur surface translucide ; les équipes gardent leurs couleurs */
+.ndc-salle { gap: 22px; }
+.ndc-salle-panneau { border-radius: var(--r-xl); box-shadow: var(--ombre-2); padding: 30px 32px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, var(--text) 8%), var(--surface) 160px); }
+.ndc-salle-titre { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; }
+.ndc-salle-sous { color: var(--muted); }
+.ndc-salle-codebloc { border-radius: 999px; padding: 0 22px; background: var(--verre); box-shadow: var(--ombre-1); }
+.ndc-salle-etiq { font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--esp-ink); }
+.ndc-salle .ndc-salle-codeaff { font-variant-numeric: tabular-nums; }
+.ndc-champ-lien { border-radius: 999px; padding: 0 18px; }
+.ndc-champ-lien:focus-visible { outline: 2px solid var(--esp); outline-offset: 2px; }
+.ndc-reglages > div { border-radius: var(--r-md); box-shadow: var(--ombre-1); }
+.ndc-reglages dd { font-family: var(--font-titre); font-weight: 800; font-size: 17px; }
+.ndc-salle-bilan, .ndc-attente-hote, .ndc-salle-note { color: var(--muted); }
+
+/* Mes actions */
+.ndc-salle-actions, .ndc-salle-sans { border-radius: var(--r-xl); box-shadow: var(--ombre-1); }
+.ndc-salle-sous-titre, .ndc-sans-titre { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.01em; text-transform: none; font-size: 20px; }
+.ndc-actions-liste .btn { border-radius: 999px; }
+
+/* Équipes */
+.ndc-salle-equipe { border-radius: var(--r-xl); box-shadow: var(--ombre-1); }
+.ndc-joueur { border-radius: var(--r-md); }
+.ndc-joueur.is-moi { box-shadow: inset 3px 0 0 var(--esp); }
+.ndc-tag, .ndc-insigne { border-radius: 999px; }
+
+/* Menu de l'hôte */
+.ndc-menu-ouvrir { border-radius: 999px; }
+.ndc-menu-liste { border-radius: var(--r-md); background: var(--surface); border-color: var(--border-strong); box-shadow: var(--ombre-2); }
+.ndc-menu-bouton { border-radius: var(--r-sm); }
+@media (hover: hover) { .ndc-menu-bouton:hover { background: color-mix(in srgb, var(--esp) 12%, transparent); } }
+
+/* Lancement : le vert du bouton reste, en pilule avec une ombre douce */
+.ndc-lancer { box-shadow: 0 16px 32px -16px rgba(59, 181, 74, .8); }
+.ndc-lancer:focus-visible { outline: 3px solid var(--esp); outline-offset: 3px; }
+.ndc-raison { color: var(--rose); }
+
+@media (max-width: 559px) {
+  .ndc-salle-panneau { padding: 22px 18px; border-radius: var(--r-lg); }
+  .ndc-salle-equipe, .ndc-salle-actions, .ndc-salle-sans { border-radius: var(--r-lg); }
+}

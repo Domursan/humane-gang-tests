@@ -57,3 +57,17 @@ a.notif-item:focus-visible { outline: 3px solid var(--sand); outline-offset: 2px
 .notif-vide { margin: 4px 0; }
 .notif-statut { font-size: 14px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
 .notif-aide { margin: 0; }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Panneau des notifications : verre arrondi ; titres Bricolage Grotesque ; petits titres en capitales. Pastilles de présence inchangées (vert / rouge, forme différente). */
+.notif-panel { border: 1px solid var(--border); border-radius: 22px; background: var(--verre); color: var(--text);
+  backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); box-shadow: var(--ombre-2); }
+@media (max-width: 520px) { .notif-panel { border-radius: 22px; } }
+.notif-h { font-family: var(--font-titre); font-weight: 800; font-size: 19px; letter-spacing: -.02em; }
+.notif-item { border-radius: 16px; border: 1px solid var(--border); background: color-mix(in srgb, var(--surface-2) 75%, transparent); }
+a.notif-item:hover, a.notif-item:focus-visible { border-color: color-mix(in srgb, var(--esp) 45%, var(--border)); }
+.notif-item.is-new { border-left: 3px solid var(--sand); }
+.notif-cat { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--esp-ink); }
+.notif-quand { font-variant-numeric: tabular-nums; }
+.notif-statut { border-radius: 999px; }
+.statut-n { font-variant-numeric: tabular-nums; }

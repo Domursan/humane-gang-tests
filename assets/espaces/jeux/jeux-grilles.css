@@ -6,7 +6,7 @@
 .ng { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; width: 100%; max-width: 1180px; min-width: 0; box-sizing: border-box; }
 .ng > * { min-width: 0; grid-column: 1; }
 .ng-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; }
-.ng-kicker { margin: 0 0 6px; font-family: 'Silkscreen', monospace; font-size: 13px; letter-spacing: .14em; color: var(--sand); }
+.ng-kicker { margin: 0 0 6px; font-family: var(--font-body); font-weight: 700; font-size: 13px; letter-spacing: .14em; color: var(--sand); }
 .ng-title { margin: 0; font-family: var(--font-display); font-size: clamp(30px, 5vw, 40px); line-height: 1; font-weight: 400; }
 .ng-pills { display: flex; flex-wrap: wrap; gap: 8px; }
 .ng-pill { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; color: var(--muted); font-size: 13px; }
@@ -15,7 +15,7 @@
 .ng-aside { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 .ng-jeu { display: flex; flex-direction: column; gap: 16px; padding: 18px; min-width: 0; }
 .ng-vide, .ng-erreur { text-align: center; color: var(--muted); padding: 28px 18px; }
-.ng-label { margin: 0 0 8px; font-family: 'Silkscreen', monospace; font-size: 12px; font-weight: 400; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; }
+.ng-label { margin: 0 0 8px; font-family: var(--font-body); font-weight: 700; font-size: 12px; font-weight: 400; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; }
 .ng-live { min-height: 1.4em; margin: 0; font-size: 14px; color: var(--text); overflow-wrap: anywhere; }
 .ng-aide { margin: 0; }
 .ng-actions { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -44,7 +44,7 @@
 .ng-band { margin: 0; padding: 10px 12px; border-radius: 12px; color: #0E0E10; min-width: 0; }
 .ng-band-t { margin: 0; font-family: var(--font-display); font-size: 14px; letter-spacing: .04em; text-transform: uppercase; overflow-wrap: anywhere; }
 .ng-band-m { margin: 2px 0 0; font-size: 13px; overflow-wrap: anywhere; }
-.ng-band-n { margin: 0 0 2px; font-family: 'Silkscreen', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.ng-band-n { margin: 0 0 2px; font-family: var(--font-body); font-weight: 700; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
 .ng-n1 { background: #E2C77E; }
 .ng-n2 { background: #6FA37F; }
 .ng-n3 { background: #7E93C9; }
@@ -133,10 +133,10 @@
   60% { transform: translateX(-4px); } 80% { transform: translateX(3px); } }
 .ang-entete { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
 .ang-entete .ng-label { margin: 0; }
-.ang-statut { font-family: 'Silkscreen', monospace; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.ang-statut { font-family: var(--font-body); font-weight: 700; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .ang-mot.is-trouve .ang-statut { color: var(--sage-text); }
 .ang-def { margin: 0; font-size: 15px; line-height: 1.4; overflow-wrap: anywhere; }
-.ang-def-t { display: block; font-family: 'Silkscreen', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.ang-def-t { display: block; font-family: var(--font-body); font-weight: 700; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
 .ang-mot-revele { margin: 0; font-family: var(--font-display); font-size: clamp(20px, 5vw, 26px); letter-spacing: .08em; overflow-wrap: anywhere; color: var(--text); }
 .ang-cases, .ang-tuiles { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
 .ang-case { display: inline-grid; place-items: center; min-width: 40px; height: 44px; flex: 0 0 auto; border-radius: 10px; border: 1px dashed var(--border-strong);

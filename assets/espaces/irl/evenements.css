@@ -82,3 +82,26 @@ html[data-mode="clair"] .evp-badge-lvl { color: #FFFFFF; }
   .evp-badge { gap: 12px; padding: 12px; }
   .evp-badge-img { width: 60px; height: 60px; }
 }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+.evp-section-title, .evp-title h2, .evp-stats dd, .evp-visual-title { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.02em; }
+.evp-section-title { font-size: clamp(24px, 3.4vw, 32px); line-height: 1.05; }
+.evp-stats dd { font-size: 28px; letter-spacing: -.03em; color: var(--esp-ink); font-variant-numeric: tabular-nums; }
+.evp-stats div { border-radius: var(--r-md); background: var(--surface-2); }
+.evp-card { border-radius: var(--r-lg); }
+.evp-card.is-live { background: linear-gradient(135deg, color-mix(in srgb, var(--esp) 12%, var(--surface)), var(--surface) 55%); border-color: color-mix(in srgb, var(--esp) 40%, var(--border));
+  box-shadow: var(--ombre-2), 0 0 70px -26px color-mix(in srgb, var(--esp) 60%, transparent); }
+.evp-card.is-live .evp-visual { box-shadow: 0 0 40px color-mix(in srgb, var(--esp) 28%, transparent); }
+.evp-visual { border-radius: var(--r-lg); border: 1px solid var(--border); }
+.evp-k { font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.evp-k svg { color: var(--esp-ink); }
+.evp-lb li.is-me { background: color-mix(in srgb, var(--esp) 12%, transparent); }
+.evp-rank.top { color: var(--esp-ink); font-weight: 800; }
+.evp-lb-name:hover { color: var(--esp-ink); }
+.evp-me { border-radius: 999px; font-weight: 700; }
+.evp-badge { border-radius: var(--r-md); border: 1px solid var(--border); }
+.evp-badge.is-got { border-color: color-mix(in srgb, var(--esp) 40%, var(--border)); }
+.evp-badge-img { border: 1px solid color-mix(in srgb, var(--esp) 45%, transparent); }
+.evp-badge-lvl { background: var(--esp); color: var(--esp-text); border-radius: 999px; border: 2px solid var(--bg); }
+.evp-cols .card, .evp-past .card { box-shadow: var(--ombre-1); }
+@media (prefers-reduced-motion: reduce) { .evp-card.is-live .evp-visual { animation: none; } }

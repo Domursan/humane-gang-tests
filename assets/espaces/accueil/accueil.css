@@ -9,19 +9,17 @@
 .home-hero-actions { margin-top: 8px; }
 .home-hero .small { margin: 0; }
 
-/* ---------- Couleurs des tuiles (Secret Santa, IRL, Historique) tirées du thème ----------
-   base.css fixe des teintes pastel (rose, jaune, bleu) pour le thème par défaut : hors palette des autres thèmes.
-   Ici elles dérivent de --accent (Secret Santa), --sand (IRL) et du texte (Historique), en mode sombre comme en mode clair. */
+/* ---------- Teintes des rubriques (design « Soirée ») : fond très léger, bordure et texte dérivés de la couleur de la rubrique ---------- */
 #app {
-  --ss-bg: color-mix(in srgb, var(--accent) 11%, var(--surface));
-  --ss-border: color-mix(in srgb, var(--accent) 32%, var(--surface));
-  --ss-fg: color-mix(in srgb, var(--accent) 55%, var(--text));
-  --irl-bg: color-mix(in srgb, var(--sand) 13%, var(--surface));
-  --irl-border: color-mix(in srgb, var(--sand) 36%, var(--surface));
-  --irl-fg: color-mix(in srgb, var(--sand) 80%, var(--text));
-  --hist-bg: color-mix(in srgb, var(--text) 4%, var(--surface));
-  --hist-border: var(--border-strong);
-  --hist-fg: var(--text);
+  --ss-bg: color-mix(in srgb, #FB7185 12%, var(--surface));
+  --ss-border: color-mix(in srgb, #FB7185 34%, var(--border));
+  --ss-fg: color-mix(in srgb, #FB7185 62%, var(--text));
+  --irl-bg: color-mix(in srgb, #FB923C 12%, var(--surface));
+  --irl-border: color-mix(in srgb, #FB923C 34%, var(--border));
+  --irl-fg: color-mix(in srgb, #FB923C 62%, var(--text));
+  --hist-bg: color-mix(in srgb, #60A5FA 12%, var(--surface));
+  --hist-border: color-mix(in srgb, #60A5FA 34%, var(--border));
+  --hist-fg: color-mix(in srgb, #60A5FA 62%, var(--text));
 }
 
 /* ---------- En-tête membre + compte à rebours ---------- */
@@ -72,7 +70,7 @@
 .tile-icon-hist { color: var(--hist-fg); }
 .tile-arrow { position: absolute; top: 28px; right: 26px; color: var(--muted); transition: transform .18s ease, color .18s ease; }
 .tile-link:hover .tile-arrow { transform: translateX(3px); color: var(--text); }
-.tile-label { font-family: var(--font-display) !important; font-weight: 400 !important; font-size: 24px !important; margin: 0 0 4px !important; }
+.tile-label { font-family: var(--font-titre) !important; font-weight: 800 !important; font-size: 26px !important; margin: 0 0 4px !important; }
 .tile-body { display: flex; flex-direction: column; gap: 6px; }
 .tile-kicker { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
 .tile-main { font-size: 18px; font-weight: 700; overflow-wrap: anywhere; }
@@ -185,7 +183,7 @@
 .day-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--border-strong); }
 .day-dots span.on { background: var(--hist-fg); }
 .day-body { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.day-big { font-family: var(--font-display); font-size: clamp(30px, 5vw, 40px); line-height: 1; color: var(--hist-fg); }
+.day-big { font-family: var(--font-titre); font-weight: 800; font-size: clamp(30px, 5vw, 40px); line-height: 1; color: var(--hist-fg); }
 .day-date { margin-top: -6px !important; }
 .day-thumbs { display: grid; gap: 6px; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 12px; width: 100%; max-width: 560px; }
 .day-thumbs img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; display: block; min-height: 0; }
@@ -203,7 +201,7 @@
 .day-actions .day-next { flex: 1 1 0; }
 .day-actions .day-go { flex: 1.4 1 0; text-decoration: none; }
 
-/* ===== Refonte « Pixel Pop » (29/10/2026) ===== */
+/* ===== Design « Soirée » (30/10/2026) ===== */
 /* Haut de l'accueil : thème en cours à gauche, carré des rubriques à droite (placerHaut, accueil.js).
    Le carré se partage entre les zones visibles : 4 en deux par deux, 3 avec la dernière en largeur, 2 en rangées, 1 en entier. */
 .home-top { display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch; margin-bottom: 20px; }
@@ -213,57 +211,93 @@
 .is-carre > .tile { min-height: 0; overflow: hidden; padding: 18px; }
 .is-carre > [data-pos="ligne"] { grid-column: 1 / -1; }
 .is-carre > [data-pos="tout"] { grid-column: 1 / -1; grid-row: 1 / -1; }
-.is-carre .tile-icon { width: 44px; height: 44px; font-size: 26px; border-radius: 10px; margin-bottom: 4px; }
+.is-carre .tile-icon { width: 46px; height: 46px; font-size: 24px; border-radius: 14px; margin-bottom: 2px; }
 .is-carre .tile-label { font-size: 22px !important; }
-.is-carre .tile-arrow { top: 20px; right: 18px; }
+.is-carre .tile-arrow { top: 18px; right: 18px; width: 34px; height: 34px; }
 .is-carre .tile-main { font-size: 16px; }
 .is-carre .tile-sub { font-size: 13px; }
 @media (max-width: 860px) {
+  .home-top > .tile-theme, .home-top > .home-tiles.is-carre { flex: 1 1 100%; width: 100%; }
   .home-top > .home-tiles.is-carre { aspect-ratio: auto; grid-template-rows: none; }
   .is-carre > .tile { min-height: 170px; }
 }
 .home-tiles-suite { margin-bottom: 20px; }
 
-/* Tuile du thème en cours */
-.tile-theme { display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch; padding: 24px;
-  border-color: var(--sand); background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 30%, var(--surface)), var(--surface) 70%); }
-.theme-txt { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
-.theme-txt p { margin: 0; }
-.theme-tag { align-self: flex-start; padding: 6px 10px; background: var(--sand); color: #08080B; font: 400 13px var(--font-pixel); letter-spacing: 1px; text-transform: uppercase; }
-.tile-theme .theme-nom { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 4vw, 38px); line-height: 1.05; }
-.theme-desc { font-size: 16px; line-height: 1.5; }
-.theme-fin { margin-top: auto !important; padding-top: 8px; font: 400 13px var(--font-pixel); letter-spacing: 1px; color: var(--sand); text-transform: uppercase; }
-.theme-cd { font: 400 32px var(--font-pixel); color: var(--sand); font-variant-numeric: tabular-nums; }
-.theme-scene { flex: 1 1 180px; min-height: 200px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--sand); border-radius: 12px;
-  background: #08080B repeating-linear-gradient(0deg, rgba(255, 255, 255, .04) 0 2px, transparent 2px 4px); }
-.theme-emoji { font-size: 110px; line-height: 1; font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif; animation: px-flotte 3s ease-in-out infinite; }
-@keyframes px-flotte { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-/* Tuiles des rubriques : à plat dans la couleur de leur espace, texte noir, ombre franche au survol */
-.tile.card-ss { --tuile: #FF3B5C; } .tile.card-irl { --tuile: #FCA301; } .tile.card-hist { --tuile: #3D7BFF; } .tile.card-admin { --tuile: #FBD32D; }
-.tile:is(.card-ss, .card-irl, .card-hist, .card-admin) { background: var(--tuile); border-color: #08080B; color: #08080B; }
-.tile:is(.card-ss, .card-irl, .card-hist, .card-admin) :is(.tile-sub, .tile-kicker, .tile-main, .tile-arrow) { color: #08080B; }
-.tile:is(.card-ss, .card-irl, .card-hist, .card-admin) .tile-icon { color: #08080B; background: rgba(0, 0, 0, .12); border-color: rgba(0, 0, 0, .35); }
-.tile:is(.card-ss, .card-irl, .card-hist, .card-admin) .pill { background: #08080B; color: #FFFFFF; border-color: #08080B; }
-.tile:is(.card-ss, .card-irl, .card-hist, .card-admin) .skeleton { background: rgba(0, 0, 0, .14); animation: none; }
-.tile-link { transition: transform .15s ease, box-shadow .15s ease; }
+/* Rubriques : cartes douces avec un halo de leur couleur (--tc), texte lisible en mode clair comme en mode sombre */
+#app .card-ss { --tc: #FB7185; --tc-ink: color-mix(in srgb, #FB7185 62%, var(--text)); }
+#app .card-irl { --tc: #FB923C; --tc-ink: color-mix(in srgb, #FB923C 62%, var(--text)); }
+#app .card-hist { --tc: #60A5FA; --tc-ink: color-mix(in srgb, #60A5FA 62%, var(--text)); }
+#app .card-admin { --tc: var(--sand); --tc-ink: color-mix(in srgb, var(--sand) 60%, var(--text)); }
+.tile, .home-day {
+  border-radius: var(--r-lg); box-shadow: var(--ombre-1);
+  border: 1px solid color-mix(in srgb, var(--tc) 26%, var(--border));
+  background: radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--tc) 22%, transparent), transparent 62%),
+    linear-gradient(180deg, color-mix(in srgb, var(--tc) 6%, var(--surface)), var(--surface) 75%);
+}
+.tile { gap: 6px; padding: 24px; overflow: hidden; color: var(--text); }
+.tile-icon {
+  width: 58px; height: 58px; margin-bottom: 12px; border-radius: 18px; font-size: 30px; color: inherit;
+  background: radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--tc) 38%, transparent), color-mix(in srgb, var(--tc) 12%, transparent));
+  border: 1px solid color-mix(in srgb, var(--tc) 45%, transparent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--tc) 8%, transparent), 0 12px 30px -10px color-mix(in srgb, var(--tc) 85%, transparent);
+}
+.tile-arrow { top: 22px; right: 22px; width: 38px; height: 38px; border-radius: 999px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--tc) 14%, transparent); color: var(--tc-ink); }
+.tile-label { color: var(--text); letter-spacing: -.02em; }
+.tile-kicker { font: 700 12px/1.2 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--tc-ink); }
+.tile-main { font-size: 18px; font-weight: 700; color: var(--text); }
+.tile-sub { font-size: 14px; color: var(--muted); }
+.tile.tile-link { transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s ease; }
 @media (hover: hover) {
-  .tile-link:is(.card-ss, .card-irl, .card-hist, .card-admin):hover { color: #08080B; border-color: #08080B; transform: translate(-3px, -3px); box-shadow: 6px 6px 0 #000; }
-  .tile-link:hover .tile-arrow { color: #08080B; }
+  .tile.tile-link:hover { color: var(--text); transform: translateY(-3px); box-shadow: var(--ombre-2);
+    border-color: color-mix(in srgb, var(--tc) 45%, var(--border)); }
+  .tile.tile-link:hover .tile-arrow { color: var(--tc-ink); transform: translateX(3px); }
 }
 
-/* Fil d'activité compact : une ligne par entrée, sur deux colonnes quand il y a la place */
+/* Tuile du thème en cours : dégradé doux, compte à rebours en gros chiffres */
+.tile-theme { display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch; padding: 28px; border-radius: var(--r-xl);
+  border: 1px solid color-mix(in srgb, var(--sand) 34%, var(--border));
+  background: radial-gradient(110% 100% at 0% 0%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 60%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, var(--surface)) 0%, var(--surface) 70%); }
+.theme-txt { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.theme-txt p { margin: 0; }
+.theme-tag { align-self: flex-start; display: inline-flex; padding: 6px 12px; border-radius: 999px;
+  background: color-mix(in srgb, var(--sand) 18%, transparent); color: color-mix(in srgb, var(--sand) 70%, var(--text));
+  font: 700 12px/1.2 var(--font-body); letter-spacing: .14em; text-transform: uppercase; }
+.tile-theme .theme-nom { margin: 0; font-family: var(--font-titre); font-weight: 800; font-size: clamp(28px, 4vw, 40px); line-height: 1.02; letter-spacing: -.03em; }
+.theme-desc { font-size: 16px; line-height: 1.5; color: var(--muted); }
+.theme-fin { margin-top: auto !important; padding-top: 8px; font-size: 14px; font-weight: 600; color: var(--muted); }
+.theme-cd { font: 800 clamp(30px, 4.2vw, 44px)/1 var(--font-body); white-space: nowrap; letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: var(--text); }
+.theme-scene { flex: 1 1 180px; min-height: 200px; display: flex; align-items: center; justify-content: center; border-radius: var(--r-lg);
+  border: 1px solid color-mix(in srgb, var(--sand) 28%, var(--border));
+  background: radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--sand) 30%, transparent), transparent 62%), var(--surface-2); }
+.theme-emoji { font-size: 110px; line-height: 1; font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif; animation: so-flotte 3s ease-in-out infinite; }
+@keyframes so-flotte { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* Compte à rebours (Secret Santa) */
+.countdown { background: radial-gradient(120% 100% at 0% 0%, color-mix(in srgb, #FB7185 20%, transparent), transparent 62%), var(--surface);
+  border: 1px solid var(--ss-border); border-radius: var(--r-lg); padding: 18px 22px; box-shadow: var(--ombre-1); }
+.cd-title { font: 700 12px/1.3 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--ss-fg); margin-bottom: 10px !important; }
+.cd-units { display: flex; gap: 14px; }
+.cd-units .cd-num { font: 800 36px/1 var(--font-body); letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: var(--text); }
+.cd-units .cd-lbl { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.cd-unit { min-width: 52px; }
+.cd-today { font-size: 22px; }
+
+/* Fil d'activité : lisible, avatars ronds, une ligne de texte par entrée, sur deux colonnes quand il y a la place */
 .home-row > .home-feed { flex: 2 1 520px; }
-.home-feed .feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); column-gap: 24px; }
-.home-feed .feed-item { align-items: center; gap: 10px; padding: 8px 0; border-bottom-width: 2px; min-width: 0; }
-.home-feed .feed-item .avatar { width: 28px !important; height: 28px !important; font-size: 11px; }
-.home-feed .feed-text { flex: 1; display: flex; align-items: baseline; gap: 10px; }
-.home-feed .feed-text p { margin: 0; flex: 1; min-width: 0; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.home-feed .feed-text time { flex: none; font-family: var(--font-pixel); font-size: 12px; }
+.home-feed .feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); column-gap: 24px; }
+.home-feed .feed-item { align-items: center; gap: 12px; padding: 10px 0; border-bottom-width: 1px; min-width: 0; }
+.home-feed .feed-item .avatar { border-radius: 50%; object-fit: cover;
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px color-mix(in srgb, var(--esp) 40%, transparent); }
+.home-feed .feed-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.home-feed .feed-text p { margin: 0; font-size: 15px; line-height: 1.4; overflow-wrap: anywhere; }
+.home-feed .feed-text time { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .home-feed .feed-item.feed-poll, .home-feed .feed .empty, .home-feed .skeleton-row { grid-column: 1 / -1; }
 .home-feed .feed-item.feed-poll .feed-text { display: block; }
-.home-feed .feed-item:has(.feed-poll-see) .feed-text { flex-wrap: wrap; }
-.home-feed .feed-item:has(.feed-poll-see) .feed-text p { white-space: normal; }
+
+/* Anniversaires : celui du jour se détache */
+.bday.is-today { background: color-mix(in srgb, var(--sand) 12%, transparent); border-radius: 12px; border-bottom-color: transparent; padding-inline: 10px; }
 
 /* Boîte à idées : tout en bas, en pleine largeur, titre à gauche et champ à droite */
 .home-ideas form { max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 16px 32px; align-items: start; }
@@ -271,6 +305,18 @@
 .home-ideas .btn-row { justify-content: flex-end; }
 @media (max-width: 760px) { .home-ideas form { grid-template-columns: 1fr; } .home-ideas form > :not(.ideas-head) { grid-column: 1; } }
 
+@media (max-width: 600px) {
+  .tile-theme { padding: 20px; }
+  .theme-emoji { font-size: 84px; }
+  #app .cd-units .cd-num { font-size: 30px; }
+  .is-carre > .tile { padding: 16px; }
+  .is-carre .tile-icon { width: 40px; height: 40px; font-size: 21px; border-radius: 12px; margin-bottom: 6px; }
+  .is-carre .tile-label { font-size: 19px !important; }
+  .is-carre .tile-arrow { top: 14px; right: 14px; width: 30px; height: 30px; }
+  .is-carre .tile-main { font-size: 15px; }
+  .is-carre .tile-sub, .is-carre .tile-kicker { font-size: 12px; }
+}
+
 /* Mouvement réduit ou effets coupés */
-@media (prefers-reduced-motion: reduce) { .theme-emoji { animation: none; } .tile-link { transition: none; } .tile-link:hover { transform: none !important; } }
+@media (prefers-reduced-motion: reduce) { .theme-emoji { animation: none; } .tile.tile-link { transition: none; } .tile.tile-link:hover { transform: none !important; } }
 html[data-fx="off"] .theme-emoji { animation: none; }

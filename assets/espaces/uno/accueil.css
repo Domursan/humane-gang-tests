@@ -99,3 +99,43 @@
   .uno-acc-bouton { margin-left: auto; }
   .uno-acc-etiquette { margin-left: 52px; }
 }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Accueil Uno : héros en halo de la couleur d'espace sur surface, cartes à grands rayons, titres en Bricolage */
+.uno-acc { gap: 26px; }
+.uno-acc .uno-acc-titre { font-family: var(--font-titre); font-weight: 800; font-size: 22px; letter-spacing: -.01em; }
+.uno-acc .uno-acc-carte { border-radius: var(--r-xl); padding: 26px 28px; box-shadow: var(--ombre-1);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, var(--text) 8%), var(--surface) 140px); }
+.uno-acc-sous, .uno-acc-aide { color: var(--muted); }
+.uno-acc-lien { padding: 0 14px; border-radius: 999px; background: color-mix(in srgb, var(--esp) 14%, transparent); color: var(--esp-ink); }
+.uno-acc-lien:focus-visible { outline-color: var(--esp); }
+
+/* Héros */
+.uno-acc-hero { border-radius: var(--r-xl); border: 1px solid var(--border); box-shadow: var(--ombre-2);
+  background: radial-gradient(ellipse 520px 300px at 78% 55%, color-mix(in srgb, var(--esp) 26%, transparent) 0, transparent 70%),
+    radial-gradient(ellipse 420px 260px at 0% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0, transparent 70%),
+    var(--surface); }
+.uno-acc-hero-titre { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.035em; line-height: .98; }
+.uno-acc-intro { color: var(--muted); }
+.uno-acc-hero .btn-ghost { border-color: var(--border-strong); color: var(--text); }
+
+/* Lignes de parties et tuiles */
+.uno-acc-ligne { border-bottom: 0; border-radius: var(--r-md); padding: 12px 14px; margin: 0 -14px; min-height: 72px; transition: background .2s ease; }
+@media (hover: hover) { .uno-acc-ligne:hover { background: color-mix(in srgb, var(--esp) 8%, transparent); } }
+.uno-acc-code { border-radius: 999px; padding: 0 22px; }
+.uno-acc-code:focus-visible { outline-color: var(--esp); }
+.uno-acc-erreur { color: var(--rose); }
+.uno-acc-etiquette { border-radius: 999px; background: var(--sand); color: #14101A; }
+.uno-acc-tuile { border-radius: var(--r-md); box-shadow: var(--ombre-1); }
+.uno-acc-tuile.or { background: color-mix(in srgb, var(--sand) 12%, var(--surface)); color: var(--sand); }
+.uno-acc-chiffre { font-family: var(--font-titre); font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* Règles */
+.uno-acc-regles summary:focus-visible { outline-color: var(--esp); }
+.uno-acc-regles-liste li::marker { color: var(--esp); }
+
+@media (max-width: 760px) {
+  .uno-acc .uno-acc-carte { border-radius: var(--r-lg); padding: 20px; }
+  .uno-acc-hero { border-radius: var(--r-lg); }
+  .uno-acc-ligne { margin: 0; }
+}

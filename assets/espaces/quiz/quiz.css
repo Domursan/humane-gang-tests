@@ -93,3 +93,62 @@
   .quiz-reward { margin-left: 0; }
   .quiz-prompt { font-size: 17px; }
 }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Cartes de question douces, chiffres clés en Bricolage, filtres en pilules ; la question secrète reste en or */
+.quiz-intro { max-width: 66ch; color: var(--muted); font-size: 16px; line-height: 1.6; }
+
+.quiz-summary { gap: 14px; }
+.quiz-tile { border-radius: var(--r-lg); padding: 18px; box-shadow: var(--ombre-1);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, var(--text) 8%), var(--surface) 120px); }
+.quiz-tile-n { font-family: var(--font-titre); font-weight: 800; font-size: 32px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.quiz-tile-l { font-size: 13px; font-weight: 600; color: var(--muted); }
+
+.quiz-feedback { border-radius: var(--r-lg); padding: 18px 20px; box-shadow: var(--ombre-1); }
+.quiz-feedback.is-ok { border-color: color-mix(in srgb, var(--sage) 60%, transparent); }
+.quiz-feedback.is-ko { border-color: color-mix(in srgb, var(--accent) 60%, transparent); }
+.quiz-feedback.is-attente { border-color: color-mix(in srgb, var(--amber) 60%, transparent); }
+.quiz-fb-title { font-family: var(--font-titre); font-weight: 800; font-size: 20px; letter-spacing: -.01em; }
+
+/* Filtres : pilules ; le filtre actif prend la couleur de l'espace */
+.quiz-filter { gap: 8px; }
+.quiz-chip { min-height: 44px; padding: 8px 18px; border-color: var(--border-strong); background: color-mix(in srgb, var(--surface-2) 60%, transparent); transition: background .2s ease, border-color .2s ease; }
+@media (hover: hover) { .quiz-chip:hover { border-color: var(--esp); color: var(--text); } }
+.quiz-chip[aria-pressed="true"] { background: color-mix(in srgb, var(--esp) 18%, transparent); color: var(--text); border-color: color-mix(in srgb, var(--esp) 60%, var(--border)); font-weight: 700; }
+.quiz-chip:focus-visible { outline-color: var(--esp); }
+
+.quiz-section h2 { font-family: var(--font-titre); font-weight: 800; font-size: 24px; letter-spacing: -.02em; }
+.quiz-list { gap: 16px; }
+
+/* Cartes de question */
+.quiz-card { border-radius: var(--r-lg); padding: 24px; box-shadow: var(--ombre-1);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, var(--text) 8%), var(--surface) 140px); }
+.quiz-card.is-done { background: var(--surface-2); }
+.quiz-card.is-secret { border: 1px solid var(--sand); box-shadow: 0 0 0 4px color-mix(in srgb, var(--sand) 16%, transparent), var(--ombre-1); }
+.quiz-secret-tag { border-radius: 999px; background: var(--sand); color: #14101A; }
+.quiz-prompt { font-family: var(--font-titre); font-weight: 800; font-size: 21px; line-height: 1.3; letter-spacing: -.01em; }
+.quiz-img { border-radius: var(--r-md); box-shadow: var(--ombre-1); }
+.quiz-cat { border-radius: 999px; background: color-mix(in srgb, var(--surface-2) 70%, transparent); }
+.quiz-reward { font-family: var(--font-titre); font-weight: 800; font-size: 17px; color: var(--sand); }
+
+/* Réponses : cartes-options qui s'éclairent quand on les coche */
+.quiz-opt { border-radius: var(--r-md); background: color-mix(in srgb, var(--surface-2) 70%, transparent); transition: border-color .2s ease, background .2s ease; }
+@media (hover: hover) { .quiz-opt:hover { border-color: color-mix(in srgb, var(--esp) 45%, var(--border)); } }
+.quiz-opt:has(input:checked) { border-color: var(--esp); background: color-mix(in srgb, var(--esp) 12%, transparent); }
+.quiz-opt input { accent-color: var(--esp); }
+.quiz-opt input:focus-visible { outline-color: var(--esp); }
+.quiz-form .field input[type="text"] { border-radius: var(--r-sm); }
+.quiz-form .field input[type="text"]:focus-visible { outline-color: var(--esp); }
+.quiz-actions .btn { min-height: 50px; padding: 0 26px; }
+.quiz-error { border-radius: var(--r-sm); }
+
+/* Historique repliable */
+.quiz-history > summary { font-family: var(--font-titre); font-weight: 800; font-size: 20px; letter-spacing: -.01em; }
+.quiz-history > summary:focus-visible { outline-color: var(--esp); }
+.quiz-result-ko { border-radius: var(--r-lg); }
+
+@media (max-width: 600px) {
+  .quiz-card { padding: 18px; border-radius: var(--r-md); }
+  .quiz-prompt { font-size: 19px; }
+  .quiz-tile-n { font-size: 26px; }
+}

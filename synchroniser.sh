@@ -13,6 +13,10 @@ ICI="$(cd "$(dirname "$0")" && pwd)"
 
 [ -f "$SOURCE/index.html" ] || { echo "Dossier du site introuvable : $SOURCE" >&2; exit 1; }
 
+# Depuis le 30/10/2026, ce dépôt porte le design « Soirée », qui n'existe pas dans le site principal : recopier le site
+# l'écraserait. Le script refuse donc de tourner sans --ecraser-le-design (seulement pour repartir du vrai site).
+[ "${2:-}" = "--ecraser-le-design" ] || { echo "Refusé : ce dépôt porte le design « Soirée ». Ajoute --ecraser-le-design pour l'écraser quand même." >&2; exit 1; }
+
 # 1. Ancienne copie retirée (on garde .git, ce script et le README), puis nouvelle copie sans CNAME
 find "$ICI" -mindepth 1 -maxdepth 1 ! -name .git ! -name synchroniser.sh ! -name README.md -exec rm -rf {} +
 cp -r "$SOURCE"/. "$ICI"/

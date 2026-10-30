@@ -30,7 +30,7 @@
   linear-gradient(90deg, transparent calc(100% - 118px), rgba(226, 199, 126, .95) calc(100% - 118px), rgba(226, 199, 126, .95) calc(100% - 104px), transparent calc(100% - 104px)),
   linear-gradient(135deg, #7c1426, #3b0f1c); }
 .av-eyebrow { margin: 0; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #F7D9A0; }
-.av-dlg h2 { margin: 2px 0 2px; font: 400 clamp(24px, 5vw, 32px)/1.05 var(--font-display); text-shadow: 0 2px 0 rgba(0, 0, 0, .35); }
+.av-dlg h2 { margin: 2px 0 2px; font: 800 clamp(24px, 5vw, 32px)/1.05 var(--font-titre); text-shadow: 0 2px 0 rgba(0, 0, 0, .35); }
 .av-sub { margin: 0; font-size: 14px; color: #f4dfe2; }
 .av-bow { position: absolute; right: 78px; top: 50%; width: 66px; height: 48px; transform: translateY(-50%); pointer-events: none; }
 .av-close { position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .35);
@@ -56,7 +56,7 @@
 .av-cell:focus-visible { outline: 3px solid var(--sand); outline-offset: 2px; }
 @media (hover: hover) { .av-cell:hover:not([aria-disabled="true"]) { transform: translateY(-2px); } }
 .av-cell { transition: transform .15s; }
-.av-n { font: 400 16px/1 var(--font-display); color: var(--muted); }
+.av-n { font: 800 16px/1 var(--font-titre); color: var(--muted); }
 .av-k { display: contents; }
 .av-ico { width: 24px; height: 24px; display: block; }
 .av-val { font-size: 12px; font-weight: 700; line-height: 1; }

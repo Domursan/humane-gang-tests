@@ -165,7 +165,6 @@ html[data-fx="off"] .cart--holo .cart-body { animation: none; }
 /* Interrupteur « Révéler mes boosters d'un coup » sous le résultat */
 .rv-pref { margin-top: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface-2, transparent); }
 
-/* ===== Refonte « Pixel Pop » (29/10/2026) : résumé d'ouverture en pastilles à bord 2 px, puces carrées ===== */
-.rv-chip { border-width: 2px; }
-.rv-chip i { border-radius: 0; }
-.rv-pref { border-width: 2px; border-radius: 12px; }
+/* ===== Design « Soirée » (30/10/2026) : résumé d'ouverture en pastilles douces, puce ronde (le texte reste toujours visible) ===== */
+.rv-chip i { border-radius: 50%; }
+.rv-pref { border-radius: var(--r-md); }

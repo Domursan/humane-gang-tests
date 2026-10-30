@@ -194,38 +194,48 @@
 .trd-sugg-part { min-width: 0; }
 .trd-sugg-item .btn-row { margin-top: 2px; }
 
-/* ===== Refonte « Pixel Pop » (29/10/2026) : pastilles pixel, aplat de la couleur d'espace, bordures 2 px, ombres franches ===== */
-.trd-tab { display: inline-flex; align-items: center; padding: 0 16px; border: 2px solid var(--border); background: var(--surface); color: var(--text);
-  font: 400 14px/1 var(--font-pixel); letter-spacing: 1px; text-transform: uppercase; transition: transform .12s ease, border-color .15s ease; }
-.trd-tab:hover { color: var(--text); background: var(--surface); }
-@media (hover: hover) { .trd-tab:not([aria-selected="true"]):hover { border-color: var(--esp); transform: translateY(-2px); } }
-.trd-tab[aria-selected="true"], .trd-tab[aria-selected="true"]:hover { background: var(--esp); color: var(--esp-text); border-color: #000; box-shadow: 3px 3px 0 #000; }
-.trd-tab:focus-visible, .trd-chip:focus-visible, .trd-freset:focus-visible, .trd-peek-toggle:focus-visible, .trd-close:focus-visible { outline-color: var(--esp-ink); }
-.trd-chip { border-width: 2px; }
-.trd-chip::before { border-radius: 0; }
-.trd-chip[aria-pressed="true"] { color: var(--esp-text); background: var(--esp); border-color: #000; box-shadow: 3px 3px 0 #000; }
-.trd-chip[aria-pressed="true"]::before { background: var(--esp-text); border-color: var(--esp-text); box-shadow: inset 0 0 0 2px var(--esp); }
-.trd-freset { color: var(--esp-ink); }
-.trd-side-title, .trd-peek-dl dt { font: 400 12px var(--font-pixel); letter-spacing: 2px; color: var(--esp-ink); }
-.trd-date, .trd-count, .trd-fres { font-family: var(--font-pixel); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
-.trd-who h2, .trd-who h3, .trd-offer-head h3, .trd-match-group h2, .trd-sugg-box h2 { font-family: var(--font-display); font-weight: 400; }
-.trd-pails { color: var(--esp-ink); font-family: var(--font-pixel); font-weight: 400; }
-.trd-msg { border-left: 4px solid var(--esp); }
-.trd-match, .trd-sugg-item { border-top-width: 2px; }
-.trd-sugg-item.is-both { border-left: 4px solid var(--esp); }
-.trd-pickwrap.is-on .hgc, .trd-pickwrap .hgc:focus-visible { outline-color: var(--esp-ink); }
-/* Fenêtre d'offre : bordure 2 px, ombre franche, filets 2 px */
-.trd-dialog { border-width: 2px; border-radius: 14px; box-shadow: 8px 8px 0 #000; }
-.trd-dialog::backdrop { backdrop-filter: none; }
-.trd-dlg-head h2 { font-family: var(--font-display); font-weight: 400; }
-.trd-dlg-foot { border-top-width: 2px; }
-.trd-close, .trd-col, .trd-fbar, .trd-peek-stage, .trd-peek-thumb, .trd-peek-toggle { border-width: 2px; }
-.trd-col, .trd-fbar, .trd-peek-stage { border-radius: 12px; }
-.trd-col legend { font-family: var(--font-display); font-weight: 400; }
-.trd-peek-empty { border-width: 2px; }
-.trd-peek-dl > div { border-bottom-width: 2px; }
-@media (min-width: 900px) { .trd-peek { border-right-width: 2px; } }
-@media (max-width: 899px) { .trd-peek { border-bottom-width: 2px; } }
-@media (prefers-reduced-motion: reduce) { .trd-tab:hover { transform: none !important; } }
-html[data-fx="off"] .trd-tab { transition: none; }
-html[data-fx="off"] .trd-tab:hover { transform: none !important; }
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Onglets des échanges : pastilles ; l'onglet actif prend un voile de la couleur d'espace */
+.trd-tab { font: inherit; font-size: 15px; font-weight: 600; min-height: 44px; padding: 0 16px; border: 1px solid transparent; border-radius: 999px;
+  background: transparent; color: var(--muted); cursor: pointer;
+  transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease); }
+.trd-tab:hover { color: var(--text); background: var(--surface-2); }
+.trd-tab[aria-selected="true"], .trd-tab[aria-selected="true"]:hover { background: color-mix(in srgb, var(--esp) 18%, transparent); color: var(--text);
+  font-weight: 700; border-color: color-mix(in srgb, var(--esp) 45%, var(--border)); }
+.trd-tab:focus-visible, .trd-chip:focus-visible, .trd-freset:focus-visible, .trd-peek-toggle:focus-visible, .trd-close:focus-visible { outline: 2px solid var(--esp-ink); outline-offset: 2px; }
+
+/* Filtres : pastilles, l'option choisie en voile de la couleur d'espace */
+.trd-chip { border: 1px solid var(--border-strong); }
+.trd-chip::before { border-radius: 50%; }
+.trd-chip[aria-pressed="true"] { color: var(--text); font-weight: 700; background: color-mix(in srgb, var(--esp) 18%, transparent);
+  border-color: color-mix(in srgb, var(--esp) 55%, var(--border)); }
+.trd-chip[aria-pressed="true"]::before { background: var(--esp-ink); border-color: var(--esp-ink); box-shadow: none; }
+
+/* Petites étiquettes en capitales Inter, chiffres tabulaires, titres en Bricolage */
+.trd-side-title, .trd-peek-dl dt { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--esp-ink); }
+.trd-date, .trd-count, .trd-fres { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.trd-who h2, .trd-who h3, .trd-offer-head h3, .trd-match-group h2, .trd-sugg-box h2 { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.02em; }
+.trd-pails { color: var(--esp-ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+.trd-col legend { font-family: var(--font-titre); font-weight: 800; }
+
+/* Suggestions : cartes douces, halo or au survol */
+.trd-sugg-item { border-radius: var(--r-md); transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease); }
+@media (hover: hover) {
+  .trd-sugg-item:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--sand) 45%, var(--border));
+    box-shadow: var(--ombre-2), 0 0 32px -10px color-mix(in srgb, var(--sand) 50%, transparent); }
+}
+
+/* Fenêtres des échanges : cadre doux */
+.trd-dialog { border: 1px solid var(--border); border-radius: var(--r-xl); box-shadow: var(--ombre-2); }
+.trd-dlg-head h2 { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.02em; }
+.trd-close, .trd-col, .trd-fbar, .trd-peek-stage, .trd-peek-thumb, .trd-peek-toggle { border-width: 1px; }
+.trd-peek-thumb { border-radius: var(--r-sm); }
+.trd-peek-empty { border-width: 1px; }
+
+/* Mouvement réduit ou effets coupés : rien ne bouge */
+@media (prefers-reduced-motion: reduce) {
+  .trd-tab, .trd-sugg-item { transition: none; }
+  .trd-tab:hover, .trd-sugg-item:hover { transform: none !important; }
+}
+html[data-fx="off"] .trd-tab, html[data-fx="off"] .trd-sugg-item { transition: none; }
+html[data-fx="off"] .trd-tab:hover, html[data-fx="off"] .trd-sugg-item:hover { transform: none !important; }

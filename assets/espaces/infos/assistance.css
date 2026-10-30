@@ -92,3 +92,47 @@
 .sf-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; font-size: 13.5px; }
 .sf-size { font-size: 12px; color: var(--muted); white-space: nowrap; }
 @media (max-width: 360px) { .sf-name { max-width: 150px; } }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Formulaire en carte élégante (surface teintée, ombre forte), aside en carte à part, états en cartes arrondies */
+.support-layout { gap: 24px; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); }
+#support-form { gap: 20px; padding: 32px; border-radius: var(--r-xl); box-shadow: var(--ombre-2);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--esp) 8%, var(--surface)), var(--surface) 240px); }
+#support-form .field label { font-size: 13px; font-weight: 700; letter-spacing: .02em; color: var(--text); }
+#support-form .field input, #support-form .field select, #support-form .field textarea { min-height: 48px; }
+#support-form .btn-primary { align-self: flex-start; min-height: 50px; padding: 0 28px; font-size: 16px; }
+#support-form .btn-row { margin-top: 4px; }
+.hint, .counter { color: var(--muted); }
+.counter { font-variant-numeric: tabular-nums; }
+.form-error { border-radius: var(--r-md); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.sf-prep li, .sf-item { border-radius: var(--r-md); }
+.sf-add-row .btn { min-height: 44px; }
+
+.support-aside { padding: 28px; border-radius: var(--r-xl); gap: 16px; box-shadow: var(--ombre-1); }
+.support-aside h2 { margin-bottom: 0; font-family: var(--font-titre); font-weight: 800; font-size: 22px; letter-spacing: -.02em; }
+.tips { gap: 12px; color: var(--muted); }
+.tips li::marker { color: var(--esp); }
+.tips li { line-height: 1.55; }
+
+.done { padding: 40px 32px; border-radius: var(--r-xl); box-shadow: var(--ombre-2); }
+.done h2 { font-family: var(--font-titre); font-weight: 800; font-size: 32px; letter-spacing: -.02em; }
+.done-icon { width: 68px; height: 68px; padding: 16px; box-sizing: border-box; border-radius: 50%;
+  background: var(--sage-soft); border: 1px solid color-mix(in srgb, var(--sage) 35%, transparent); }
+
+.my-support { padding: 28px; border-radius: var(--r-xl); box-shadow: var(--ombre-1); }
+.my-support h2 { font-family: var(--font-titre); font-weight: 800; font-size: 24px; letter-spacing: -.02em; }
+.my-support-subject { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.01em; }
+.my-support-row { border-radius: var(--r-md); padding: 14px; transition: background .2s ease, transform .2s var(--ease); }
+@media (hover: hover) { .my-support-row:hover { background: color-mix(in srgb, var(--esp) 9%, transparent); transform: translateX(3px); } }
+.my-support-row:focus-visible { box-shadow: inset 0 0 0 2px var(--esp); }
+.sp-pill { border-radius: 999px; font-weight: 600; background: color-mix(in srgb, var(--surface-2) 70%, transparent); }
+.my-bubble { border-radius: var(--r-md); }
+.my-support-convbox { border-radius: var(--r-lg); border-left-color: var(--esp); background: color-mix(in srgb, var(--esp) 7%, var(--surface)); }
+
+@media (max-width: 600px) {
+  #support-form { padding: 22px 18px; }
+  .support-aside { padding: 22px 18px; }
+  .done { padding: 28px 20px; }
+  .my-support { padding: 20px 16px; }
+  #support-form .btn-primary { width: 100%; }
+}

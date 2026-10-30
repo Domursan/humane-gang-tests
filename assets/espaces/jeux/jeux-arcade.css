@@ -3,8 +3,8 @@
 .arc { display: flex; flex-direction: column; gap: 12px; max-width: 640px; }
 .arc p { margin: 0; }
 .arc .card { padding: 14px; }
-.arc-titre { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-height: 1; margin: 4px 0 0; }
-.arc-h { font-family: var(--font-display); font-weight: 400; font-size: 15px; line-height: 1.15; margin: 0; }
+.arc-titre { font-family: var(--font-titre); font-weight: 400; font-size: 28px; line-height: 1; margin: 4px 0 0; }
+.arc-h { font-family: var(--font-titre); font-weight: 400; font-size: 15px; line-height: 1.15; margin: 0; }
 .arc-between { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
 .arc-sand { color: var(--sand); }
 .arc-fort { color: var(--text); }
@@ -13,8 +13,8 @@
 .arc-tirage { display: flex; flex-direction: column; gap: 14px; }
 .arc-choix { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding-top: 6px; }
 .arc-jeu { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 12px 6px;
-  border-radius: 14px; background: var(--surface); border: 1px solid var(--border-strong); color: var(--text); font: inherit; text-align: center; min-width: 0; cursor: pointer; }
-.arc-jeu[aria-pressed="true"] { background: var(--irl-bg); border: 2px solid var(--sand); }
+  border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--border-strong); color: var(--text); font: inherit; text-align: center; min-width: 0; cursor: pointer; }
+.arc-jeu[aria-pressed="true"] { background: color-mix(in srgb, var(--esp) 14%, var(--surface)); border: 1px solid color-mix(in srgb, var(--esp) 55%, var(--border)); }
 .arc-jeu:focus-visible { outline: 2px solid var(--sand); outline-offset: 2px; }
 .arc-jeu:disabled { opacity: .6; cursor: not-allowed; }
 .arc-tire-badge { position: absolute; top: -11px; background: var(--sand); color: #121212; font-size: 10px; font-weight: 700; letter-spacing: .08em;
@@ -24,7 +24,7 @@
 .arc-partie { display: flex; flex-direction: column; gap: 12px; }
 
 /* Écran de jeu */
-.arc-ecran { position: relative; width: 100%; max-width: 360px; align-self: center; border: 3px solid var(--border-strong); border-radius: 14px; overflow: hidden; line-height: 0; }
+.arc-ecran { position: relative; width: 100%; max-width: 360px; align-self: center; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; line-height: 0; }
 .arc-canvas {
   display: block; width: 100%; height: auto; aspect-ratio: 360 / 420; background: #14122a;
   touch-action: none; /* au doigt : la page ne défile pas pendant la partie */
@@ -40,7 +40,7 @@
 /* Record et récompense */
 .arc-boites { display: flex; gap: 8px; }
 .arc-boite { flex: 1; min-width: 0; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; }
-.arc-chiffre { font-family: var(--font-display); font-size: 18px; }
+.arc-chiffre { font-family: var(--font-titre); font-size: 18px; }
 .arc-unite { font-family: var(--font-body); font-weight: 500; }
 
 /* Meilleurs scores */
@@ -50,10 +50,10 @@
 .arc-row:last-child { border-bottom: 0; }
 .arc-row.is-me { background: var(--surface-2); border-radius: 10px; padding-left: 8px; padding-right: 8px; }
 .arc-row .avatar { flex: none; border-radius: 50%; display: inline-grid; place-items: center; font-size: 10px; font-weight: 700; color: #121212; }
-.arc-rank { width: 22px; font-family: var(--font-display); color: var(--muted); font-size: 14px; flex: none; }
+.arc-rank { width: 22px; font-family: var(--font-titre); color: var(--muted); font-size: 14px; flex: none; }
 .arc-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
 .arc-row.is-me .arc-name { font-weight: 700; }
-.arc-best { font-family: var(--font-display); font-size: 14px; flex: none; }
+.arc-best { font-family: var(--font-titre); font-size: 14px; flex: none; }
 .arc-empty { padding: 10px 0; }
 
 /* Vies (cœurs) dans l'écran de jeu */
@@ -61,3 +61,8 @@
 /* Mini-jeux en développement (admins seulement) : liseré de chantier jaune et noir. */
 .arc-jeu.is-dev { background-image: repeating-linear-gradient(-45deg, rgba(251, 211, 45, .14) 0 6px, transparent 6px 12px); }
 .arc-jeu.is-dev::after { content: "DEV"; position: absolute; top: 4px; right: 6px; font: 700 9px/1 system-ui, sans-serif; letter-spacing: .08em; color: #FBD32D; }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Titres en Bricolage 800 ; mini-jeux en tuiles arrondies, sélection en teinte verte (--esp). */
+.arc-titre, .arc-h { font-weight: 800; letter-spacing: -.02em; }
+.arc-boite { border-radius: var(--r-md); }

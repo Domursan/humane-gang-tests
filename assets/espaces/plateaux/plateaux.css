@@ -300,3 +300,62 @@ body.plat-risk { --plat-teinte: #3B2A18; --plat-or: #D8A75E; }
   .plat-app *, .plat-app *::before, .plat-app *::after { animation: none !important; transition: none !important; }
 }
 body.plat-calme .plat-app *, body.plat-calme .plat-app *::before, body.plat-calme .plat-app *::after { animation: none !important; transition: none !important; }
+
+/* ===== Design « Soirée » (30/10/2026) ===== */
+/* Salons communs des jeux de plateau : cartes à grands rayons sur verre, titres en Bricolage, parties en cartes qui se soulèvent */
+.plat-app { padding-bottom: 56px; }
+.plat-app .card { border-radius: var(--r-lg); box-shadow: var(--ombre-1); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 94%, var(--text) 6%), color-mix(in srgb, var(--surface) 92%, transparent) 160px); }
+.plat-titre { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.035em; line-height: 1.02; }
+.plat-rej-nom { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.03em; }
+.plat-fil { font-size: 13px; color: var(--muted); }
+.plat-fil a:hover { color: var(--esp-ink); }
+.plat-etiquette-haut { font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--esp-ink); }
+.plat-etiquette, .plat-invite { border-radius: 999px; background: color-mix(in srgb, var(--surface-2) 60%, transparent); }
+.plat-code-grand { font-variant-numeric: tabular-nums; }
+
+/* Champs */
+.plat-input, .plat-chat-champ { border-radius: var(--r-sm); background: color-mix(in srgb, var(--bg) 70%, var(--surface)); }
+.plat-input:focus-visible, .plat-chat-champ:focus-visible { outline: none; border-color: var(--esp); box-shadow: 0 0 0 4px color-mix(in srgb, var(--esp) 22%, transparent); }
+.plat-seg-choix:has(input:focus-visible) { outline-color: var(--esp); }
+
+/* Accueil : parties et règles */
+.plat-accroche { color: var(--text); }
+.plat-partie { border-radius: var(--r-md); padding: 12px 14px; box-shadow: var(--ombre-1);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s ease; }
+@media (hover: hover) { .plat-partie:hover { transform: translateY(-2px); box-shadow: var(--ombre-2); border-color: color-mix(in srgb, var(--esp) 40%, var(--border)); } }
+.plat-partie a:focus-visible { outline: 2px solid var(--esp); outline-offset: 2px; border-radius: 8px; }
+.plat-partie-nom { font-family: var(--font-titre); font-weight: 800; font-size: 17px; letter-spacing: -.01em; }
+.plat-rej-lien { color: var(--esp-ink); }
+
+/* Rejoindre */
+.plat-rej-surtitre { font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--esp-ink); }
+.plat-rej-chips li { border-radius: 999px; background: color-mix(in srgb, var(--surface-2) 70%, transparent); border-color: var(--border-strong); }
+.plat-rej-barre { height: 10px; background: color-mix(in srgb, var(--text) 8%, transparent); }
+.plat-rej-barre span { background: var(--esp); }
+.plat-rej-erreur { color: var(--rose); }
+
+/* Statistiques */
+.plat-st-tuile { border-radius: var(--r-md); box-shadow: var(--ombre-1); }
+.plat-st-chiffre { font-family: var(--font-titre); font-weight: 800; font-variant-numeric: tabular-nums; }
+.plat-st-table th, .plat-classement th { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.plat-st-medaille { border-radius: 50%; }
+
+/* Salle d'attente */
+.plat-joueur { border-radius: var(--r-md); }
+.plat-joueur.is-moi { box-shadow: inset 3px 0 0 var(--esp); }
+.plat-chat-fil { border-radius: var(--r-md); background: color-mix(in srgb, var(--bg) 50%, transparent); }
+.plat-chat-fil:focus-visible { outline: 2px solid var(--esp); outline-offset: 2px; }
+.plat-bandeau { border-radius: var(--r-lg); box-shadow: var(--ombre-1); background: var(--verre); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.plat-bandeau-titre { font-family: var(--font-titre); font-weight: 800; letter-spacing: -.02em; }
+.plat-bandeau-joueur { border-radius: 999px; background: color-mix(in srgb, var(--surface-2) 60%, transparent); }
+.plat-chrono { font-variant-numeric: tabular-nums; }
+.plat-journal-ligne { border-radius: 0 var(--r-sm) var(--r-sm) 0; }
+.plat-gagnant { border-radius: 999px; }
+.plat-tiroir { border-radius: var(--r-xl) var(--r-xl) 0 0; box-shadow: var(--ombre-2); background: var(--verre); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+
+@media (max-width: 600px) {
+  .plat-app .card { border-radius: var(--r-md); padding: 18px; }
+  .plat-titre { font-size: 34px; }
+  .plat-partie { flex-wrap: wrap; }
+}
